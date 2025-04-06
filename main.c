@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 01:27:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/06 02:23:48 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/04/06 19:29:51 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,6 @@
 #include <unistd.h>
 #include <termios.h>
 
-int g_last_signal = 0;
-
-void sigal_handler(int signum)
-{
-	g_last_signal = signum;
-	if (signum == SIGINT) {
-		rl_replace_line("", 0);
-		write(STDOUT_FILENO, "\n", 1);
-		rl_on_new_line();
-		rl_redisplay();
-
-	}
-}
 
 void disable_ctrl_backslash() {
     struct termios term;
@@ -49,8 +36,7 @@ void disable_ctrl_backslash() {
 
 int	main()
 {
-	signal(SIGQUIT, &sigal_handler);
-	signal(SIGINT, &sigal_handler);
+
 	disable_ctrl_backslash();
 	rl_catch_signals = 0;
 	while (1)

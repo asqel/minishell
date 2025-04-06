@@ -3,6 +3,8 @@
 		"readline.h": "c",
 		"stdio.h": "c",
 		"signal.h": "c",
-		"pthread_signal.h": "c"
+		"pthread_signal.h": "c",
+		"termio.h": "c",
+		"minishell.h": "c"
 	}
 }
