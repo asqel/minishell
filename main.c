@@ -6,10 +6,11 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 01:27:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/06 19:29:51 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/04/07 20:37:05 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 #include <readline/readline.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -37,7 +38,7 @@ void disable_ctrl_backslash() {
 int	main()
 {
 
-	disable_ctrl_backslash();
+	msh_init();
 	rl_catch_signals = 0;
 	while (1)
 	{

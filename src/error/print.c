@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/06 13:26:00 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/07 20:32:20 by axlleres         ###   ########.fr       */
+/*   Created: 2025/04/08 13:33:28 by axlleres          #+#    #+#             */
+/*   Updated: 2025/04/08 13:33:50 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <signal.h>
-#include <termio.h>
 #include <unistd.h>
-#include <stdlib.h>
 
-int	msh_disable_sigquit(void)
+void	msh_print_error(char *str, int exit_code)
 {
-	struct termios	terminal;
-
-	if (tcgetattr(STDIN_FILENO, &terminal) == -1)
-		return (1);
-	terminal.c_cc[VQUIT] = 0;
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &terminal) == -1)
-		return (1);
-	signal(SIGQUIT, &msh_sig_handler);
-	return (0);
+	write(STDOUT_FILENO, str, ft_strlen(str));
+	if (exit_code != -1)
+		exit(exit_code);
 }
 
-void	msh_init(void)
+void	msh_free(void **ptr)
 {
-	if (msh_disable_sigquit() != 0)
-		exit(1);
-	signal(SIGINT, &msh_sig_handler);
+	free(*ptr);
+	*ptr = NULL;
 }

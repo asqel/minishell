@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig.c                                              :+:      :+:    :+:   */
+/*   assemble.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/06 13:32:13 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/07 20:38:30 by axlleres         ###   ########.fr       */
+/*   Created: 2025/04/09 15:34:49 by axlleres          #+#    #+#             */
+/*   Updated: 2025/04/09 15:40:22 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <unistd.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <termios.h>
 #include "minishell.h"
 
-
-int g_last_signal = 0;
-
-void msh_sig_handler(int signum)
+char	*msh_assemble_path(char *p1, char *p2)
 {
-	g_last_signal = signum;
-	if (signum == SIGINT)
-	{
-		rl_replace_line("", 0);
-		write(STDOUT_FILENO, "^C\n", 1);
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	int		p1_len;
+	int		p2_len;
+	char	*res;
+
+	p1_len = ft_strlen(p1);
+	p2_len = ft_strlen(p2);
+	res = malloc(sizeof(char) * (p1_len + p2_len + 1 + 1));
+	ft_strcpy(res, p1);
+	res[p1_len] = '/';
+	ft_strcpy(&(res[p1_len + 1]), p2);
+	res[p1_len + p2_len + 1] = '\0';
 }

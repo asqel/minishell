@@ -1,37 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   bzero.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/06 13:26:00 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/07 20:32:20 by axlleres         ###   ########.fr       */
+/*   Created: 2025/04/08 00:31:27 by axlleres          #+#    #+#             */
+/*   Updated: 2025/04/09 15:19:57 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <signal.h>
-#include <termio.h>
-#include <unistd.h>
 #include <stdlib.h>
+#include <stdint.h>
 
-int	msh_disable_sigquit(void)
+void	ft_bzero(void *ptr, size_t len)
 {
-	struct termios	terminal;
+	uint8_t *data;
 
-	if (tcgetattr(STDIN_FILENO, &terminal) == -1)
-		return (1);
-	terminal.c_cc[VQUIT] = 0;
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &terminal) == -1)
-		return (1);
-	signal(SIGQUIT, &msh_sig_handler);
-	return (0);
-}
-
-void	msh_init(void)
-{
-	if (msh_disable_sigquit() != 0)
-		exit(1);
-	signal(SIGINT, &msh_sig_handler);
+	data = (uint8_t *)ptr;
+	while (len > 0)
+		data[--len] = 0;
 }

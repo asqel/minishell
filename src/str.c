@@ -6,11 +6,12 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:32:53 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/06 20:45:52 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:39:04 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
 
 int	ft_strlen(const char *str)
 {
@@ -35,4 +36,37 @@ int		ft_strcmp(const char *s1, const char *s2)
 	}
 	return ((signed char)s1[i] - (signed char)s2[i]);
 
+}
+
+char	*ft_strdup(const char *str)
+{
+	int		i;
+	char	*dup;
+
+	i = 0;
+	while (str[i])
+		i++;
+	dup = malloc(sizeof(char) * (i + 1));
+	if (NULL == dup)
+		return (NULL);
+	i = 0;
+	while (str[i])
+	{
+		dup[i] = str[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
+}
+
+void	ft_strcpy(char *dest, char *src)
+{
+	int	i;
+
+	i = 0;
+	while ('\0' != src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
 }
