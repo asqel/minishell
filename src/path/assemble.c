@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:34:49 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/09 15:40:22 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:53:57 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ char	*msh_assemble_path(char *p1, char *p2)
 	res[p1_len] = '/';
 	ft_strcpy(&(res[p1_len + 1]), p2);
 	res[p1_len + p2_len + 1] = '\0';
+	return (res);
 }

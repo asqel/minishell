@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:38:30 by mgobert           #+#    #+#             */
-/*   Updated: 2025/04/15 17:03:50 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/04/21 17:54:33 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	is_builtin(char *cmd)
 	}
 	return (0);
 }
-
+/*
 char *ft_strdup(const char *s)
 {
 	char *dup;
@@ -45,6 +45,9 @@ char *ft_strdup(const char *s)
 	strcpy(dup, s);
 	return (dup);
 }
+*/
+
+char *ft_strdup(const char *s);
 
 void init_tab (t_msh_cmd *cmd)
 {
@@ -106,6 +109,7 @@ char *shell_read_line(void)
     return (buf);
 }
 
+/*
 int main(void)
 {
     char *line;
@@ -154,4 +158,4 @@ int main(void)
 		free(cmds);
 	}
 	return 0;
-}
+}*/

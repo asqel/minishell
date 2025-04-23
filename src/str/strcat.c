@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig.c                                              :+:      :+:    :+:   */
+/*   strcat.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/06 13:32:13 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/10 12:38:12 by axlleres         ###   ########.fr       */
+/*   Created: 2025/04/10 17:03:22 by axlleres          #+#    #+#             */
+/*   Updated: 2025/04/10 17:07:15 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <unistd.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <termios.h>
 #include "minishell.h"
 
-
-int g_last_signal = 0;
-
-void msh_sig_handler(int signum)
+void	ft_strcat(char *dest, const char *src)
 {
-	g_last_signal = signum;
-	if (signum == SIGINT)
-	{
-		write(STDOUT_FILENO, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	int	i;
+
+	i = 0;
+	while (dest[i] != '\0')
+		i++;
+	while (*src != '\0')
+		dest[i++] = *(src++);
+	dest[i] = '\0';
 }

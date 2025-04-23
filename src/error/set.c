@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 13:28:11 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/08 13:33:07 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/04/10 01:37:13 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,4 @@ void	msh_set_err(int *err, int err_code)
 {
 	if (NULL != err)
 		*err = err_code;
-	return (1);
 }

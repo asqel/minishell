@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/09 18:13:20 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:27:53 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,6 @@
 #include <stdlib.h>
 
 extern int g_last_signal;
-
-// Strings
-int		ft_strlen(const char *str);
-int		ft_strcmp(const char *s1, const char *s2);
-int		msh_array_len(char **array);
-char	*ft_strdup(const char *str);
-void	ft_strcpy(char *dest, char *src);
-
-// Errors
-void	msh_print_error(char *str, int exit_code);
-void	msh_free(void **ptr);
-
-// Signals
-void	msh_sig_handler(int signum);
-
-void	msh_init(void);
 
 typedef struct
 {
@@ -62,10 +46,48 @@ typedef struct
 typedef struct
 {
 	t_msh_env_var_t	*env;
-	int				env_len
+	int				env_len;
+	char			*pwd;
+	char			*old_pwd;
 
 } t_msh_ctx;
 
-#define ERR_CMD_NOT_FOUND 0xF000
+typedef struct
+{
+	int fd_in;
+	int fd_out; // TODO for exxec pipe
+
+} t_msh_process;
+
+// Strings
+int		ft_strlen(const char *str);
+int		ft_strcmp(const char *s1, const char *s2);
+int		msh_array_len(char **array);
+char	*ft_strdup(const char *str);
+void	ft_strcpy(char *dest, char *src);
+char	**msh_build_env(t_msh_ctx *ctx);
+char	*sub_str(char *str, int start, int end);
+void	ft_strcat(char *dest, const char *src);
+int		ft_strcontains_char(char *str, char c);
+void	ft_memcpy(void *dest, const void *src, int len);
+// Errors
+void	msh_print_error(char *str, int exit_code);
+void	msh_free(void **ptr);
+
+// Signals
+void	msh_sig_handler(int signum);
+
+// exec
+int		msh_exec_cmd_single(t_msh_ctx *ctx, t_msh_cmd *cmd);
+char	*msh_find_cmd(char *name, uint8_t *is_builtin, t_msh_ctx *ctx);
+int		msh_is_file(char *path);
+
+void	msh_init(char **env, t_msh_ctx *ctx);
+void	msh_init_ctx(t_msh_ctx *ctx);
+
+char *msh_get_env(t_msh_ctx *ctx, char *name, int *exists);
+
+// builtins
+int	msh_blt_cd(int argc, char **argv);
 
 #endif

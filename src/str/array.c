@@ -21,3 +21,10 @@ int msh_array_len(char **array)
 		i++;
 	return (i);
 }
+
+void ft_memcpy(void *dest, const void *src, int len)
+{
+	while (len-- > 0)
+		((char *)dest)[len] = ((char *)src)[len];
+}
+

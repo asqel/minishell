@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig.c                                              :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/06 13:32:13 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/10 12:38:12 by axlleres         ###   ########.fr       */
+/*   Created: 2025/04/19 14:20:17 by axlleres          #+#    #+#             */
+/*   Updated: 2025/04/19 14:22:53 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <unistd.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <termios.h>
 #include "minishell.h"
+#include <unistd.h>
 
-
-int g_last_signal = 0;
-
-void msh_sig_handler(int signum)
+int	msh_blt_cd(int argc, char **argv)
 {
-	g_last_signal = signum;
-	if (signum == SIGINT)
+	if (argc != 2)
+		return (1);
+	if (chdir(argv[1]))
 	{
-		write(STDOUT_FILENO, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
+		write(STDERR_FILENO, "cd: cannot access ", 18);
+		write(STDERR_FILENO, argv[1], ft_strlen(argv[1]));
+		return (1);
 	}
+	return (0);
 }

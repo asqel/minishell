@@ -70,3 +70,13 @@ void	ft_strcpy(char *dest, char *src)
 		i++;
 	}
 }
+
+int	ft_strcontains_char(char *str, char c) {
+	int	i;
+
+	i = -1;
+	while (str[++i]  != '\0')
+		if (str[i] == c)
+			return (1);
+	return (0);
+}

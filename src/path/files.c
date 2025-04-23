@@ -6,9 +6,14 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:40:52 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/09 15:40:57 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/04/10 01:35:58 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
 
+int	msh_is_file(char *path)
+{
+	return (access(path, F_OK));
+}
