@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 20:23:21 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/23 15:28:18 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/04/23 20:31:19 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	msh_exec_cmd_single(t_msh_ctx *ctx, t_msh_cmd *cmd)
 	redir_fd[2] = -2;
 	tmp = -1;
 	if (cmd->redir_out != NULL)
-		tmp = open(cmd->redir_out, O_WRONLY | O_CREAT, 0664);
+		tmp = open(cmd->redir_out, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (tmp != -1)
 		redir_fd[0] = tmp;
 	tmp = -1;

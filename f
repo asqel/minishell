@@ -1,9 +1,1 @@
-f
-include
-main.c
-main.o
-Makefile
-minishell
-parsing
-src
-test.c
+minishell.h
