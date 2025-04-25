@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 01:27:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/24 14:12:57 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:18:56 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,36 @@ void *ft_calloc(size_t size, size_t n)
 	return res;
 }
 
+void ft_str_rm_start(char *str, int start_len)
+{
+	int	len;
+	int	i;
+
+	len = ft_strlen(str);
+	i = start_len - 1;
+	while (++i < len)
+		str[i - start_len] = str[i];
+	str[i - start_len] = '\0';
+}
+
+void ft_strcat_start(char *str, char *start)
+{
+	int i;
+	int len;
+	int start_len;
+
+	start_len = ft_strlen(start);
+	len = ft_strlen(str);
+	i = -1;
+	while (++i < len)
+		str[start_len + len - 1 - i] = str[len - 1 - i];
+	str[start_len + len] = '\0';
+	memcpy(str, start, start_len);
+}
+
 void msh_reduce_path(char *path, t_msh_ctx *ctx)
 {
 	char	*home;
-	int		i;
 	int		home_len;
 
 	home = msh_get_env(ctx, "HOME", NULL);
@@ -66,11 +92,8 @@ void msh_reduce_path(char *path, t_msh_ctx *ctx)
 	if (!ft_strstart(path, home))
 		return ;
 	home_len = ft_strlen(home);
-	i = 0;
-	path[0] = '~';
-	while (path[(++i) + home_len - 1] != '\0')
-		path[i] = path[home_len + i -1];
-	path[home_len + i - 1] = '\0';
+	ft_str_rm_start(path, home_len);
+	ft_strcat_start(path, "~");
 }
 
 char *get_pretty_prompt(t_msh_ctx *ctx)
@@ -89,6 +112,7 @@ char *get_pretty_prompt(t_msh_ctx *ctx)
 		ft_strcat(res, "\033[01;34m");
 		ft_strcat(res, path);
 		ft_strcat(res, "\033[00m");
+		ft_strcat(res, "$ ");
 		return (res);
 	}
 	res = ft_calloc(sizeof(char), (ft_strlen(path) + ft_strlen(user) + 60));
@@ -98,6 +122,7 @@ char *get_pretty_prompt(t_msh_ctx *ctx)
 	ft_strcat(res, "\033[01;34m");
 	ft_strcat(res, path);
 	ft_strcat(res, "\033[00m");
+	ft_strcat(res, "$ ");
 	return (res);
 
 }
