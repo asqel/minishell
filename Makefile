@@ -3,7 +3,7 @@ NAME = minishell
 CC = clang -g
 LD = clang -g
 LDFLAGS = -lreadline -lhistory
-CFLAGS = -Wall -Wextra -Iinclude
+CFLAGS = -Wall -Wextra -I.
 
 SRCS = main.c $(wildcard src/*.c src/*/*.c src/*/*/*.c src/*/*/*/*.c) $(wildcard parsing/*.c)
 OBJ = ${SRCS:.c=.o}
