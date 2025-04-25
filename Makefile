@@ -11,10 +11,12 @@ OBJ = ${SRCS:.c=.o}
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(LD) $(LDFLAGS) -o $@ $^
+	@echo "Compiling and linking $@"
+	@$(LD) $(LDFLAGS) -o $@ $^
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@echo "Compiling $<"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -rf $(OBJ)
