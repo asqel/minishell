@@ -11,7 +11,7 @@ OBJ = ${SRCS:.c=.o}
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@echo "Compiling and linking $@"
+	@echo "Linking $@ ..."
 	@$(LD) $(LDFLAGS) -o $@ $^
 
 %.o: %.c
@@ -19,10 +19,12 @@ $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ)
+	@echo "Removing objects (.o) files"
+	@rm -rf $(OBJ)
 
 fclean: clean
-	rm -rf $(NAME)
+	@echo "Removing executable $(NAME)"
+	@rm -rf $(NAME)
 
 re: fclean all
 

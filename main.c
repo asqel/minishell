@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 01:27:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/25 15:18:56 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/01 19:23:31 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int ft_strstart(char *big, char *little)
 void *ft_calloc(size_t size, size_t n)
 {
 	char *res;
-	
+
 	res = malloc(size * n);
 	ft_memset(res, 0, size * n);
 	return res;
@@ -109,19 +109,19 @@ char *get_pretty_prompt(t_msh_ctx *ctx)
 	if (user == NULL)
 	{
 		res = ft_calloc(sizeof(char), (ft_strlen(path) + 30));
-		ft_strcat(res, "\033[01;34m");
+		ft_strcat(res, "\001\033[01;34m\002");
 		ft_strcat(res, path);
-		ft_strcat(res, "\033[00m");
+		ft_strcat(res, "\001\033[00m\002");
 		ft_strcat(res, "$ ");
 		return (res);
 	}
 	res = ft_calloc(sizeof(char), (ft_strlen(path) + ft_strlen(user) + 60));
-	ft_strcat(res, "\033[01;32m");
+	ft_strcat(res, "\001\033[01;32m\002");
 	ft_strcat(res, user);
 	ft_strcat(res, ":");
-	ft_strcat(res, "\033[01;34m");
+	ft_strcat(res, "\001\033[01;34m\002");
 	ft_strcat(res, path);
-	ft_strcat(res, "\033[00m");
+	ft_strcat(res, "\001\033[00m\002");
 	ft_strcat(res, "$ ");
 	return (res);
 
@@ -157,12 +157,27 @@ int	main(int argc, char **argv, char **env)
 		add_history(input);
 		t_msh_cmd *cmds = NULL;
 		int cmd_len = parse_pipeline(input, &cmds);
-		if (cmd_len == 1) {
-			cmds[0].path = msh_find_cmd(cmds[0].argv[0], &cmds[0].is_builtin, &ctx);
-			last_exec_state = msh_exec_cmd_single(&ctx, &cmds[0]);
+		for (int i = 0; i < cmd_len; i++)
+			cmds[i].path = msh_find_cmd(cmds[i].argv[0], &cmds[i].is_builtin, &ctx);
+		if (cmd_len == 1)
+			msh_exec_cmd_single(&ctx, &cmds[0]);
+		else
+			msh_exec_cmd_pipes(&ctx, cmds, cmd_len);
+		for (int i = 0; i < cmd_len; i++)
+		{
+			for (int j = 0; j < cmds[i].argc; j++)
+				free(cmds[i].argv[j]);
+			free(cmds[i].argv);
+			free(cmds[i].redir_in);
+			free(cmds[i].redir_out);
+			free(cmds[i].append_out);
+			free(cmds[i].here_doc);
+			free(cmds[i].path);
 		}
-
+		free(cmds);
 		free(input);
 	}
+	rl_clear_history();
+	msh_free_ctx(&ctx);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:26:00 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/25 16:53:00 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/01 14:07:20 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void parse_env(char **env, t_msh_ctx *ctx)
 
 void	msh_init(char **env, t_msh_ctx *ctx)
 {
-	if (msh_disable_sigquit() != 0)
-		exit(1);
+	//if (msh_disable_sigquit() != 0)
+	//	exit(1);
 	signal(SIGINT, &msh_sig_handler);
 	msh_init_ctx(ctx);
 	parse_env(env, ctx);

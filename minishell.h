@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/19 16:27:53 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/01 19:17:56 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,15 @@ typedef struct
 	int				env_len;
 	char			*pwd;
 	char			*old_pwd;
-
+	int				last_status;
 } t_msh_ctx;
 
 typedef struct
 {
-	int fd_in;
-	int fd_out; // TODO for exxec pipe
+	int fds[2];
+	int pid;
+	int status;
+	t_msh_cmd *cmd;
 
 } t_msh_process;
 
@@ -78,7 +80,8 @@ void	msh_free(void **ptr);
 void	msh_sig_handler(int signum);
 
 // exec
-int		msh_exec_cmd_single(t_msh_ctx *ctx, t_msh_cmd *cmd);
+void	msh_exec_cmd_single(t_msh_ctx *ctx, t_msh_cmd *cmd);
+void	msh_exec_cmd_pipes(t_msh_ctx *ctx, t_msh_cmd *cmd, int cmd_len);
 char	*msh_find_cmd(char *name, uint8_t *is_builtin, t_msh_ctx *ctx);
 int		msh_is_file(char *path);
 
@@ -89,5 +92,7 @@ char *msh_get_env(t_msh_ctx *ctx, char *name, int *exists);
 
 // builtins
 int	msh_blt_cd(int argc, char **argv);
+
+void	msh_free_ctx(t_msh_ctx *ctx);
 
 #endif

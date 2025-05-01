@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 20:23:21 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/23 20:31:19 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/01 19:17:33 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,20 @@
 #include <stdio.h>
 #include <signal.h>
 
+int is_executing(int set_val, int val)
+{
+	static int executing = 0;
+	if (set_val)
+		executing = val;
+	return executing;
+}
+
 void	msh_launch_file(t_msh_ctx *ctx, t_msh_cmd *cmd)
 {
 	if (0 == access(cmd->path, F_OK) && 0 == access(cmd->path, X_OK))
 	{
-		int x = execve(cmd->path, cmd->argv, msh_build_env(ctx));
-		printf("ici %d\n", x);
+		execve(cmd->path, cmd->argv, msh_build_env(ctx));
+		exit(127); // !TODO: free
 	}
 	else
 	{
@@ -33,67 +41,103 @@ void	msh_launch_file(t_msh_ctx *ctx, t_msh_cmd *cmd)
 	}
 }
 
-int	msh_exec_cmd_single(t_msh_ctx *ctx, t_msh_cmd *cmd)
+static void do_redir(t_msh_cmd *cmd)
 {
-	int redir_fd[3]; // > >> <
 	int tmp;
 
-	redir_fd[0] = -2;
-	redir_fd[1] = -2;
-	redir_fd[2] = -2;
-	tmp = -1;
 	if (cmd->redir_out != NULL)
-		tmp = open(cmd->redir_out, O_WRONLY | O_CREAT | O_TRUNC, 0664);
-	if (tmp != -1)
-		redir_fd[0] = tmp;
-	tmp = -1;
-	if (cmd->append_out != NULL)
-		tmp = open(cmd->append_out, O_WRONLY | O_APPEND | O_CREAT, 0664);
-	if (tmp != -1)
-		redir_fd[1] = tmp;
-	tmp = -1;
-	if (cmd->redir_in != NULL)
-		tmp = open(cmd->redir_in, O_RDONLY | O_CREAT, 0664);
-	if (tmp != -1)
-		redir_fd[2] = tmp;
-	if (redir_fd[0] == -1 || redir_fd[1] == -1 || redir_fd[2] == -1)
 	{
-		printf("Error\n");
-		exit(1);
+		tmp = open(cmd->redir_out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		dup2(tmp, STDOUT_FILENO);
+		close(tmp);
 	}
+	if (cmd->redir_in != NULL)
+	{
+		tmp = open(cmd->redir_in, O_RDONLY);
+		dup2(tmp, STDIN_FILENO);
+		close(tmp);
+	}
+	if (cmd->append_out != NULL)
+	{
+		tmp = open(cmd->append_out, O_WRONLY | O_APPEND | O_CREAT, 0644);
+		dup2(tmp, STDOUT_FILENO);
+		close(tmp);
+	}
+}
+
+void	msh_exec_cmd_single(t_msh_ctx *ctx, t_msh_cmd *cmd)
+{
 	// do things with pipe
 	int pid = fork();
+	is_executing(1, 1);
 	if (pid == 0)
 	{
-		if (redir_fd[0] != -2)
-        {
-            dup2(redir_fd[0], STDOUT_FILENO);
-            close(redir_fd[0]);
-        }
-        if (redir_fd[1] != -2)
-        {
-            dup2(redir_fd[1], STDOUT_FILENO);
-            close(redir_fd[1]);
-        }
-        if (redir_fd[2] != -2)
-        {
-            dup2(redir_fd[2], STDIN_FILENO);
-            close(redir_fd[2]);
-        }
+		do_redir(cmd);
 		msh_launch_file(ctx, cmd);
 	}
-	int i = -1;
-	while (++i < 3)
-		if (redir_fd[i] >= 0)
-			close(redir_fd[i]);
-	int res = 0;
-	while (waitpid(pid, NULL, WNOHANG) <= 0)
+	waitpid(pid, &ctx->last_status, 0);
+	is_executing(0, 0);
+}
+
+static void close_pipes(t_msh_process *processes, int cmd_len)
+{
+	for (int i = 0; i < cmd_len - 1; i++)
 	{
-		if (g_last_signal == SIGINT) {
-			kill(pid, SIGINT);
-			g_last_signal = 0;
-			res = 1;
+		close(processes[i].fds[0]);
+		close(processes[i].fds[1]);
+	}
+}
+
+static void init_processes(t_msh_process *processes, t_msh_cmd *cmd, int cmd_len)
+{
+	for (int i = 0; i < cmd_len; i++)
+	{
+		processes[i].cmd = &cmd[i];
+		processes[i].pid = 0;
+		processes[i].status = 0;
+		if (i < cmd_len - 1)
+			pipe(processes[i].fds);
+	}
+}
+
+static void launch_forks(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx)
+{
+	for (int i = 0; i < cmd_len; i++)
+	{
+		processes[i].pid = fork();
+		if (processes[i].pid == 0)
+		{
+			if (i == 0)
+			{
+				dup2(processes[i].fds[1], STDOUT_FILENO);
+			}
+			else if (i == cmd_len - 1)
+			{
+				dup2(processes[i - 1].fds[0], STDIN_FILENO);
+			}
+			else
+			{
+				dup2(processes[i - 1].fds[0], STDIN_FILENO);
+				dup2(processes[i].fds[1], STDOUT_FILENO);
+			}
+			close_pipes(processes, cmd_len);
+			do_redir(processes[i].cmd);
+			msh_launch_file(ctx, processes[i].cmd);
 		}
 	}
-	return res;
+	close_pipes(processes, cmd_len);
+	for (int i = 0; i < cmd_len - 1; i++)
+		waitpid(processes[i].pid, &processes[i].status, 0);
+}
+
+void msh_exec_cmd_pipes(t_msh_ctx *ctx, t_msh_cmd *cmd, int cmd_len)
+{
+	t_msh_process *processes;
+
+	processes = malloc(sizeof(t_msh_process) * cmd_len);
+	if (!processes)
+		return ;
+	init_processes(processes, cmd, cmd_len);
+	launch_forks(processes, cmd_len, ctx);
+	waitpid(processes[cmd_len - 1].pid, &ctx->last_status, 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:38:30 by mgobert           #+#    #+#             */
-/*   Updated: 2025/04/21 17:54:33 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/04/28 16:24:47 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	is_builtin(char *cmd)
 char *ft_strdup(const char *s)
 {
 	char *dup;
-	
+
 	dup = safe_malloc(strlen(s) + 1);
 	strcpy(dup, s);
 	return (dup);
@@ -68,7 +68,7 @@ void init_command(char *line, t_msh_cmd *cmd)
 	i = 0;
 
 	init_tab(cmd);
-	while (tokens[i]) 
+	while (tokens[i])
 	{
 		if (strcmp(tokens[i], "<") == 0 && tokens[i + 1])
 			cmd->redir_in = ft_strdup(tokens[++i]);
@@ -118,9 +118,9 @@ int main(void)
 
     printbanner();
 
-    while ((line = shell_read_line())) 
+    while ((line = shell_read_line()))
 	{
-        if (!*line) 
+        if (!*line)
 		{
             free(line);
             continue;
@@ -129,7 +129,7 @@ int main(void)
         cmd_count = parse_pipeline(line, &cmds);
         p(G"\nNombre de commandes détectées : %d\n"RST, cmd_count);
 
-        for (int i = 0; i < cmd_count; i++) 
+        for (int i = 0; i < cmd_count; i++)
 		{
             t_msh_cmd cmd = cmds[i];
             p(C"\n--- Commande #%d ---\n"RST, i + 1);
