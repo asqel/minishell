@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:32:53 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/09 15:39:04 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/01 19:34:16 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ char	*ft_strdup(const char *str)
 	int		i;
 	char	*dup;
 
+	if (NULL == str)
+		return (NULL);
 	i = 0;
 	while (str[i])
 		i++;
