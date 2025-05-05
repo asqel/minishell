@@ -5,6 +5,10 @@
 		"signal.h": "c",
 		"pthread_signal.h": "c",
 		"termio.h": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"stdlib.h": "c",
+		"unistd.h": "c",
+		"history.h": "c",
+		"stdint.h": "c"
 	}
 }

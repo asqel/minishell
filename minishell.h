@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/01 19:17:56 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/06 00:22:21 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ typedef struct
 {
 	t_msh_env_var_t	*env;
 	int				env_len;
-	char			*pwd;
-	char			*old_pwd;
 	int				last_status;
 } t_msh_ctx;
 
@@ -70,8 +68,9 @@ void	ft_strcpy(char *dest, char *src);
 char	**msh_build_env(t_msh_ctx *ctx);
 char	*sub_str(char *str, int start, int end);
 void	ft_strcat(char *dest, const char *src);
-int		ft_strcontains_char(char *str, char c);
 void	ft_memcpy(void *dest, const void *src, int len);
+int		ft_strchr(char *str, int c);
+
 // Errors
 void	msh_print_error(char *str, int exit_code);
 void	msh_free(void **ptr);
@@ -83,7 +82,6 @@ void	msh_sig_handler(int signum);
 void	msh_exec_cmd_single(t_msh_ctx *ctx, t_msh_cmd *cmd);
 void	msh_exec_cmd_pipes(t_msh_ctx *ctx, t_msh_cmd *cmd, int cmd_len);
 char	*msh_find_cmd(char *name, uint8_t *is_builtin, t_msh_ctx *ctx);
-int		msh_is_file(char *path);
 
 void	msh_init(char **env, t_msh_ctx *ctx);
 void	msh_init_ctx(t_msh_ctx *ctx);
@@ -94,5 +92,18 @@ char *msh_get_env(t_msh_ctx *ctx, char *name, int *exists);
 int	msh_blt_cd(int argc, char **argv);
 
 void	msh_free_ctx(t_msh_ctx *ctx);
+
+void print_error_exit(char *str, int exit_code);
+
+char	*msh_get_cwd(void);
+void ft_memset(void *ptr, int c, int len);
+void *ft_calloc(size_t size, size_t n);
+int	ft_strstart(char *big, char *little);
+char *msh_get_prompt(t_msh_ctx *ctx);
+void ft_strcat_start(char *str, char *start);
+char	*msh_get_input(t_msh_ctx *ctx);
+void	msh_free_cmds(t_msh_cmd *cmds, int cmds_len);
+void print_error(char *str);
+void msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx);
 
 #endif

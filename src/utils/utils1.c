@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   assemble.c                                         :+:      :+:    :+:   */
+/*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 15:34:49 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/05 19:26:00 by axlleres         ###   ########.fr       */
+/*   Created: 2025/05/05 19:49:45 by axlleres          #+#    #+#             */
+/*   Updated: 2025/05/05 19:49:52 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
 
-char	*msh_assemble_path(char *p1, char *p2)
+void *ft_calloc(size_t size, size_t n)
 {
-	int		p1_len;
-	int		p2_len;
-	char	*res;
+	char *res;
 
-	p1_len = ft_strlen(p1);
-	p2_len = ft_strlen(p2);
-	res = malloc(sizeof(char) * (p1_len + p2_len + 1 + 1));
-	ft_strcpy(res, p1);
-	res[p1_len] = '/';
-	ft_strcpy(&(res[p1_len + 1]), p2);
-	res[p1_len + p2_len + 1] = '\0';
-	return (res);
+	res = malloc(size * n);
+	ft_memset(res, 0, size * n);
+	return res;
+}
+
+void ft_memset(void *ptr, int c, int len)
+{
+	char *p;
+
+	p = (char *)ptr;
+	while (--len >= 0)
+		p[len] = (unsigned char)c;
 }

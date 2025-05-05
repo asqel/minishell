@@ -1,0 +1,14 @@
+{
+   ReadlineLeaks
+   Memcheck:Leak
+   obj:/lib/x86_64-linux-gnu/libreadline.so.*
+   obj:/usr/lib/x86_64-linux-gnu/libreadline.so.*
+   obj:/usr/local/lib/libreadline.so.*
+   fun:readline
+   fun:read_history
+   fun:write_history
+   fun:stifle_history
+   fun:clear_history
+   fun:add_history
+   fun:history_list
+}

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:32:53 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/01 19:34:16 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/05 20:36:19 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_strlen(const char *str)
 {
 	int	len;
 
+	if (NULL == str)
+		return (0);
 	len = 0;
 	while ('\0' != str[len])
 		len++;
@@ -73,12 +75,13 @@ void	ft_strcpy(char *dest, char *src)
 	}
 }
 
-int	ft_strcontains_char(char *str, char c) {
+int ft_strchr(char *str, int c)
+{
 	int	i;
 
 	i = -1;
-	while (str[++i]  != '\0')
+	while (str[++i] != '\0')
 		if (str[i] == c)
-			return (1);
-	return (0);
+			return (i);
+	return (-1);
 }

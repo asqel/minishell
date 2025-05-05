@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   assemble.c                                         :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 15:34:49 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/05 19:26:00 by axlleres         ###   ########.fr       */
+/*   Created: 2025/04/06 19:31:44 by axlleres          #+#    #+#             */
+/*   Updated: 2025/05/05 20:25:48 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <unistd.h>
+#include <stdlib.h>
 
-char	*msh_assemble_path(char *p1, char *p2)
+void print_error_exit(char *str, int exit_code)
 {
-	int		p1_len;
-	int		p2_len;
-	char	*res;
+	if (str == NULL)
+		exit(exit_code);
+	write(STDERR_FILENO, "Error:\n\t", 8);
+	write(STDERR_FILENO, str, ft_strlen(str));
+	exit(exit_code);
+}
 
-	p1_len = ft_strlen(p1);
-	p2_len = ft_strlen(p2);
-	res = malloc(sizeof(char) * (p1_len + p2_len + 1 + 1));
-	ft_strcpy(res, p1);
-	res[p1_len] = '/';
-	ft_strcpy(&(res[p1_len + 1]), p2);
-	res[p1_len + p2_len + 1] = '\0';
-	return (res);
+void print_error(char *str)
+{
+	if (str == NULL)
+		return ;
+	write(STDERR_FILENO, "Error:\n\t", 8);
+	write(STDERR_FILENO, str, ft_strlen(str));
 }

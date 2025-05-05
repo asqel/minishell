@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   assemble.c                                         :+:      :+:    :+:   */
+/*   strstart.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 15:34:49 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/05 19:26:00 by axlleres         ###   ########.fr       */
+/*   Created: 2025/05/05 19:50:51 by axlleres          #+#    #+#             */
+/*   Updated: 2025/05/05 19:51:14 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
 
-char	*msh_assemble_path(char *p1, char *p2)
+int ft_strstart(char *big, char *little)
 {
-	int		p1_len;
-	int		p2_len;
-	char	*res;
+	int big_len;
+	int little_len;
 
-	p1_len = ft_strlen(p1);
-	p2_len = ft_strlen(p2);
-	res = malloc(sizeof(char) * (p1_len + p2_len + 1 + 1));
-	ft_strcpy(res, p1);
-	res[p1_len] = '/';
-	ft_strcpy(&(res[p1_len + 1]), p2);
-	res[p1_len + p2_len + 1] = '\0';
-	return (res);
+	if (big == NULL || little == NULL)
+		return (0);
+	little_len = ft_strlen(little);
+	big_len = ft_strlen(big);
+	if (little_len > big_len)
+		return (0);
+	while (*little != '\0')
+		if (*(little++) != *(big++))
+			return (0);
+	return (1);
 }

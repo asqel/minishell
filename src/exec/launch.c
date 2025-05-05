@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 20:23:21 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/01 19:17:33 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/06 00:22:56 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,11 @@ void	msh_launch_file(t_msh_ctx *ctx, t_msh_cmd *cmd)
 	if (0 == access(cmd->path, F_OK) && 0 == access(cmd->path, X_OK))
 	{
 		execve(cmd->path, cmd->argv, msh_build_env(ctx));
-		exit(127); // !TODO: free
-	}
-	else
-	{
-		//msh_free_cmd(cmd); TODO
-		//msh_free_ctx(ctx); TODO
-		printf("Command not found\n");
 		exit(127);
 	}
+	msh_free_ctx(ctx);
+	printf("Command not found\n");
+	exit(127);
 }
 
 static void do_redir(t_msh_cmd *cmd)

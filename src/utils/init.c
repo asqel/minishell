@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:26:00 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/01 14:07:20 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/05 20:19:10 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 
 int	msh_disable_sigquit(void)
@@ -59,15 +61,25 @@ void parse_env(char **env, t_msh_ctx *ctx)
 	int env_len;
 	int i;
 
+	if (env == NULL)
+		return ;
 	env_len = 0;
 	while (env[env_len] != NULL)
 		env_len++;
 	ctx->env_len = env_len;
 	ctx->env = malloc(sizeof(t_msh_env_var_t) * env_len);
+	if (ctx->env == NULL)
+		print_error_exit("malloc", 1);
 	i = 0;
 	while (i < ctx->env_len)
 	{
 		ctx->env[i].name = get_env_key(env[i]);
+		if (ctx->env[i].name == NULL)
+		{
+			ctx->env_len = i;
+			msh_free_ctx(ctx);
+			print_error_exit("malloc", 1);
+		}
 		ctx->env[i].value = get_env_val(env[i]);
 		i++;
 	}
@@ -75,15 +87,11 @@ void parse_env(char **env, t_msh_ctx *ctx)
 
 void	msh_init(char **env, t_msh_ctx *ctx)
 {
-	//if (msh_disable_sigquit() != 0)
+	//if (msh_disable_sigquit() != 0) // !TODO: reenable this
 	//	exit(1);
-	signal(SIGINT, &msh_sig_handler);
+	if (signal(SIGINT, &msh_sig_handler) == SIG_ERR)
+		exit(1);
 	msh_init_ctx(ctx);
 	parse_env(env, ctx);
-	for (int i = 0; i < ctx->env_len; i++) {
-		printf("%s", ctx->env[i].name);
-		if (ctx->env[i].value != NULL)
-			printf("=%s", ctx->env[i].value);
-		printf("\n");
-	}
+	rl_catch_signals = 0;
 }

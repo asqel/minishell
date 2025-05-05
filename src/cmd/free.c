@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sub_str.c                                          :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/10 16:37:37 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/10 16:39:52 by axlleres         ###   ########.fr       */
+/*   Created: 2025/05/05 20:24:12 by axlleres          #+#    #+#             */
+/*   Updated: 2025/05/05 23:23:05 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
 
-char *sub_str(char *str, int start, int end)
+void	msh_free_cmds(t_msh_cmd *cmds, int cmds_len)
 {
-	char	*res;
-	int		i;
+	int	i;
+	int	k;
 
-	res = malloc(sizeof(char) * (end - start  + 1));
-	if (res == NULL)
-		return (NULL);
-	res[end - start] = '\0';
-	i = start - 1;
-	while (++i < end)
-		res[i - start] = str[i];
-	return (res);
+	i = -1;
+	while (++i < cmds_len)
+	{
+		free(cmds[i].path);
+		free(cmds[i].redir_out);
+		free(cmds[i].redir_in);
+		free(cmds[i].here_doc);
+		free(cmds[i].append_out);
+		k = -1;
+		while (++k < cmds[i].argc)
+			free(cmds[i].argv[k]);
+		free(cmds[i].argv);
+	}
+	free(cmds);
 }

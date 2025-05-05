@@ -1,7 +1,7 @@
 NAME = minishell
 
-CC = clang -g
-LD = clang -g
+CC = gcc -g
+LD = gcc -g
 LDFLAGS = -lreadline -lhistory
 CFLAGS = -Wall -Wextra -I.
 
@@ -12,7 +12,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@echo "Linking $@ ..."
-	@$(LD) $(LDFLAGS) -o $@ $^
+	@$(LD) -o $@ $^ $(LDFLAGS)
 
 %.o: %.c
 	@echo "Compiling $<"

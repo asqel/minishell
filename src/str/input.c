@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   assemble.c                                         :+:      :+:    :+:   */
+/*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 15:34:49 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/05 19:26:00 by axlleres         ###   ########.fr       */
+/*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
+/*   Updated: 2025/05/05 20:20:56 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <stdlib.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
-char	*msh_assemble_path(char *p1, char *p2)
+char	*msh_get_input(t_msh_ctx *ctx)
 {
-	int		p1_len;
-	int		p2_len;
-	char	*res;
+	char	*input;
+	char	*prompt;
 
-	p1_len = ft_strlen(p1);
-	p2_len = ft_strlen(p2);
-	res = malloc(sizeof(char) * (p1_len + p2_len + 1 + 1));
-	ft_strcpy(res, p1);
-	res[p1_len] = '/';
-	ft_strcpy(&(res[p1_len + 1]), p2);
-	res[p1_len + p2_len + 1] = '\0';
-	return (res);
+	prompt = msh_get_prompt(ctx);
+	if (prompt == NULL)
+	{
+		msh_free_ctx(ctx);
+		print_error_exit("malloc", 1);
+	}
+	input = readline(prompt);
+	free(prompt);
+	return (input);
 }
