@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:57:50 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/01 20:17:33 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/05 17:08:06 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int handle_word(const char *line, char **tokens, int *i, int k)
 
 char **tokenize_line(const char *line)
 {
-	char **tokens = malloc(sizeof(char *) * 16);
+	char **tokens = calloc(sizeof(char *), 16);
 	int i = 0;
 	int k = 0;
 

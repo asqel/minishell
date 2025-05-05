@@ -25,7 +25,7 @@ SRC = minishell.c \
 OBJ = $(SRC:.c=.o)
 
 # Compilateur et options
-CC = cc
+CC = cc -g
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 

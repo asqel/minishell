@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:21:59 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/01 20:17:45 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/05 17:07:32 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	**split_pipeline(const char *line)
 	int		k;
 	char	quote;
 
-	segments = safe_malloc(sizeof(char *) * 4000);
+	segments = safe_malloc(sizeof(char *), 4000);
 	i = 0;
 	k = 0;
 	start = 0;
@@ -68,7 +68,7 @@ int parse_pipeline(char *line, t_msh_cmd **cmds_out)
     i = 0;
 	while (segments[count])
 		count++;
-	t_msh_cmd *cmds = safe_malloc(sizeof(t_msh_cmd) * count);
+	t_msh_cmd *cmds = safe_malloc(sizeof(t_msh_cmd), count);
 
 	while (i < count) 
     {

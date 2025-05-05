@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:28:25 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/01 19:30:13 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/05 17:05:51 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void init_command(char *line, t_msh_cmd *cmd)
 void init_tab (t_msh_cmd *cmd)
 {
 	cmd->argc = 0;
-	cmd->argv = safe_malloc(sizeof(char *) * 256);
+	cmd->argv = safe_malloc(sizeof(char *), 256);
 	cmd->redir_in = NULL;
 	cmd->redir_out = NULL;
 	cmd->append_out = NULL;

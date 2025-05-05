@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:39:16 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/01 19:35:13 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/05 17:06:01 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct
 	char *redir_in; // <
 	char *here_doc; // <<
 	char *append_out; // >>
+	char **env;
 } t_msh_cmd;
 
 //builtin_help
@@ -111,7 +112,7 @@ char **tokenize_line(const char *line);
 
 //utils
 void printbanner(void);
-void *safe_malloc(size_t size);
+void *safe_malloc(size_t size, int nb);
 pid_t Fork(void);
 void Execvp(const char *file, char *const argv[]);
 

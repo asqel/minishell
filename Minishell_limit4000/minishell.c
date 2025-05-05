@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:38:30 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/01 19:54:49 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/05 17:02:19 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char *shell_read_line(void)
     return (buf);
 }
 
-/* static void	fork_and_exec(t_msh_cmd *cmd)
+static void	fork_and_exec(t_msh_cmd *cmd)
 {
 	pid_t pid = fork();
 	if (pid == -1)
@@ -59,7 +59,7 @@ char *shell_read_line(void)
 		int status;
 		waitpid(pid, &status, 0);
 	}
-} */
+}
 void	try_exec_in_path(t_msh_cmd *cmd)
 {
 	char *path;
@@ -81,7 +81,7 @@ void	try_exec_in_path(t_msh_cmd *cmd)
 	}
 	free_split(paths); // à toi d’implémenter
 }
-/* static void	run_command(t_msh_cmd *cmd)
+static void	run_command(t_msh_cmd *cmd)
 {
 	if (!cmd || !cmd->name)
 		return;
@@ -91,18 +91,14 @@ void	try_exec_in_path(t_msh_cmd *cmd)
 		return;
 	}
 	fork_and_exec(cmd);
-} */
+}
 
-/* int main(void)
+int main(void)
 {
     char *line;
     t_msh_cmd *cmds;
     int cmd_count;
-	int i;
-	int y;
 
-	i = 0;
-	y = 0;
     printbanner();
     while ((line = shell_read_line()))
     {
@@ -111,24 +107,22 @@ void	try_exec_in_path(t_msh_cmd *cmd)
             free(line);
             continue;
         }
+
         cmd_count = parse_pipeline(line, &cmds);
-        while (i < cmd_count)
-		{
+        for (int i = 0; i < cmd_count; i++)
+        {
             run_command(&cmds[i]);
-			i++;
-		}
-        while (y < cmd_count)
-		{
             free_command(&cmds[i]);
-			y++;
-		}
+        }
+
         free(cmds);
         free(line);
     }
-    return (0);
-}  */
+    return 0;
+}
 
-int main(void)
+
+/* int main(void)
 {
     char *line;
     t_msh_cmd *cmds;
@@ -184,7 +178,7 @@ int main(void)
 		free(cmds);
 	}
 	return 0;
-}
+} */
 
 /* int main() 
 {

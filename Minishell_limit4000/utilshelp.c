@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:56:44 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/01 19:45:12 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/05 17:09:19 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char *ft_strdup(const char *s)
 {
 	char *dup;
 	
-	dup = safe_malloc(strlen(s) + 1);
+	dup = safe_malloc(strlen(s) + 1, 1);
 	strcpy(dup, s);
 	return (dup);
 }

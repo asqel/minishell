@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:22:15 by mgobert           #+#    #+#             */
-/*   Updated: 2025/04/15 16:57:30 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/05 17:05:33 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void printbanner(void)
     "██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗\n"RST);
 }
 
-void *safe_malloc(size_t size)
+void *safe_malloc(size_t size, int nb)
 {
     void *ptr;
     if (size == 0)
         return (NULL);
-    ptr = malloc(size);
+    ptr = calloc(size, nb);
     if (!ptr)
     {
         perror(RED"Malloc failed"RST);

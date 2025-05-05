@@ -6,13 +6,13 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:20:26 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/01 17:45:59 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/05 17:11:22 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int execute_builtin(char *cmd, char **args)
+/* int execute_builtin(char *cmd, char **args)
 {
     if (strcmp(cmd, "env") == 0)
     {
@@ -36,7 +36,7 @@ int execute_builtin(char *cmd, char **args)
         return (0);
     }
     return (-1);
-}
+} */
 
 void cmd_echo(char **argv)
 {
@@ -84,10 +84,18 @@ void cmd_pwd(void)
 void cmd_exit(char **argv)
 {
     int exit_status;
+    int i;
+
+    i = 0;
     
     exit_status = 0;
     if (argv[1])
         exit_status = atoi(argv[1]);
+    while (argv[i])
+    {
+        free(argv[i]);
+        i++;
+    }
     exit(exit_status);
 }
 
