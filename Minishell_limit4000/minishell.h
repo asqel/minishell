@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:39:16 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/05 17:06:01 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/07 18:50:49 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,25 @@ typedef struct
 	uint8_t is_builtin;
 	char *redir_out; // >
 	char *redir_in; // <
-	char *here_doc; // <<
-	char *append_out; // >>
+	char *append_out;
+	char *here_doc;
+	int type_out; // <<
+	int type_in; // >>
 	char **env;
 } t_msh_cmd;
+
+typedef struct
+{
+	char *name;
+	char *value; // if NULL no =
+} t_msh_env_var_t;
+
+typedef struct
+{
+	t_msh_env_var_t	*env;
+	int				env_len;
+	int				last_status;
+} t_msh_ctx;
 
 //builtin_help
 int	is_builtin(char *cmd);
@@ -82,8 +97,15 @@ void	free_tab(char **tab, size_t allocated);
 char	**ft_split(char const *s, char c);
 char *join_path(const char *dir, const char *cmd);
 
+//init_help
+void msh_get_heredoc(t_msh_cmd *cmd);
+void print_error(char *str);
+int	ft_strlen(const char *str);
+int		ft_strcmp(const char *s1, const char *s2);
 //init 
-void set_redir(char **redir, const char *value);
+void set_redir_1(char **redir, const char *value, t_msh_cmd *cmd);
+void set_redir_2(char **redir, const char *value, t_msh_cmd *cmd);
+void set_redir (char *line, t_msh_cmd *cmd);
 void init_command(char *line, t_msh_cmd *cmd);
 void init_tab (t_msh_cmd *cmd);
 

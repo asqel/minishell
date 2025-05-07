@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:38:30 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/05 17:02:19 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/07 17:49:35 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,14 +107,14 @@ int main(void)
             free(line);
             continue;
         }
-
+        
         cmd_count = parse_pipeline(line, &cmds);
         for (int i = 0; i < cmd_count; i++)
         {
             run_command(&cmds[i]);
             free_command(&cmds[i]);
         }
-
+        printf("%d", cmds->type_in);
         free(cmds);
         free(line);
     }
