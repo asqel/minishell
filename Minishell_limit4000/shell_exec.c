@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:40:59 by mgobert           #+#    #+#             */
-/*   Updated: 2025/04/30 19:27:58 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/07 18:23:06 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,9 @@ void	handle_redirs(t_msh_cmd cmd)
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
 	}
-	if (cmd.here_doc)
-	{
-		char *heredoc_file = read_heredoc(cmd.here_doc);
-		fd = open(heredoc_file, O_RDONLY);
-		if (fd == -1)
-			exit_with_error("open heredoc file");
-		dup2(fd, STDIN_FILENO);
-		close(fd);
-		unlink(heredoc_file);
-		free(heredoc_file);
-	}
+	/* if (cmd.here_doc)
+		msh_get_heredoc(&cmd); */
+	
 }
 void	exit_with_error(const char *msg)
 {
