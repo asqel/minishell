@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:20:26 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/05 17:11:22 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/07 19:26:53 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,29 +38,6 @@
     return (-1);
 } */
 
-void cmd_echo(char **argv)
-{
-    int i;
-    int newline;
-    
-    i = 1;
-    newline = 1;
-
-    if (argv[i] && strcmp(argv[i], "-n") == 0)
-    {
-        newline = 0;
-        i++;
-    }
-    while (argv[i])
-    {
-        printf("%s", argv[i]);
-        if (argv[i + 1])
-            printf(" ");
-        i++;
-    }
-    if (newline)
-        printf("\n");
-}
 void cmd_cd(char **argv)
 {
     if (!argv[1])
@@ -87,7 +64,7 @@ void cmd_exit(char **argv)
     int i;
 
     i = 0;
-    
+
     exit_status = 0;
     if (argv[1])
         exit_status = atoi(argv[1]);

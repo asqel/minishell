@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 20:23:21 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/07 18:14:30 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/07 19:29:05 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,11 @@ static void do_redir(t_msh_cmd *cmd)
 void exec_builtin(t_msh_ctx *ctx, t_msh_cmd *cmd)
 {
 	if (ft_strcmp(cmd->name, "cd") == 0)
-		msh_blt_cd(cmd->argc, cmd->argv);
+		ctx->last_status = msh_blt_cd(cmd->argc, cmd->argv);
 	else if (ft_strcmp(cmd->name, "pwd") == 0)
-		msh_blt_pwd(cmd->argc, cmd->argv);
+		ctx->last_status = msh_blt_pwd(cmd->argc, cmd->argv);
+	else if (ft_strcmp(cmd->name, "echo") == 0)
+		ctx->last_status = msh_blt_echo(cmd->argc, cmd->argv);
 }
 
 void	msh_exec_cmd_single(t_msh_ctx *ctx, t_msh_cmd *cmd)
