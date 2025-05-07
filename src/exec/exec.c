@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:21:27 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/05 23:19:00 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/07 18:46:59 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	msh_exec(t_msh_ctx *ctx, t_msh_cmd *cmds, int cmds_len)
 		{
 			msh_free_cmds(cmds, cmds_len);
 			print_error("command not found");
-			g_last_signal = 127;
+			ctx->last_status = 127;
 			return ;
 		}
 	}

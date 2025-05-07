@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 01:27:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/06 00:22:44 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/07 18:46:10 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,11 @@ int	main(int argc, char **argv, char **env)
 		input = msh_get_input(&ctx);
 		if (!input)
 			break;
-		//add_history(input);
 		cmds_len = parse_pipeline(input, &cmds);
-		msh_exec(&ctx, cmds, cmds_len);
 		free(input);
+		msh_exec(&ctx, cmds, cmds_len);
 	}
-	//rl_clear_history();
+	rl_clear_history();
 	msh_free_ctx(&ctx);
 	return (0);
 }

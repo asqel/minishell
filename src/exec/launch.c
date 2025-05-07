@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 20:23:21 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/06 00:22:56 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/07 18:14:30 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	msh_launch_file(t_msh_ctx *ctx, t_msh_cmd *cmd)
 		exit(127);
 	}
 	msh_free_ctx(ctx);
-	printf("Command not found\n");
+	print_error("Command not found\n");
 	exit(127);
 }
 
@@ -61,8 +61,18 @@ static void do_redir(t_msh_cmd *cmd)
 	}
 }
 
+void exec_builtin(t_msh_ctx *ctx, t_msh_cmd *cmd)
+{
+	if (ft_strcmp(cmd->name, "cd") == 0)
+		msh_blt_cd(cmd->argc, cmd->argv);
+	else if (ft_strcmp(cmd->name, "pwd") == 0)
+		msh_blt_pwd(cmd->argc, cmd->argv);
+}
+
 void	msh_exec_cmd_single(t_msh_ctx *ctx, t_msh_cmd *cmd)
 {
+	if (cmd->is_builtin)
+		return exec_builtin(ctx, cmd);
 	// do things with pipe
 	int pid = fork();
 	is_executing(1, 1);
@@ -118,6 +128,8 @@ static void launch_forks(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx)
 			}
 			close_pipes(processes, cmd_len);
 			do_redir(processes[i].cmd);
+			if (processes[i].cmd->is_builtin)
+				return exec_builtin(ctx, processes[i].cmd);
 			msh_launch_file(ctx, processes[i].cmd);
 		}
 	}

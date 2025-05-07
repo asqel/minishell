@@ -6,13 +6,14 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:22:18 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/05 19:26:36 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/07 16:38:52 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/stat.h>
 
 char	*get_path(t_msh_ctx *ctx)
 {
@@ -25,6 +26,17 @@ char	*get_path(t_msh_ctx *ctx)
 	return (NULL);
 }
 
+static int is_file(char *path)
+{
+	struct stat buf;
+	if (stat(path, &buf) == -1)
+		return (0);
+	if (S_ISDIR(buf.st_mode))
+		return (0);
+	if (S_ISREG(buf.st_mode))
+		return (1);
+	return (0);
+}
 char *path_contains(char *path, char *name, int *p_len)
 {
 	int		n_len;
@@ -40,9 +52,20 @@ char *path_contains(char *path, char *name, int *p_len)
 	cmd_path[*p_len] = '/';
 	ft_memcpy(cmd_path, path, *p_len);
 	ft_memcpy(&cmd_path[*p_len + 1], name, n_len + 1);
-	if (access(cmd_path, F_OK | X_OK) == 0)
+	if (access(cmd_path, F_OK | X_OK) == 0 && is_file(cmd_path))
 		return (cmd_path);
 	return (free(cmd_path), NULL);
+}
+
+int check_is_builtin(char *name, uint8_t *is_builtin)
+{
+	*is_builtin = 1;
+	if (!ft_strcmp(name, "cd"))
+		return 1;
+	if (!ft_strcmp(name, "pwd"))
+		return 1;
+	*is_builtin = 0;
+	return 0;
 }
 
 char	*msh_find_cmd(char *name, uint8_t *is_builtin, t_msh_ctx *ctx)
@@ -54,7 +77,14 @@ char	*msh_find_cmd(char *name, uint8_t *is_builtin, t_msh_ctx *ctx)
 
 	*is_builtin = 0;
 	if (ft_strchr(name, '/') != -1)
-		return ft_strdup(name);
+	{
+		if (access(name, F_OK | X_OK) == 0 && is_file(name))
+			return ft_strdup(name);
+		else
+			return NULL;
+	}
+	if (check_is_builtin(name, is_builtin))
+		return NULL;
 	i = 0;
 	path = get_path(ctx);
 	if (path == NULL)

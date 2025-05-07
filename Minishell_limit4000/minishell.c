@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:38:30 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/05 17:02:19 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/06 20:31:41 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char *shell_read_line(void)
     char *buf;
     size_t bufsize;
     char cwd[BUFSIZ];
-	char *line; 
+	char *line;
 	line = readline(G "minishell$ " RST);
     if (line && *line)
         add_history(line);
@@ -93,33 +93,33 @@ static void	run_command(t_msh_cmd *cmd)
 	fork_and_exec(cmd);
 }
 
-int main(void)
-{
-    char *line;
-    t_msh_cmd *cmds;
-    int cmd_count;
+// int main(void)
+// {
+//     char *line;
+//     t_msh_cmd *cmds;
+//     int cmd_count;
 
-    printbanner();
-    while ((line = shell_read_line()))
-    {
-        if (!*line || line[0] == '\n')
-        {
-            free(line);
-            continue;
-        }
+//     printbanner();
+//     while ((line = shell_read_line()))
+//     {
+//         if (!*line || line[0] == '\n')
+//         {
+//             free(line);
+//             continue;
+//         }
 
-        cmd_count = parse_pipeline(line, &cmds);
-        for (int i = 0; i < cmd_count; i++)
-        {
-            run_command(&cmds[i]);
-            free_command(&cmds[i]);
-        }
+//         cmd_count = parse_pipeline(line, &cmds);
+//         for (int i = 0; i < cmd_count; i++)
+//         {
+//             run_command(&cmds[i]);
+//             free_command(&cmds[i]);
+//         }
 
-        free(cmds);
-        free(line);
-    }
-    return 0;
-}
+//         free(cmds);
+//         free(line);
+//     }
+//     return 0;
+// }
 
 
 /* int main(void)
@@ -130,9 +130,9 @@ int main(void)
 
     printbanner();
 
-    while ((line = shell_read_line())) 
+    while ((line = shell_read_line()))
 	{
-        if (!*line) 
+        if (!*line)
 		{
             free(line);
             continue;
@@ -146,7 +146,7 @@ int main(void)
         cmd_count = parse_pipeline(line, &cmds);
         p(G"\nNombre de commandes détectées : %d\n"RST, cmd_count);
 
-        for (int i = 0; i < cmd_count; i++) 
+        for (int i = 0; i < cmd_count; i++)
 		{
             t_msh_cmd cmd = cmds[i];
             p(C"\n--- Commande #%d ---\n"RST, i + 1);
@@ -180,7 +180,7 @@ int main(void)
 	return 0;
 } */
 
-/* int main() 
+/* int main()
 {
     printf("=== ENV ===\n");
     cmd_env();

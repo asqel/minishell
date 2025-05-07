@@ -5,7 +5,7 @@ LD = gcc -g
 LDFLAGS = -lreadline -lhistory
 CFLAGS = -Wall -Wextra -I.
 
-SRCS = main.c $(wildcard src/*.c src/*/*.c src/*/*/*.c src/*/*/*/*.c) $(wildcard parsing/*.c)
+SRCS = main.c $(wildcard src/*.c src/*/*.c src/*/*/*.c src/*/*/*/*.c) $(wildcard Minishell_limit4000/*.c)
 OBJ = ${SRCS:.c=.o}
 
 all: $(NAME)

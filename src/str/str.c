@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:32:53 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/05 20:36:19 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/07 15:29:46 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int ft_strchr(char *str, int c)
 {
 	int	i;
 
+	if (NULL == str)
+		return (-1);
 	i = -1;
 	while (str[++i] != '\0')
 		if (str[i] == c)

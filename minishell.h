@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/06 00:22:21 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/07 18:52:20 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,17 @@ extern int g_last_signal;
 
 typedef struct
 {
-	char *path;
-	char **argv;
-	int argc;
-	char *name;
-	uint8_t is_builtin;
-	char *redir_out; // >
-	char *redir_in; // <
-	char *here_doc; // <<
-	char *append_out; // >>
+	char	*path;
+	char	**argv;
+	int		argc;
+	char	*name;
+	uint8_t	is_builtin;
+	char	*redir_out; // >
+	char	*redir_in; // <
+	char	*here_doc; // <<
+	char	*append_out; // >>
+	int 	type_out;
+	int 	type_in;
 } t_msh_cmd;
 
 typedef struct
@@ -81,6 +83,7 @@ void	msh_sig_handler(int signum);
 // exec
 void	msh_exec_cmd_single(t_msh_ctx *ctx, t_msh_cmd *cmd);
 void	msh_exec_cmd_pipes(t_msh_ctx *ctx, t_msh_cmd *cmd, int cmd_len);
+void	msh_exec(t_msh_ctx *ctx, t_msh_cmd *cmds, int cmds_len);
 char	*msh_find_cmd(char *name, uint8_t *is_builtin, t_msh_ctx *ctx);
 
 void	msh_init(char **env, t_msh_ctx *ctx);
@@ -105,5 +108,7 @@ char	*msh_get_input(t_msh_ctx *ctx);
 void	msh_free_cmds(t_msh_cmd *cmds, int cmds_len);
 void print_error(char *str);
 void msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx);
+int msh_blt_pwd(int argc, char **argv);
+char *ft_itoa(int n);
 
 #endif

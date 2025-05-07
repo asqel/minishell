@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilshelp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:56:44 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/05 17:09:19 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/06 20:31:18 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 pid_t Wait(int *status)
 {
     pid_t result;
-    
+
     if (!status)
     {
         fprintf(stderr, RED"Wait : status argument required\n"RST);
@@ -39,7 +39,7 @@ char *ft_substr(const char *src, int start, int end)
 	int len;
 	char *s;
 	int i;
-    
+
     len = end - start;
     s = malloc(len + 1);
     i = 0;
@@ -75,12 +75,3 @@ char *read_heredoc(const char *delimiter)
 	close(fd);
 	return tempfile;
 }
-char *ft_strdup(const char *s)
-{
-	char *dup;
-	
-	dup = safe_malloc(strlen(s) + 1, 1);
-	strcpy(dup, s);
-	return (dup);
-}
-

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:38:24 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/05 23:56:37 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/07 16:27:56 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*msh_get_prompt(t_msh_ctx *ctx)
 	msh_reduce_path(path, ctx);
 	user = msh_get_env(ctx, "USER", NULL);
 	if (user == NULL)
-		return (free(path), get_prompt_userless(path));
+		return (get_prompt_userless(path));
 	res = ft_calloc(sizeof(char), (ft_strlen(path) + ft_strlen(user) + 30 + 1));
 	if (res == NULL)
 		return (free(path), NULL);
