@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_help.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:48:26 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/05 17:01:17 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/07 20:08:24 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	is_builtin(char *cmd)
 void run_builtin(t_msh_cmd *cmd)
 {
     if (strcmp(cmd->name, "echo") == 0)
-        cmd_echo(cmd->argv);
+        ;//cmd_echo(cmd->argv);
     else if (strcmp(cmd->name, "cd") == 0)
         cmd_cd(cmd->argv);
     else if (strcmp(cmd->name, "pwd") == 0)

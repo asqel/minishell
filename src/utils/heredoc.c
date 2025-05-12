@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:29:24 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/06 00:20:31 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:31:47 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void str_append_line(char **dest, char *src)
 	return ;
 }
 
-void msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx)
+void msh_get_heredoc(t_msh_cmd *cmd)
 {
 	char	*input;
 	char	*content;

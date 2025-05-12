@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/07 19:29:41 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:26:02 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void ft_strcat_start(char *str, char *start);
 char	*msh_get_input(t_msh_ctx *ctx);
 void	msh_free_cmds(t_msh_cmd *cmds, int cmds_len);
 void print_error(char *str);
-void msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx);
+void msh_get_heredoc(t_msh_cmd *cmd);
 int msh_blt_pwd(int argc, char **argv);
 char *ft_itoa(int n);
 

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 20:23:21 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/07 19:29:05 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/09 14:36:39 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,19 @@ static void do_redir(t_msh_cmd *cmd)
 {
 	int tmp;
 
-	if (cmd->redir_out != NULL)
+	if (cmd->redir_out != NULL && cmd->type_out == 1)
 	{
 		tmp = open(cmd->redir_out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		dup2(tmp, STDOUT_FILENO);
 		close(tmp);
 	}
-	if (cmd->redir_in != NULL)
+	if (cmd->redir_in != NULL && cmd->type_in == 1)
 	{
 		tmp = open(cmd->redir_in, O_RDONLY);
 		dup2(tmp, STDIN_FILENO);
 		close(tmp);
 	}
-	if (cmd->append_out != NULL)
+	if (cmd->append_out != NULL && cmd->type_out == 2)
 	{
 		tmp = open(cmd->append_out, O_WRONLY | O_APPEND | O_CREAT, 0644);
 		dup2(tmp, STDOUT_FILENO);
@@ -73,16 +73,34 @@ void exec_builtin(t_msh_ctx *ctx, t_msh_cmd *cmd)
 
 void	msh_exec_cmd_single(t_msh_ctx *ctx, t_msh_cmd *cmd)
 {
+	int pipes[2];
+
 	if (cmd->is_builtin)
 		return exec_builtin(ctx, cmd);
 	// do things with pipe
+	if (cmd->here_doc != NULL && cmd->type_in == 2)
+	{
+		pipe(pipes);
+		write(pipes[1], cmd->here_doc, ft_strlen(cmd->here_doc));
+		write(pipes[1], "\n", 1);
+	}
 	int pid = fork();
 	is_executing(1, 1);
 	if (pid == 0)
 	{
+		if (cmd->here_doc != NULL && cmd->type_in == 2)
+		{
+			dup2(pipes[0], STDIN_FILENO);
+			close(pipes[0]);
+			close(pipes[1]);
+		}
 		do_redir(cmd);
 		msh_launch_file(ctx, cmd);
 	}
+	if (cmd->here_doc != NULL && cmd->type_in == 2)
+		close(pipes[1]);
+	if (cmd->here_doc != NULL && cmd->type_in == 2)
+		close(pipes[0]);
 	waitpid(pid, &ctx->last_status, 0);
 	is_executing(0, 0);
 }
@@ -110,19 +128,23 @@ static void init_processes(t_msh_process *processes, t_msh_cmd *cmd, int cmd_len
 
 static void launch_forks(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx)
 {
+	int heredoc_fd[2];
+
+	if (processes[0].cmd->here_doc != NULL && processes[0].cmd->type_in == 2)
+	{
+		pipe(heredoc_fd);
+		write(heredoc_fd[1], processes[0].cmd->here_doc, ft_strlen(processes[0].cmd->here_doc));
+		write(heredoc_fd[1], "\n", 1);
+	}
 	for (int i = 0; i < cmd_len; i++)
 	{
 		processes[i].pid = fork();
 		if (processes[i].pid == 0)
 		{
 			if (i == 0)
-			{
 				dup2(processes[i].fds[1], STDOUT_FILENO);
-			}
 			else if (i == cmd_len - 1)
-			{
 				dup2(processes[i - 1].fds[0], STDIN_FILENO);
-			}
 			else
 			{
 				dup2(processes[i - 1].fds[0], STDIN_FILENO);

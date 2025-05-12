@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:21:27 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/07 18:46:59 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:24:09 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	msh_exec(t_msh_ctx *ctx, t_msh_cmd *cmds, int cmds_len)
 	while (++i < cmds_len)
 	{
 		cmds[i].path = msh_find_cmd(cmds[i].name, &cmds[i].is_builtin, ctx);
-		if (cmds[i].here_doc != NULL)
-			msh_get_heredoc(&cmds[i], ctx);
 		if (cmds[i].path == NULL && !cmds[i].is_builtin)
 		{
 			msh_free_cmds(cmds, cmds_len);

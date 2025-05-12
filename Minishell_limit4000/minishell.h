@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:39:16 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/07 18:50:49 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/07 20:31:13 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,17 @@
 
 typedef struct
 {
-	char *path;
-	char **argv;
-	int argc;
-	char *name;
-	uint8_t is_builtin;
-	char *redir_out; // >
-	char *redir_in; // <
-	char *append_out;
-	char *here_doc;
-	int type_out; // <<
-	int type_in; // >>
-	char **env;
+	char	*path;
+	char	**argv;
+	int		argc;
+	char	*name;
+	uint8_t	is_builtin;
+	char	*redir_out; // >
+	char	*redir_in; // <
+	char	*here_doc; // <<
+	char	*append_out; // >>
+	int 	type_out;
+	int 	type_in;
 } t_msh_cmd;
 
 typedef struct
@@ -102,9 +101,9 @@ void msh_get_heredoc(t_msh_cmd *cmd);
 void print_error(char *str);
 int	ft_strlen(const char *str);
 int		ft_strcmp(const char *s1, const char *s2);
-//init 
-void set_redir_1(char **redir, const char *value, t_msh_cmd *cmd);
-void set_redir_2(char **redir, const char *value, t_msh_cmd *cmd);
+//init
+void set_redir_1(char **redir, const char *value, t_msh_cmd *cmd, int is_in);
+void set_redir_2(char **redir, const char *value, t_msh_cmd *cmd, int is_in);
 void set_redir (char *line, t_msh_cmd *cmd);
 void init_command(char *line, t_msh_cmd *cmd);
 void init_tab (t_msh_cmd *cmd);
