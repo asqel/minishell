@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:45:22 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/05 17:07:01 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/07 19:10:33 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,20 +107,21 @@ char	**ft_split(char const *s, char c)
 	return (tab);
 }
 
-char *join_path(const char *dir, const char *cmd)
+char	*join_path(const char *dir, const char *cmd)
 {
-	size_t len_dir;
-	size_t len_cmd;
-	size_t total_len;
-    char *full_path; 
-    len_dir = strlen(dir);
-    len_cmd = strlen(cmd);
-    total_len = len_dir + 1 + len_cmd + 1;
-    full_path = calloc(total_len, 1);
+	size_t	len_dir;
+	size_t	len_cmd;
+	size_t	total_len;
+	char	*full_path;
+
+	len_dir = strlen(dir);
+	len_cmd = strlen(cmd);
+	total_len = len_dir + 1 + len_cmd + 1;
+	full_path = calloc(total_len, 1);
 	if (!full_path)
-		return NULL;
+		return (NULL);
 	strcpy(full_path, dir);
 	full_path[len_dir] = '/';
 	strcpy(full_path + len_dir + 1, cmd);
-	return full_path;
+	return (full_path);
 }

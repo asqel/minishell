@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:23:50 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/01 19:34:28 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/12 18:27:53 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,39 @@
 
 int	ft_isspace(char c)
 {
-	return (c == ' ' || c == '\t' || c == '\n' ||
-	        c == '\v' || c == '\f' || c == '\r');
+	return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+		|| c == '\r');
 }
-int only_spaces(const char *line)
+
+int	only_spaces(const char *line)
 {
 	while (*line)
 	{
 		if (!isspace((unsigned char)*line))
-			return 0;
+			return (0);
 		line++;
 	}
-	return 1;
+	return (1);
 }
-void	update_quote(char c, char *quote)
+
+void update_quote(char c, char *quote)
 {
-	if ((*quote == 0) && (c == '\'' || c == '"'))
+	if (!quote)
+		return;
+	if ((*quote == 0) && ((c == '\'' || c == '"')))
 		*quote = c;
 	else if (c == *quote)
 		*quote = 0;
 }
+
 int	skip_spaces(const char *line, int i)
 {
 	while (line[i] == ' ')
 		i++;
 	return (i);
+}
+
+int	is_operator(char c)
+{
+	return (c == '>' || c == '<' || c == '|');
 }

@@ -3,45 +3,49 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:38:30 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/07 19:18:40 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/12 18:23:42 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern char **environ;
+extern char	**environ;
 
-char *shell_read_line(void)
+char	*shell_read_line(void)
 {
-    char *buf;
-    size_t bufsize;
-    char cwd[BUFSIZ];
-	char *line;
+	char	*buf;
+	size_t	bufsize;
+	char	cwd[BUFSIZ];
+	char	*line;
+
 	line = readline(G "minishell$ " RST);
-    if (line && *line)
-        add_history(line);
-    return line;
-    Getcwd(cwd, sizeof(cwd));
-    p(C" %s"RST"$>", cwd);
-    buf = NULL; // pour getline on connait pas encore la taille du buffer
-    if (getline(&buf, &bufsize, stdin) == -1)
-    {
-        free(buf);
-        buf = NULL; // important de remettre le null parce qu'a l'echec ca change le buf
-        if (feof(stdin))
-            p(RED"[EOF]"RST);
-        else
-            p(RED"Getline failed"RST);
-    }
-    return (buf);
+	if (line && *line)
+		add_history(line);
+	return (line);
+	ft_getcwd(cwd, sizeof(cwd));
+	printf(C " %s" RST "$>", cwd);
+	buf = NULL;
+	if (getline(&buf, &bufsize, stdin) == -1)
+	{
+		free(buf);
+		buf = NULL;
+		if (feof(stdin))
+			printf(RED "[EOF]" RST);
+		else
+			printf(RED "Getline failed" RST);
+	}
+	return (buf);
 }
 
 static void	fork_and_exec(t_msh_cmd *cmd)
 {
-	pid_t pid = fork();
+	pid_t	pid;
+	int		status;
+
+	pid = fork();
 	if (pid == -1)
 		exit_with_error("fork");
 	if (pid == 0)
@@ -55,17 +59,15 @@ static void	fork_and_exec(t_msh_cmd *cmd)
 		exit(127);
 	}
 	else
-	{
-		int status;
 		waitpid(pid, &status, 0);
-	}
 }
+
 void	try_exec_in_path(t_msh_cmd *cmd)
 {
-	char *path;
-	char **paths;
-	char *full_path;
-	int i;
+	char	*path;
+	char	**paths;
+	char	*full_path;
+	int		i;
 
 	path = getenv("PATH");
 	paths = ft_split(path, ':');
@@ -79,156 +81,104 @@ void	try_exec_in_path(t_msh_cmd *cmd)
 		free(full_path);
 		i++;
 	}
-	free_split(paths); // à toi d’implémenter
+	free_split(paths);
 }
+
 static void	run_command(t_msh_cmd *cmd)
 {
 	if (!cmd || !cmd->name)
-		return;
+		return ;
 	if (cmd->is_builtin)
 	{
 		run_builtin(cmd);
-		return;
+		return ;
 	}
 	fork_and_exec(cmd);
 }
 
-// int main(void)
-// {
-//     char *line;
-//     t_msh_cmd *cmds;
-//     int cmd_count;
+int	main(void)
+{
+	char		*line;
+	t_msh_cmd	*cmds;
+	int			cmd_count;
+	int			i;
 
-//     printbanner();
-//     while ((line = shell_read_line()))
-//     {
-//         if (!*line || line[0] == '\n')
-//         {
-//             free(line);
-//             continue;
-//         }
-
-//         cmd_count = parse_pipeline(line, &cmds);
-//         for (int i = 0; i < cmd_count; i++)
-//         {
-//             run_command(&cmds[i]);
-//             free_command(&cmds[i]);
-//         }
-
-//         free(cmds);
-//         free(line);
-//     }
-//     return 0;
-// }
-
+	i = 0;
+	printbanner();
+	while ((line = shell_read_line()))
+	{
+		if (!*line || line[0] == '\n')
+		{
+			free(line);
+			continue ;
+		}
+		cmd_count = parse_pipeline(line, &cmds);
+		while (i < cmd_count)
+		{
+			run_command(&cmds[i]);
+			free_command(&cmds[i]);
+			i++;
+		}
+		printf("%d", cmds->type_in);
+		free(cmds);
+		free(line);
+	}
+	return (0);
+}
 
 /* int main(void)
 {
-    char *line;
-    t_msh_cmd *cmds;
-    int cmd_count;
+	char		*line;
+	t_msh_cmd	*cmds;
+	int			cmd_count;
 
-    printbanner();
-
-    while ((line = shell_read_line()))
+	printbanner();
+	while ((line = shell_read_line()))
 	{
-        if (!*line)
+		if (!*line)
 		{
-            free(line);
-            continue;
-        }
+			free(line);
+			continue ;
+		}
 		if (only_spaces(line))
 {
-    free(line);
-    continue;
+	free(line);
+	continue ;
 }
 
-        cmd_count = parse_pipeline(line, &cmds);
-        p(G"\nNombre de commandes détectées : %d\n"RST, cmd_count);
+		cmd_count = parse_pipeline(line, &cmds);
+		printf(G"\nNombre de commandes détectées : %d\n"RST, cmd_count);
 
-        for (int i = 0; i < cmd_count; i++)
+		for (int i = 0; i < cmd_count; i++)
 		{
-            t_msh_cmd cmd = cmds[i];
-            p(C"\n--- Commande #%d ---\n"RST, i + 1);
-            p("Nom       : %s\n", cmd.name ? cmd.name : "(null)");
-            p("Builtin   : %s\n", cmd.is_builtin ? "oui" : "non");
-            p("Arguments :\n");
+			t_msh_cmd cmd = cmds[i];
+			printf(C"\n--- Commande #%d ---\n"RST, i + 1);
+			printf("Nom       : %s\n", cmd.name ? cmd.name : "(null)");
+			printf("Builtin   : %s\n", cmd.is_builtin ? "oui" : "non");
+			printf("Arguments :\n");
 			if (cmd.is_builtin)
-        	execute_builtin(cmd.name, cmd.argv);
-    		else
-        	shell_exec(&cmd, 1); // Exécute commande externe (même seule)
-            for (int j = 0; j < cmd.argc; j++)
-                p("  argv[%d] = %s\n", j, cmd.argv[j]);
+			execute_builtin(cmd.name, cmd.argv);
+			else
+			shell_exec(&cmd, 1); // Exécute commande externe (même seule)
+			for (int j = 0; j < cmd.argc; j++)
+				printf("  argv[%d] = %s\n", j, cmd.argv[j]);
 
-            if (cmd.redir_in)
-                p("Redir <   : %s\n", cmd.redir_in);
-            if (cmd.redir_out)
-                p("Redir >   : %s\n", cmd.redir_out);
-            if (cmd.append_out)
-                p("Redir >>  : %s\n", cmd.append_out);
-            if (cmd.here_doc)
-                p("Redir <<  : %s\n", cmd.here_doc);
-        }
+			if (cmd.redir_in)
+				printf("Redir <   : %s\n", cmd.redir_in);
+			if (cmd.redir_out)
+				printf("Redir >   : %s\n", cmd.redir_out);
+			if (cmd.append_out)
+				printf("Redir >>  : %s\n", cmd.append_out);
+			if (cmd.here_doc)
+				printf("Redir <<  : %s\n", cmd.here_doc);
+		}
 
-        // Nettoyage
-        for (int i = 0; i < cmd_count; i++)
+		// Nettoyage
+		for (int i = 0; i < cmd_count; i++)
 		{
-    		free_command(&cmds[i]);
+			free_command(&cmds[i]);
 		}
 		free(cmds);
 	}
-	return 0;
-} */
-
-/* int main()
-{
-    printf("=== ENV ===\n");
-    cmd_env();
-
-    printf("\n=== SET VAR TEST ===\n");
-    set_env_variable("MY_VAR", "hello");
-    printf("MY_VAR = %s\n", get_env_variable("MY_VAR"));
-
-    printf("\n=== EXPORT VAR2=test123 ===\n");
-    cmd_export("VAR2=test123");
-    printf("VAR2int main(void)
-{
-    char *line;
-    t_msh_cmd *cmds;
-    int cmd_count;
-	int i;
-	int y;
-
-	i = 0;
-	y = 0;
-    printbanner();
-    while ((line = shell_read_line()))
-    {
-        if (!*line || line[0] == '\n')
-        {
-            free(line);
-            continue;
-        }
-        cmd_count = parse_pipeline(line, &cmds);
-        while (i < cmd_count)
-		{
-            run_command(&cmds[i]);
-			i++;
-		}
-        while (y < cmd_count)
-		{
-            free_command(&cmds[i]);
-			y++;
-		}
-        free(cmds);
-        free(line);
-    }
-    return (0);
-}  = %s\n", get_env_variable("VAR2"));
-
-    printf("\n=== UNSET VAR2 ===\n");
-    cmd_unset("VAR2");
-    printf("VAR2 = %s\n", get_env_variable("VAR2")); // devrait être NULL
-
-    return 0;
+	return (0);
 } */
