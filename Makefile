@@ -28,5 +28,10 @@ fclean: clean
 
 re: fclean all
 
+debug: $(NAME)
+	@echo "Debugging $<"
+	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --suppressions=readline.sup ./$(NAME)
+
+
 
 .PHONY: all clean fclean re

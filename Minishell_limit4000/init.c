@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:28:25 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/07 20:31:50 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/12 18:45:17 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,14 @@ void set_redir (char *line, t_msh_cmd *cmd)
 			cmd->argv[cmd->argc++] = ft_strdup(tokens[i]);
 		i++;
 	}
+	free_tokens(tokens);
 	return;
 }
 void init_command(char *line, t_msh_cmd *cmd)
 {
 	char **tokens;
-	int i;
 
     tokens = tokenize_line(line);
-    i = 0;
-
 	init_tab(cmd);
 	set_redir(line, cmd);
 	cmd->argv[cmd->argc] = NULL;

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 20:23:21 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/09 14:36:39 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/12 18:26:18 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,48 +17,29 @@
 #include <stdio.h>
 #include <signal.h>
 
-int is_executing(int set_val, int val)
+int	msh_launch_file(t_msh_ctx *ctx, t_msh_cmd *cmd)
 {
-	static int executing = 0;
-	if (set_val)
-		executing = val;
-	return executing;
-}
+	char	**env;
+	int		i;
 
-void	msh_launch_file(t_msh_ctx *ctx, t_msh_cmd *cmd)
-{
 	if (0 == access(cmd->path, F_OK) && 0 == access(cmd->path, X_OK))
 	{
-		execve(cmd->path, cmd->argv, msh_build_env(ctx));
-		exit(127);
+		env = msh_build_env(ctx);
+		execve(cmd->path, cmd->argv, env);
+		print_error("execve failed");
+		if (env == NULL)
+			return ;
+		i = 0;
+		while (env[i])
+		{
+			free(env[i]);
+			i++;
+		}
+		free(env);
+		return (0);
 	}
-	msh_free_ctx(ctx);
-	print_error("Command not found\n");
-	exit(127);
-}
-
-static void do_redir(t_msh_cmd *cmd)
-{
-	int tmp;
-
-	if (cmd->redir_out != NULL && cmd->type_out == 1)
-	{
-		tmp = open(cmd->redir_out, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		dup2(tmp, STDOUT_FILENO);
-		close(tmp);
-	}
-	if (cmd->redir_in != NULL && cmd->type_in == 1)
-	{
-		tmp = open(cmd->redir_in, O_RDONLY);
-		dup2(tmp, STDIN_FILENO);
-		close(tmp);
-	}
-	if (cmd->append_out != NULL && cmd->type_out == 2)
-	{
-		tmp = open(cmd->append_out, O_WRONLY | O_APPEND | O_CREAT, 0644);
-		dup2(tmp, STDOUT_FILENO);
-		close(tmp);
-	}
+	print_error("command not found");
+	return (1);
 }
 
 void exec_builtin(t_msh_ctx *ctx, t_msh_cmd *cmd)
@@ -69,40 +50,6 @@ void exec_builtin(t_msh_ctx *ctx, t_msh_cmd *cmd)
 		ctx->last_status = msh_blt_pwd(cmd->argc, cmd->argv);
 	else if (ft_strcmp(cmd->name, "echo") == 0)
 		ctx->last_status = msh_blt_echo(cmd->argc, cmd->argv);
-}
-
-void	msh_exec_cmd_single(t_msh_ctx *ctx, t_msh_cmd *cmd)
-{
-	int pipes[2];
-
-	if (cmd->is_builtin)
-		return exec_builtin(ctx, cmd);
-	// do things with pipe
-	if (cmd->here_doc != NULL && cmd->type_in == 2)
-	{
-		pipe(pipes);
-		write(pipes[1], cmd->here_doc, ft_strlen(cmd->here_doc));
-		write(pipes[1], "\n", 1);
-	}
-	int pid = fork();
-	is_executing(1, 1);
-	if (pid == 0)
-	{
-		if (cmd->here_doc != NULL && cmd->type_in == 2)
-		{
-			dup2(pipes[0], STDIN_FILENO);
-			close(pipes[0]);
-			close(pipes[1]);
-		}
-		do_redir(cmd);
-		msh_launch_file(ctx, cmd);
-	}
-	if (cmd->here_doc != NULL && cmd->type_in == 2)
-		close(pipes[1]);
-	if (cmd->here_doc != NULL && cmd->type_in == 2)
-		close(pipes[0]);
-	waitpid(pid, &ctx->last_status, 0);
-	is_executing(0, 0);
 }
 
 static void close_pipes(t_msh_process *processes, int cmd_len)
@@ -151,7 +98,7 @@ static void launch_forks(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx)
 				dup2(processes[i].fds[1], STDOUT_FILENO);
 			}
 			close_pipes(processes, cmd_len);
-			do_redir(processes[i].cmd);
+			//do_redir(processes[i].cmd);
 			if (processes[i].cmd->is_builtin)
 				return exec_builtin(ctx, processes[i].cmd);
 			msh_launch_file(ctx, processes[i].cmd);

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/07 20:26:02 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/12 18:28:47 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ typedef struct
 	int fds[2];
 	int pid;
 	int status;
-	t_msh_cmd *cmd;
-
+	t_msh_cmd	*cmd;
 } t_msh_process;
 
 // Strings
@@ -111,5 +110,11 @@ void print_error(char *str);
 void msh_get_heredoc(t_msh_cmd *cmd);
 int msh_blt_pwd(int argc, char **argv);
 char *ft_itoa(int n);
+
+int	msh_redir_in(t_msh_cmd *cmd);
+int msh_redir_out(t_msh_cmd *cmd);
+int msh_redir_append(t_msh_cmd *cmd);
+
+void print_error_acces(char *filename);
 
 #endif
