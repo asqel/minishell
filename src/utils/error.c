@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:31:44 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/12 18:28:29 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/14 20:30:46 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,14 @@ void print_error(char *str)
 
 void print_error_acces(char *filename)
 {
-	write(STDERR_FILENO, "Error:\n\t", 8);
-	write(STDERR_FILENO, "cannot access ", 14);
+	write(STDERR_FILENO, "minishell: ", 11);
 	write(STDERR_FILENO, filename, ft_strlen(filename));
-	write(STDERR_FILENO, "\n", 1);
+	write(STDERR_FILENO, ": could not access\n", 19);
+}
+
+void print_error_found(char *filename)
+{
+	write(STDERR_FILENO, "minishell: ", 11);
+	write(STDERR_FILENO, filename, ft_strlen(filename));
+	write(STDERR_FILENO, ": command not found\n", 20);
 }

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/12 18:28:47 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/14 20:17:43 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ typedef struct
 
 typedef struct
 {
-	int fds[2];
-	int pid;
-	int status;
+	int			pipes[2];
+	int			heredoc_pipes[2];
 	t_msh_cmd	*cmd;
+	t_msh_ctx	*ctx;
 } t_msh_process;
 
 // Strings
@@ -91,8 +91,8 @@ void	msh_init_ctx(t_msh_ctx *ctx);
 char *msh_get_env(t_msh_ctx *ctx, char *name, int *exists);
 
 // builtins
-int	msh_blt_cd(int argc, char **argv);
-int msh_blt_echo(int argc, char **argv);
+int	msh_blt_cd(int argc, char **argv, t_msh_ctx *ctx);
+int msh_blt_echo(int argc, char **argv, t_msh_ctx *ctx);
 
 void	msh_free_ctx(t_msh_ctx *ctx);
 
@@ -108,7 +108,7 @@ char	*msh_get_input(t_msh_ctx *ctx);
 void	msh_free_cmds(t_msh_cmd *cmds, int cmds_len);
 void print_error(char *str);
 void msh_get_heredoc(t_msh_cmd *cmd);
-int msh_blt_pwd(int argc, char **argv);
+int msh_blt_pwd(int argc, char **argv, t_msh_ctx *ctx);
 char *ft_itoa(int n);
 
 int	msh_redir_in(t_msh_cmd *cmd);
@@ -116,5 +116,9 @@ int msh_redir_out(t_msh_cmd *cmd);
 int msh_redir_append(t_msh_cmd *cmd);
 
 void print_error_acces(char *filename);
+
+int		msh_is_executable(char *path);
+void	print_error_found(char *filename);
+
 
 #endif

@@ -6,14 +6,14 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:27:04 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/07 19:32:46 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/14 15:05:33 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
 
-int msh_blt_echo(int argc, char **argv)
+int msh_blt_echo(int argc, char **argv, t_msh_ctx *ctx)
 {
     int i;
     int newline;
