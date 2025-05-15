@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilshelp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:56:44 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/15 16:06:17 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:20:39 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,16 @@ char	*read_heredoc(const char *delimiter)
 	lseek(fd, 0, SEEK_SET);
 	close(fd);
 	return (tempfile);
+}
+
+int is_whitespace(const char *line) 
+{
+    while (*line) 
+	{
+        if (*line != ' ' && *line != '\t' && *line != '\n' &&
+            *line != '\r' && *line != '\v' && *line != '\f')
+            return (0);
+        line++;
+    }
+    return (1);
 }

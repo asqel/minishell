@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strcat_start.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:15:00 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/06 00:25:34 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 16:21:05 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,45 @@ void ft_strcat_start(char *str, char *start)
 		str[start_len + len - 1 - i] = str[len - 1 - i];
 	str[start_len + len] = '\0';
 	ft_memcpy(str, start, start_len);
+}
+void	ft_strcat(char *dest, const char *src)
+{
+	int	i;
+
+	i = 0;
+	while (dest[i] != '\0')
+		i++;
+	while (*src != '\0')
+		dest[i++] = *(src++);
+	dest[i] = '\0';
+}
+int ft_strstart(char *big, char *little)
+{
+	int big_len;
+	int little_len;
+
+	if (big == NULL || little == NULL)
+		return (0);
+	little_len = ft_strlen(little);
+	big_len = ft_strlen(big);
+	if (little_len > big_len)
+		return (0);
+	while (*little != '\0')
+		if (*(little++) != *(big++))
+			return (0);
+	return (1);
+}
+char *sub_str(char *str, int start, int end)
+{
+	char	*res;
+	int		i;
+
+	res = malloc(sizeof(char) * (end - start  + 1));
+	if (res == NULL)
+		return (NULL);
+	res[end - start] = '\0';
+	i = start - 1;
+	while (++i < end)
+		res[i - start] = str[i];
+	return (res);
 }

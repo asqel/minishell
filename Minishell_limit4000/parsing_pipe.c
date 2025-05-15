@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:21:59 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/12 18:30:45 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/15 18:22:09 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,16 @@ char **split_pipeline(const char *line)
     int k;
     int start;
     char quote = 0;  // Déclare `quote` comme un char
-
+    
     i = 0;
     k = 0;
     start = 0;
-    segments = safe_malloc(sizeof(char *), 4000);
+    segments = safe_malloc(sizeof(char *) + 4000);
     data.segments = segments;
     data.i = &i;
     data.k = &k;
     data.start = &start;
     data.quote = &quote;  // Assure-toi que `quote` est un pointeur valide
-
     while (line[*data.i])
         process_pipeline_segment(line, &data);
     if (*data.start < *data.i)
@@ -73,12 +72,14 @@ int	parse_pipeline(char *line, t_msh_cmd **cmds_out)
 	int			i;
 	t_msh_cmd	*cmds;
 
+    if (line == NULL || *line == '\0' || is_whitespace(line))
+        return (0);
 	segments = split_pipeline(line);
 	count = 0;
 	i = 0;
 	while (segments[count])
 		count++;
-	cmds = safe_malloc(sizeof(t_msh_cmd), count);
+	cmds = safe_malloc(sizeof(t_msh_cmd) * count);
 	while (i < count)
 	{
 		init_command(segments[i], &cmds[i]);

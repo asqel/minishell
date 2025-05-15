@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 01:27:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 16:35:30 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 20:14:36 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ int	main(int argc, char **argv, char **env)
 	char		*input;
 	t_msh_cmd	*cmds;
 	int			cmds_len;
+	int i;
 
+	i = 0;
 	(void)argc;
 	(void)argv;
 	msh_init(env, &ctx);

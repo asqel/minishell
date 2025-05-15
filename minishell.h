@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 18:27:56 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 20:14:58 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,16 @@ void msh_set_env(t_msh_ctx *ctx, char *name, char *value);
 int	ft_atoi(char *text, int64_t *res);
 
 void msh_blt_exit2(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx, int i);
+//input
+
+char	*msh_get_input(t_msh_ctx *ctx);
+char *replace_var(char *input, t_msh_ctx *ctx);
+void replace_append_var(char *input, int *i, char *res, t_msh_ctx *ctx, int *k);
+void replace_append_quote(char *input, int *i, char *res, int *k);
+int get_input_size(char *input, t_msh_ctx *ctx);
+int is_var_sep(char c);
+char *get_var_name(char *input);
+int get_var_val_len(char *input, t_msh_ctx *ctx);
+int verif_line(char *input);
 
 #endif

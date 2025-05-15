@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:48:26 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/15 16:16:33 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 20:15:12 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	is_builtin(char *cmd)
 	builtins[5] = "echo";
 	builtins[6] = NULL;
 	i = 0;
+	if (!cmd)
+		return(0);
 	while (builtins[i])
 	{
 		if (strcmp(cmd, builtins[i]) == 0)

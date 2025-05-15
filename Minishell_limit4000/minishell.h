@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:39:16 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/15 16:00:20 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:33:33 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,16 @@ int					set_env_variable(const char *name, const char *value);
 int					unset_env_variable(const char *name);
 void				cmd_export(char **argv);
 void				cmd_unset(char **argv);
+//exec_child_help
+void redirect_output(int pipefds[2]);
+void redirect_input(int in_fd);
 
 // free
 void				free_segments(char **segments);
-void				free_command(t_msh_cmd *cmd);
+void				free_commands(t_msh_cmd **cmd);
 void				free_tokens(char **tokens);
 void				free_split(char **array);
-void				free_tab(char **tab, size_t allocated);
+void				free_tab(char **tab);
 
 // ft_split
 char				**ft_split(char const *s, char c);
@@ -141,17 +144,15 @@ char				**tokenize_line(const char *line);
 
 // utils
 void				printbanner(void);
-void				*safe_malloc(size_t size, int nb);
+void				*safe_malloc(size_t size);
 pid_t				ft_fork(void);
 void				ft_execvp(const char *file, char *const argv[]);
 
 // utilshelp
-pid_t				ft_wait(int *status);
 void				ft_getcwd(char *buf, size_t size);
 char				*ft_substr(const char *src, int start, int end);
-int					is_operator(char c);
 char				*read_heredoc(const char *delimiter);
-char				*ft_strdup(const char *s);
+int 				is_whitespace(const char *line) ;
 
 typedef struct s_builtin
 {

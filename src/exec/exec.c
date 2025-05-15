@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:21:27 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/14 16:16:39 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:53:11 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int is_executing(int set_val, int val)
 
 void	msh_exec(t_msh_ctx *ctx, t_msh_cmd *cmds, int cmds_len)
 {
+	if (cmds_len == 0)
+		return ;
 	if (cmds_len == 1)
 		msh_exec_cmd_single(ctx, &cmds[0]);
 	else
