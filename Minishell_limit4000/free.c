@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:30:31 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/07 21:12:54 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/15 18:33:03 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,13 @@ void	free_segments(char **segments)
 	int	i;
 
 	i = 0;
+	if (!segments)
+		return;
 	while (segments[i])
-		free(segments[i++]);
+	{
+		free(segments[i]);
+		i++;
+	}
 	free(segments);
 }
 
@@ -70,18 +75,17 @@ void	free_split(char **array)
 	free(array);
 }
 
-void	free_tab(char **tab, size_t allocated)
+void	free_tab(char **tab)
 {
-	size_t	i;
-
+	int	i;
+	
 	i = 0;
-	while (i < allocated)
+	while (tab[i])
 	{
 		free(tab[i]);
-		tab[i] = NULL;
 		i++;
 	}
 	free(tab);
 	tab = NULL;
-	return ;
+	return;
 }

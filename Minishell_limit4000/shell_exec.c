@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:40:59 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/07 21:10:44 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/15 17:10:13 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,15 @@ void	shell_exec(t_msh_cmd *cmds, int cmd_count)
 	}
 }
 
-void	execute_child(t_msh_cmd *cmds, int i, int in_fd, int pipefds[2])
+void execute_child(t_msh_cmd *cmds, int i, int in_fd, int pipefds[2])
 {
-	handle_redirs(cmds[i]);
-	if (in_fd != 0)
-	{
-		dup2(in_fd, STDIN_FILENO);
-		close(in_fd);
-	}
-	if (pipefds && i < 256)
-	{
-		close(pipefds[0]);
-		dup2(pipefds[1], STDOUT_FILENO);
-		close(pipefds[1]);
-	}
-	execvp(cmds[i].name, cmds[i].argv);
-	exit(EXIT_FAILURE);
+    handle_redirs(cmds[i]);
+    if (in_fd != 0)
+        redirect_input(in_fd);
+    if (pipefds && i < 256)
+        redirect_output(pipefds);
+    execvp(cmds[i].name, cmds[i].argv);
+    exit(EXIT_FAILURE);
 }
 
 void	handle_redirs(t_msh_cmd cmd)

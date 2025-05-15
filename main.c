@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 01:27:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/12 21:27:26 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:53:52 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ int	main(int argc, char **argv, char **env)
 	char		*input;
 	t_msh_cmd	*cmds;
 	int			cmds_len;
+	int i;
 
+	i = 0;
 	(void)argc;
 	(void)argv;
 	msh_init(env, &ctx);
@@ -38,7 +40,7 @@ int	main(int argc, char **argv, char **env)
 			break;
 		cmds_len = parse_pipeline(input, &cmds);
 		free(input);
-		printf("%p %p %p %p %d %d\n", cmds[0].append_out, cmds[0].here_doc, cmds[0].redir_in, cmds[0].redir_out, cmds[0].type_out, cmds[0].type_in);
+		printf("%p %d\n", cmds, cmds_len);
 		msh_exec(&ctx, cmds, cmds_len);
 	}
 	rl_clear_history();

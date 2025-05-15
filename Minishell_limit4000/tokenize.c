@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:57:50 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/07 21:06:44 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/15 16:44:01 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**tokenize_line(const char *line)
 	int		i;
 	int		k;
 
-	tokens = calloc(sizeof(char *), 16);
+	tokens = malloc(sizeof(char *) + 16);
 	i = 0;
 	k = 0;
 	if (!tokens)

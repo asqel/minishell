@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_help.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:48:26 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/15 16:07:06 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:35:05 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	is_builtin(char *cmd)
 	builtins[5] = "echo";
 	builtins[6] = NULL;
 	i = 0;
+	if (!cmd)
+		return(0);
 	while (builtins[i])
 	{
 		if (strcmp(cmd, builtins[i]) == 0)

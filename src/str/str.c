@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:32:53 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/07 15:29:46 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 16:19:34 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int		ft_strcmp(const char *s1, const char *s2)
 		i++;
 	}
 	return ((signed char)s1[i] - (signed char)s2[i]);
-
 }
 
 char	*ft_strdup(const char *str)

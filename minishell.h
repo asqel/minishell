@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 15:56:00 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:58:45 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,16 @@ void print_error_acces(char *filename);
 int		msh_is_executable(char *path);
 void	print_error_found(char *filename);
 
+//input 
+
+char	*msh_get_input(t_msh_ctx *ctx);
+char *replace_var(char *input, t_msh_ctx *ctx);
+void replace_append_var(char *input, int *i, char *res, t_msh_ctx *ctx, int *k);
+void replace_append_quote(char *input, int *i, char *res, int *k);
+int get_input_size(char *input, t_msh_ctx *ctx);
+int is_var_sep(char c);
+char *get_var_name(char *input);
+int get_var_val_len(char *input, t_msh_ctx *ctx);
+int verif_line(char *input);
 
 #endif

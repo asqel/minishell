@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:28:25 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/15 15:59:32 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:29:31 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void set_redir_1(char **redir, const char *value, t_msh_cmd *cmd, int is_in)
 {
 	free(*redir);
+	if (value)
 	*redir = ft_strdup(value);
 	if (is_in)
 		cmd->type_in = 1;
@@ -55,16 +56,15 @@ void	set_redir(char *line, t_msh_cmd *cmd)
 			cmd->argv[cmd->argc++] = ft_strdup(tokens[i]);
 		i++;
 	}
+	free(tokens);
 	return ;
 }
 
 void	init_command(char *line, t_msh_cmd *cmd)
 {
 	char	**tokens;
-	int		i;
 
 	tokens = tokenize_line(line);
-	i = 0;
 	init_tab(cmd);
 	set_redir(line, cmd);
 	cmd->argv[cmd->argc] = NULL;
@@ -79,7 +79,7 @@ void	init_command(char *line, t_msh_cmd *cmd)
 void	init_tab(t_msh_cmd *cmd)
 {
 	cmd->argc = 0;
-	cmd->argv = safe_malloc(sizeof(char *), 256);
+	cmd->argv = safe_malloc(sizeof(char *) + 256);
 	cmd->redir_in = NULL;
 	cmd->redir_out = NULL;
 	cmd->append_out = NULL;

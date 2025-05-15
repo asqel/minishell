@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:45:22 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/07 19:10:33 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/15 17:03:45 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*allocate_word(char const *s, char c)
 	y = 0;
 	while (s[len] && s[len] != c && s[len] != '\n')
 		len++;
-	word = calloc(sizeof(char), (len + 1));
+	word = malloc(sizeof(char) + (len + 1));
 	if (!word)
 		return (NULL);
 	if (s[i] == ' ')
@@ -96,7 +96,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	words = count_words(s, c);
-	tab = calloc(sizeof(char *), (words + 1));
+	tab = malloc(sizeof(char *) + (words + 1));
 	if (!tab)
 		return (NULL);
 	if (!set_mem(tab, s, c))
@@ -117,7 +117,7 @@ char	*join_path(const char *dir, const char *cmd)
 	len_dir = strlen(dir);
 	len_cmd = strlen(cmd);
 	total_len = len_dir + 1 + len_cmd + 1;
-	full_path = calloc(total_len, 1);
+	full_path = malloc(total_len + 1);
 	if (!full_path)
 		return (NULL);
 	strcpy(full_path, dir);

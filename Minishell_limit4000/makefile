@@ -20,7 +20,8 @@ SRC = minishell.c \
 	  builtin_help.c \
 	  parsing_help.c \
 	  init.c \
-	  init_help.c
+	  init_help.c \
+	  exec_child_help.c
 
 # Fichiers objets générés automatiquement
 OBJ = $(SRC:.c=.o)
