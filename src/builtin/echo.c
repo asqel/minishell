@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:27:04 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 17:05:57 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 20:23:08 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	is_dash_n(char *str)
     return (0);
 }
 
-int msh_blt_echo(int argc, char **argv, t_msh_ctx *ctx)
+int msh_blt_echo(int argc, char **argv)
 {
     int i;
     int newline;

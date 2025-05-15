@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:12:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 17:41:38 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 20:27:02 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void exec_builtin(t_msh_ctx *ctx, t_msh_cmd *cmd)
 	else if (ft_strcmp(cmd->name, "pwd") == 0)
 		ctx->last_status = msh_blt_pwd(cmd->argc, cmd->argv, ctx);
 	else if (ft_strcmp(cmd->name, "echo") == 0)
-		ctx->last_status = msh_blt_echo(cmd->argc, cmd->argv, ctx);
+		ctx->last_status = msh_blt_echo(cmd->argc, cmd->argv);
 	else if (ft_strcmp(cmd->name, "exit") == 0)
 		ctx->last_status = msh_blt_exit(cmd, ctx, old_fd);
 	dup2(old_fd, STDOUT_FILENO);

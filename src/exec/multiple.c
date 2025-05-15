@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 20:23:21 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 18:27:20 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 20:30:40 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void close_pipes(t_msh_process *processes, int cmd_len)
 	msh_close_heredocs(processes, cmd_len);
 }
 
-static int msh_redir_first(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx, int i)
+static int msh_redir_first(t_msh_process *processes, int cmd_len, int i)
 {
 	if (processes[i].cmd[i].redir_in != NULL && processes[i].cmd[i].type_in == 1)
 		if (msh_redir_in(processes[i].cmd + i))
@@ -89,7 +89,7 @@ static int msh_redir_first(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx
 	return (0);
 }
 
-static int msh_redir_last(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx, int i)
+static int msh_redir_last(t_msh_process *processes, int cmd_len, int i)
 {
 	if (processes[i].cmd[i].redir_in != NULL && processes[i].cmd[i].type_in == 1)
 		if (msh_redir_in(processes[i].cmd + i))
@@ -111,7 +111,7 @@ static int msh_redir_last(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx,
 	return (0);
 }
 
-static int msh_redir_middle(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx, int i)
+static int msh_redir_middle(t_msh_process *processes, int cmd_len, int i)
 {
 	if (processes[i].cmd[i].redir_in != NULL && processes[i].cmd[i].type_in == 1)
 		if (msh_redir_in(processes[i].cmd + i))
@@ -137,13 +137,13 @@ static int msh_redir_middle(t_msh_process *processes, int cmd_len, t_msh_ctx *ct
 
 // process[N] write to pipe[N]
 // process[N] read to pipe[N - 1]
-static int	msh_do_redir(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx, int i)
+static int	msh_do_redir(t_msh_process *processes, int cmd_len, int i)
 {
 	if (i == 0)
-		return (msh_redir_first(processes, cmd_len, ctx, i));
+		return (msh_redir_first(processes, cmd_len, i));
 	if (i == cmd_len - 1)
-		return (msh_redir_last(processes, cmd_len, ctx, i));
-	return (msh_redir_middle(processes, cmd_len, ctx, i));
+		return (msh_redir_last(processes, cmd_len, i));
+	return (msh_redir_middle(processes, cmd_len, i));
 }
 
 static void exec_file_piped(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx, int i)
@@ -194,7 +194,15 @@ static int *launch_forks(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx)
 		if (pids[i] == 0)
 		{
 			free(pids);
-			msh_do_redir(processes, cmd_len, ctx, i);
+			if (msh_do_redir(processes, cmd_len, i))
+			{
+				close_pipes(processes, cmd_len);
+				msh_free_cmds(processes[i].cmd, cmd_len);
+				msh_free_ctx(ctx);
+				free(processes);
+				rl_clear_history();
+				exit(1);
+			}
 			processes[i].cmd[i].path = msh_find_cmd(processes[i].cmd[i].name,
 					&processes[i].cmd[i].is_builtin, ctx);
 			if (processes[i].cmd[i].is_builtin)

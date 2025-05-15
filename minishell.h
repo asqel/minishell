@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 20:14:58 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 20:23:19 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char *msh_get_env(t_msh_ctx *ctx, char *name, int *exists);
 
 // builtins
 int	msh_blt_cd(int argc, char **argv, t_msh_ctx *ctx);
-int msh_blt_echo(int argc, char **argv, t_msh_ctx *ctx);
+int msh_blt_echo(int argc, char **argv);
 int msh_blt_exit(t_msh_cmd *cmd, t_msh_ctx *ctx, int old_fd);
 
 void	msh_free_ctx(t_msh_ctx *ctx);

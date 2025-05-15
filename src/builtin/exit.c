@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 17:12:58 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 20:11:34 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 20:25:45 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 #include <readline/history.h>
 #include <stdint.h>
 
-static int	no_arg(t_msh_cmd *cmd, t_msh_ctx *ctx, int old_fd)
+static void	clean_all(t_msh_cmd *cmd, t_msh_ctx *ctx, int old_fd)
 {
-	write(STDERR_FILENO, "exit\n", 5);
 	close(old_fd);
 	msh_free_cmds(cmd, 1);
 	msh_free_ctx(ctx);
 	rl_clear_history();
-	exit(0);
 }
 
-static int	one_arg(t_msh_cmd *cmd, t_msh_ctx *ctx, int old_fd)
+static int	no_arg(t_msh_cmd *cmd, t_msh_ctx *ctx, int old_fd)
 {
-
+	write(STDERR_FILENO, "exit\n", 5);
+	clean_all(cmd, ctx, old_fd);
+	exit(0);
 }
 
 int msh_blt_exit(t_msh_cmd *cmd, t_msh_ctx *ctx, int old_fd)
@@ -41,19 +41,16 @@ int msh_blt_exit(t_msh_cmd *cmd, t_msh_ctx *ctx, int old_fd)
 	else if (cmd->argc == 2)
 	{
 		is_int = !ft_atoi(cmd->argv[1], &exit_code);
-		rl_clear_history();
 		if (!is_int)
 		{
-			write(STDERR_FILENO, "minishell: exit: ", 20);
+			write(STDERR_FILENO, "minishell: exit: ", 17);
 			write(STDERR_FILENO, cmd->argv[1], ft_strlen(cmd->argv[1]));
-			write(STDERR_FILENO, ": numeric argument required\n", 27);
+			write(STDERR_FILENO, ": numeric argument required\n", 28);
 			exit_code = 2;
 		}
 		if (is_int)
 			write(STDERR_FILENO, "exit\n", 5);
-		close(old_fd);
-		msh_free_cmds(cmd, 1);
-		msh_free_ctx(ctx);
+		clean_all(cmd, ctx, old_fd);
 		exit(exit_code % 256);
 	}
 	write(STDERR_FILENO, "exit\nminishell: exit: too many arguments\n", 41);

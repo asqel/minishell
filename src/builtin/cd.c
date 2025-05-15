@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 18:41:23 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/15 17:01:17 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 20:22:51 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	cd_to_home(t_msh_ctx *ctx)
 	home = msh_get_env(ctx, "HOME", NULL);
 	if (!home)
 	{
-		write(STDERR_FILENO, "minishell: cd: HOME not set\n", 30);
+		write(STDERR_FILENO, "minishell: cd: HOME not set\n", 29);
 		return (1);
 	}
 	if (chdir(home) == -1)

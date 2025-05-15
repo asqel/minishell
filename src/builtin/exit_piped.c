@@ -6,12 +6,15 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 18:21:40 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 20:11:26 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 20:26:47 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <unistd.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+
 
 static void	clean_all(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx, int i)
 {
@@ -36,9 +39,9 @@ static void	one_arg(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx, int i
 	is_int = !ft_atoi(processes[i].cmd[i].argv[1], &exit_code);
 	if (!is_int)
 	{
-		write(STDERR_FILENO, "minishell: exit: ", 20);
+		write(STDERR_FILENO, "minishell: exit: ", 17);
 		write(STDERR_FILENO, processes[i].cmd[i].argv[1], ft_strlen(processes[i].cmd[i].argv[1]));
-		write(STDERR_FILENO, ": numeric argument required\n", 27);
+		write(STDERR_FILENO, ": numeric argument required\n", 28);
 		exit_code = 2;
 	}
 	if (is_int)
