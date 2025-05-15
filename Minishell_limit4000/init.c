@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:28:25 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/15 20:16:20 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/16 00:01:15 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void set_redir_1(char **redir, const char *value, t_msh_cmd *cmd, int is_in)
 {
 	free(*redir);
-	if (value)
 	*redir = ft_strdup(value);
 	if (is_in)
 		cmd->type_in = 1;
@@ -72,14 +71,13 @@ void	init_command(char *line, t_msh_cmd *cmd)
 		cmd->name = cmd->argv[0];
 	else
 		cmd->name = NULL;
-	cmd->is_builtin = is_builtin(cmd->name);
 	free_tokens(tokens);
 }
 
 void	init_tab(t_msh_cmd *cmd)
 {
 	cmd->argc = 0;
-	cmd->argv = safe_malloc(sizeof(char *) + 256);
+	cmd->argv = safe_malloc(sizeof(char *) * 256);
 	cmd->redir_in = NULL;
 	cmd->redir_out = NULL;
 	cmd->append_out = NULL;
