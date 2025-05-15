@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 17:48:26 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/15 15:56:50 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 16:07:06 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,6 @@ int	is_builtin(char *cmd)
 		i++;
 	}
 	return (0);
-}
-
-void run_builtin(t_msh_cmd *cmd)
-{
-    if (strcmp(cmd->name, "echo") == 0)
-        ;//cmd_echo(cmd->argv);
-    else if (strcmp(cmd->name, "cd") == 0)
-        cmd_cd(cmd->argv);
-    else if (strcmp(cmd->name, "pwd") == 0)
-        cmd_pwd();
-    else if (strcmp(cmd->name, "export") == 0)
-        cmd_export(cmd->argv);
-    else if (strcmp(cmd->name, "unset") == 0)
-        cmd_unset(cmd->argv);
-    else if (strcmp(cmd->name, "env") == 0)
-        cmd_env();
-    else if (strcmp(cmd->name, "exit") == 0)
-        cmd_exit(cmd->argv);
-    else
-        fprintf(stderr, RED"Builtin non pris en charge : %s\n"RST, cmd->name);
 }
 
 // void	run_builtin(t_msh_cmd *cmd)

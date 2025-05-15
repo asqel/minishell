@@ -3,31 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utilshelp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:56:44 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/12 18:18:33 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/15 16:06:17 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-pid_t	ft_wait(int *status)
-{
-	pid_t	result;
-
-	if (!status)
-	{
-		fprintf(stderr, RED "Wait : status argument required\n" RST);
-		return (-1);
-	}
-	result = wait(status);
-	if (result == -1)
-		perror(RED "Wait failed" RST);
-	if (WIFEXITED(*status))
-		*status = WEXITSTATUS(*status);
-	return (result);
-}
 
 void	ft_getcwd(char *buf, size_t size)
 {
@@ -73,13 +56,4 @@ char	*read_heredoc(const char *delimiter)
 	lseek(fd, 0, SEEK_SET);
 	close(fd);
 	return (tempfile);
-}
-
-char	*ft_strdup(const char *s)
-{
-	char	*dup;
-
-	dup = safe_malloc(strlen(s) + 1, 1);
-	strcpy(dup, s);
-	return (dup);
 }

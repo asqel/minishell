@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:38:30 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/12 18:23:42 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/15 16:07:16 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,95 +90,7 @@ static void	run_command(t_msh_cmd *cmd)
 		return ;
 	if (cmd->is_builtin)
 	{
-		run_builtin(cmd);
 		return ;
 	}
 	fork_and_exec(cmd);
 }
-
-int	main(void)
-{
-	char		*line;
-	t_msh_cmd	*cmds;
-	int			cmd_count;
-	int			i;
-
-	i = 0;
-	printbanner();
-	while ((line = shell_read_line()))
-	{
-		if (!*line || line[0] == '\n')
-		{
-			free(line);
-			continue ;
-		}
-		cmd_count = parse_pipeline(line, &cmds);
-		while (i < cmd_count)
-		{
-			run_command(&cmds[i]);
-			free_command(&cmds[i]);
-			i++;
-		}
-		printf("%d", cmds->type_in);
-		free(cmds);
-		free(line);
-	}
-	return (0);
-}
-
-/* int main(void)
-{
-	char		*line;
-	t_msh_cmd	*cmds;
-	int			cmd_count;
-
-	printbanner();
-	while ((line = shell_read_line()))
-	{
-		if (!*line)
-		{
-			free(line);
-			continue ;
-		}
-		if (only_spaces(line))
-{
-	free(line);
-	continue ;
-}
-
-		cmd_count = parse_pipeline(line, &cmds);
-		printf(G"\nNombre de commandes détectées : %d\n"RST, cmd_count);
-
-		for (int i = 0; i < cmd_count; i++)
-		{
-			t_msh_cmd cmd = cmds[i];
-			printf(C"\n--- Commande #%d ---\n"RST, i + 1);
-			printf("Nom       : %s\n", cmd.name ? cmd.name : "(null)");
-			printf("Builtin   : %s\n", cmd.is_builtin ? "oui" : "non");
-			printf("Arguments :\n");
-			if (cmd.is_builtin)
-			execute_builtin(cmd.name, cmd.argv);
-			else
-			shell_exec(&cmd, 1); // Exécute commande externe (même seule)
-			for (int j = 0; j < cmd.argc; j++)
-				printf("  argv[%d] = %s\n", j, cmd.argv[j]);
-
-			if (cmd.redir_in)
-				printf("Redir <   : %s\n", cmd.redir_in);
-			if (cmd.redir_out)
-				printf("Redir >   : %s\n", cmd.redir_out);
-			if (cmd.append_out)
-				printf("Redir >>  : %s\n", cmd.append_out);
-			if (cmd.here_doc)
-				printf("Redir <<  : %s\n", cmd.here_doc);
-		}
-
-		// Nettoyage
-		for (int i = 0; i < cmd_count; i++)
-		{
-			free_command(&cmds[i]);
-		}
-		free(cmds);
-	}
-	return (0);
-} */
