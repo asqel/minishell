@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:28:25 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/12 18:45:17 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 15:59:32 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@ void set_redir_2(char **redir, const char *value, t_msh_cmd *cmd, int is_in)
 	else
 		cmd->type_out = 2;
 }
-void set_redir (char *line, t_msh_cmd *cmd)
+
+void	set_redir(char *line, t_msh_cmd *cmd)
 {
-	char **tokens;
-	int i;
+	char	**tokens;
+	int		i;
 
 	tokens = tokenize_line(line);
 	i = 0;
@@ -54,25 +55,28 @@ void set_redir (char *line, t_msh_cmd *cmd)
 			cmd->argv[cmd->argc++] = ft_strdup(tokens[i]);
 		i++;
 	}
-	free_tokens(tokens);
-	return;
+	return ;
 }
-void init_command(char *line, t_msh_cmd *cmd)
-{
-	char **tokens;
 
-    tokens = tokenize_line(line);
+void	init_command(char *line, t_msh_cmd *cmd)
+{
+	char	**tokens;
+	int		i;
+
+	tokens = tokenize_line(line);
+	i = 0;
 	init_tab(cmd);
 	set_redir(line, cmd);
 	cmd->argv[cmd->argc] = NULL;
 	if (cmd->argc > 0)
-    	cmd->name = cmd->argv[0];
+		cmd->name = cmd->argv[0];
 	else
-    	cmd->name = NULL;
+		cmd->name = NULL;
 	cmd->is_builtin = is_builtin(cmd->name);
 	free_tokens(tokens);
 }
-void init_tab (t_msh_cmd *cmd)
+
+void	init_tab(t_msh_cmd *cmd)
 {
 	cmd->argc = 0;
 	cmd->argv = safe_malloc(sizeof(char *), 256);
