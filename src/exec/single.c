@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:28:06 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/14 20:39:07 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 16:19:21 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ static int	do_redir(t_msh_cmd *cmd)
 
 static void	msh_free_helper(t_msh_ctx *ctx, t_msh_cmd *cmd, int err_code)
 {
-	msh_free_ctx(ctx);
-	msh_free_cmds(cmd, 1);
-	rl_clear_history();
 	if (err_code == 127)
 	{
 		write(STDERR_FILENO, "minishell: ", 11);
 		write(STDERR_FILENO, cmd->name, ft_strlen(cmd->name));
 		write(STDERR_FILENO, ": command not found\n", 20);
 	}
+	msh_free_ctx(ctx);
+	msh_free_cmds(cmd, 1);
+	rl_clear_history();
 	exit(err_code);
 }
 

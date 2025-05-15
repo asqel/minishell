@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 15:56:00 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:27:56 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 extern int g_last_signal;
 
@@ -93,12 +94,12 @@ char *msh_get_env(t_msh_ctx *ctx, char *name, int *exists);
 // builtins
 int	msh_blt_cd(int argc, char **argv, t_msh_ctx *ctx);
 int msh_blt_echo(int argc, char **argv, t_msh_ctx *ctx);
+int msh_blt_exit(t_msh_cmd *cmd, t_msh_ctx *ctx, int old_fd);
 
 void	msh_free_ctx(t_msh_ctx *ctx);
 
 void print_error_exit(char *str, int exit_code);
 
-char	*msh_get_cwd(void);
 void ft_memset(void *ptr, int c, int len);
 void *ft_calloc(size_t size, size_t n);
 int	ft_strstart(char *big, char *little);
@@ -119,6 +120,9 @@ void print_error_acces(char *filename);
 
 int		msh_is_executable(char *path);
 void	print_error_found(char *filename);
+void msh_set_env(t_msh_ctx *ctx, char *name, char *value);
+int	ft_atoi(char *text, int64_t *res);
 
+void msh_blt_exit2(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx, int i);
 
 #endif

@@ -6,12 +6,13 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 16:20:51 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/14 15:05:38 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:08:16 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdio.h>
+#include <unistd.h>
 
 int msh_blt_pwd(int argc, char **argv, t_msh_ctx *ctx)
 {
@@ -19,10 +20,11 @@ int msh_blt_pwd(int argc, char **argv, t_msh_ctx *ctx)
 
 	(void)argc;
 	(void)argv;
-	pwd = msh_get_cwd();
+	(void)ctx;
+	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
 	{
-		print_error("pwd: error getting current directory");
+		perror("pwd");
 		return (1);
 	}
 	printf("%s\n", pwd);

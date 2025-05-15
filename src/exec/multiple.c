@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 20:23:21 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 15:41:40 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:27:20 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ static void exec_builtin_piped(t_msh_process *processes, int cmd_len, t_msh_ctx 
 		rl_clear_history();
 		exit(status);
 	}
-	exit(127);// TODO: handle exit builtin piped
+	msh_blt_exit2(processes, cmd_len, ctx, i);
 }
 
 static int *launch_forks(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx)

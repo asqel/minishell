@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:22:18 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/07 19:29:23 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:09:00 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int check_is_builtin(char *name, uint8_t *is_builtin)
 	if (!ft_strcmp(name, "pwd"))
 		return 1;
 	if (!ft_strcmp(name, "echo"))
+		return 1;
+	if (!ft_strcmp(name, "exit"))
 		return 1;
 	*is_builtin = 0;
 	return 0;

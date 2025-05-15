@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 01:27:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/12 21:27:26 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 16:35:30 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	main(int argc, char **argv, char **env)
 			break;
 		cmds_len = parse_pipeline(input, &cmds);
 		free(input);
-		printf("%p %p %p %p %d %d\n", cmds[0].append_out, cmds[0].here_doc, cmds[0].redir_in, cmds[0].redir_out, cmds[0].type_out, cmds[0].type_in);
 		msh_exec(&ctx, cmds, cmds_len);
+		ctx.last_status = ctx.last_status % 256;
 	}
 	rl_clear_history();
 	msh_free_ctx(&ctx);
