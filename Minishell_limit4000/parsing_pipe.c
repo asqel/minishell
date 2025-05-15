@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:21:59 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/15 18:22:09 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/15 20:20:30 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char **split_pipeline(const char *line)
     int k;
     int start;
     char quote = 0;  // Déclare `quote` comme un char
-    
+
     i = 0;
     k = 0;
     start = 0;
@@ -80,6 +80,7 @@ int	parse_pipeline(char *line, t_msh_cmd **cmds_out)
 	while (segments[count])
 		count++;
 	cmds = safe_malloc(sizeof(t_msh_cmd) * count);
+    ft_memset(cmds, 0, sizeof(t_msh_cmd) * count);
 	while (i < count)
 	{
 		init_command(segments[i], &cmds[i]);

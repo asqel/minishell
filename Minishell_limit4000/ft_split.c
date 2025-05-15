@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 18:45:22 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/15 17:03:45 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/15 20:17:34 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	set_mem(char **tab, char const *s, char c)
 			tab[i_tab] = allocate_word(s + i, c);
 			if (!tab[i_tab])
 			{
-				free_tab(tab, i_tab);
+				free_tab(tab);
 				return (0);
 			}
 			i_tab++;
