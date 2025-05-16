@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/16 18:19:14 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:48:47 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,5 +171,10 @@ int is_var_sep(char c);
 char *get_var_name(char *input);
 int get_var_val_len(char *input, t_msh_ctx *ctx);
 int verif_line(char *input);
+
+char	*ft_substr(const char *s, int start, int len);
+char	*ft_strjoin(char const *s1, char const *s2);
+
+
 
 #endif

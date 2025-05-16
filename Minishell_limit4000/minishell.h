@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:39:16 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/16 18:19:25 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:48:36 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ char				*ft_strjoin(char const *s1, char const *s2);
 void				ft_getcwd(char *buf, size_t size);
 char				*read_heredoc(const char *delimiter);
 int 				is_whitespace(const char *line) ;
+
 
 typedef struct s_builtin
 {
