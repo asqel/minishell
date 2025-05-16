@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:12:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/16 18:20:11 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/16 20:06:16 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,30 +41,6 @@ int	msh_redir_blt(t_msh_cmd *cmd)
 	return (0);
 }
 
-/* void exec_builtin(t_msh_ctx *ctx, t_msh_cmd *cmd)
-{
-	int	old_fd;
-
-	if (!msh_is_openable(cmd, cmd->redir_in))
-	{
-		ctx->last_status = 1;
-		return ;
-	}
-	old_fd = dup(STDOUT_FILENO);
-	if (msh_redir_blt(cmd))
-		return ;
-	if (ft_strcmp(cmd->name, "cd") == 0)
-		ctx->last_status = msh_blt_cd(cmd->argc, cmd->argv, ctx);
-	else if (ft_strcmp(cmd->name, "pwd") == 0)
-		ctx->last_status = msh_blt_pwd(cmd->argc, cmd->argv, ctx);
-	else if (ft_strcmp(cmd->name, "echo") == 0)
-		ctx->last_status = msh_blt_echo(cmd->argc, cmd->argv, ctx);
-	else if (ft_strcmp(cmd->name, "export") == 0)
-		ctx->last_status = builtin_export()
-	dup2(old_fd, STDOUT_FILENO);
-	close(old_fd);
-} */
-
 void exec_builtin(t_msh_ctx *ctx, t_msh_cmd *cmd)
 {
 	int	old_fd;
@@ -93,10 +69,7 @@ void exec_builtin(t_msh_ctx *ctx, t_msh_cmd *cmd)
 	else if (ft_strcmp(cmd->name, "unset") == 0)
 		ctx->last_status = builtin_unset(cmd->argc, cmd->argv, ctx);
 	else if (ft_strcmp(cmd->name, "env") == 0)
-	{
-		builtin_env(ctx->env);
-		ctx->last_status = 0;
-	}
+		ctx->last_status = builtin_env(ctx->env);
 	/* else if (ft_strcmp(cmd->name, "exit") == 0)
 		ctx->last_status = msh_blt_exit(cmd->argc, cmd->argv, ctx); */ // à implémenter
 

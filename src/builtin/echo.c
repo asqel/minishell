@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:27:04 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 20:23:08 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/16 20:10:15 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int msh_blt_echo(int argc, char **argv)
     while (i < argc)
     {
         printf("%s", argv[i]);
-        if (argv[i + 1])
+        if (i + 1 < argc)
             printf(" ");
         i++;
     }

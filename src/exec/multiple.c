@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 20:23:21 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 20:30:40 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/16 20:10:41 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,9 +231,6 @@ void msh_exec_cmd_pipes(t_msh_ctx *ctx, t_msh_cmd *cmd, int cmd_len)
 	i = -1;
 	while(++i < cmd_len - 1)
 		waitpid(pids[i], NULL, 0);
-	printf("pids:\n");
-	for (int i = 0; i < cmd_len; i++) printf("%d, ", pids[i]);
-	printf("\n");
 	free(pids);
 	free(processes);
 }

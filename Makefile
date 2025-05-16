@@ -2,8 +2,8 @@ NAME = minishell
 
 CC = gcc -g
 LD = gcc -g
-LDFLAGS = -lreadline -lhistory -fsanitize=address
-CFLAGS = -Wall -Wextra -I. -fsanitize=address
+LDFLAGS = -lreadline -lhistory #-fsanitize=address
+CFLAGS = -Wall -Wextra -I. #-fsanitize=address
 
 SRCS = main.c $(wildcard src/*.c src/*/*.c src/*/*/*.c src/*/*/*/*.c) $(wildcard Minishell_limit4000/*.c)
 OBJ = ${SRCS:.c=.o}

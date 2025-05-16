@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:28:25 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/16 18:14:04 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/16 20:09:53 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	init_tab(t_msh_cmd *cmd)
 {
 	cmd->argc = 0;
 	cmd->argv = safe_malloc(sizeof(char *) * 256);
-	printf("argv: %p\n", cmd->argv);
 	cmd->redir_in = NULL;
 	cmd->redir_out = NULL;
 	cmd->append_out = NULL;
