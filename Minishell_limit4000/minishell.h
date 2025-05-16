@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:39:16 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/16 17:51:42 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:19:25 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,12 @@ void				free_tab(char **tab);
 char				**ft_split(char const *s, char c);
 char				*join_path(const char *dir, const char *cmd);
 
-//init_help
-void msh_get_heredoc(t_msh_cmd *cmd);
-void print_error(char *str);
-int	ft_strlen(const char *str);
-int		ft_strcmp(const char *s1, const char *s2);
+//handle_quote
+char	*append_token_part(char *buffer, const char *line, int start, int len);
+int	handle_quoted_part(const char *line, int *i, char **buffer);
+int	handle_unquoted_part(const char *line, int *i, char **buffer);
+int	handle_word_combined(const char *line, char **tokens, int *i, int k);
+char	*ft_substr(const char *s, int start, int len);
 //init
 void set_redir_1(char **redir, const char *value, t_msh_cmd *cmd, int is_in);
 void set_redir_2(char **redir, const char *value, t_msh_cmd *cmd, int is_in);
@@ -167,10 +168,10 @@ void				printbanner(void);
 void				*safe_malloc(size_t size);
 pid_t				ft_fork(void);
 void				ft_execvp(const char *file, char *const argv[]);
+char				*ft_strjoin(char const *s1, char const *s2);
 
 // utilshelp
 void				ft_getcwd(char *buf, size_t size);
-char				*ft_substr(const char *src, int start, int end);
 char				*read_heredoc(const char *delimiter);
 int 				is_whitespace(const char *line) ;
 

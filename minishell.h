@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/16 17:52:27 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:19:14 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdio.h>
+#include <ctype.h>
+
 
 extern int g_last_signal;
 
@@ -157,7 +162,7 @@ int	ft_atoi(char *text, int64_t *res);
 void msh_blt_exit2(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx, int i);
 //input
 
-char	*msh_get_input(t_msh_ctx *ctx);
+char *msh_get_input(t_msh_ctx *ctx);
 char *replace_var(char *input, t_msh_ctx *ctx);
 void replace_append_var(char *input, int *i, char *res, t_msh_ctx *ctx, int *k);
 void replace_append_quote(char *input, int *i, char *res, int *k);

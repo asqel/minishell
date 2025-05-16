@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utilshelp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:56:44 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/16 00:15:31 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:14:04 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_substr(const char *src, int start, int end)
+/* char	*ft_substr(const char *src, int start, int end)
 {
 	int		len;
 	char	*s;
@@ -25,7 +25,7 @@ char	*ft_substr(const char *src, int start, int end)
 		s[i++] = src[start++];
 	s[i] = '\0';
 	return (s);
-}
+} */
 
 int is_whitespace(const char *line)
 {
