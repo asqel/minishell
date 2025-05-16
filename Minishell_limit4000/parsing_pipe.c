@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:21:59 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/15 20:20:30 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/16 02:42:58 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char **split_pipeline(const char *line)
     i = 0;
     k = 0;
     start = 0;
-    segments = safe_malloc(sizeof(char *) + 4000);
+    segments = safe_malloc(sizeof(char *) * (count_segments(line) + 1));
     data.segments = segments;
     data.i = &i;
     data.k = &k;

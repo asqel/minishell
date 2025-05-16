@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:39:16 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/15 18:33:33 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/16 02:39:28 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,5 +159,7 @@ typedef struct s_builtin
 	const char		*builtin_name;
 	int				(*foo)(char **);
 }					t_builtin;
+
+int	count_segments(const char *line);
 
 #endif

@@ -1,28 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   count_segments.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/17 18:22:15 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/16 01:46:16 by axlleres         ###   ########.fr       */
+/*   Created: 2025/05/16 02:29:13 by axlleres          #+#    #+#             */
+/*   Updated: 2025/05/16 02:41:51 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	*safe_malloc(size_t size)
+int	count_segments(const char *line)
 {
-	void	*ptr;
+	int	i;
+	int	res;
 
-	if (size == 0)
-		return (NULL);
-	ptr = malloc(size);
-	if (!ptr)
+	i = 0;
+	res = 1;
+	while ('\0' != line[i])
 	{
-		perror(RED "malloc" RST);
-		exit(EXIT_FAILURE);
+		if ('|' == line[i])
+			res++;
+		else if ('\'' == line[i])
+		{
+			i++;
+			while ('\'' != line[i] && '\0' != line[i])
+				i++;
+		}
+		else if ('"' == line[i])
+		{
+			i++;
+			while ('"' != line[i] && '\0' != line[i])
+				i++;
+		}
+		if ('\0' != line[i])
+			i++;
 	}
-	return (ptr);
+	return (res);
 }

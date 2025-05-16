@@ -10,6 +10,7 @@
 		"unistd.h": "c",
 		"history.h": "c",
 		"stdint.h": "c",
-		"fcntl.h": "c"
+		"fcntl.h": "c",
+		"stdbool.h": "c"
 	}
 }
