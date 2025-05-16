@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenize.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:57:50 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/15 20:37:57 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:33:21 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,9 @@ char	**tokenize_line(const char *line)
 		i = skip_space(line, i);
 		if (line[i] == '\0')
 			break ;
-		if (line[i] == '\'' || line[i] == '"')
-			k = handle_quotes(line, tokens, &i, k);
+		if (line[i] == '\'' || line[i] == '"'
+		||(!is_operator(line[i]) && line[i] != ' ' && line[i] != '\t'))
+			k = handle_word_combined(line, tokens, &i, k);
 		else if (is_operator(line[i]))
 			k = handle_operator(line, tokens, &i, k);
 		else

@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 15:49:58 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/16 16:36:00 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/16 16:56:50 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,10 +173,9 @@ void builtin_export(t_env **env, char **args)
         }
         return;
     }
-
     while (args[i])
     {
-        char *equal = ft_strchr(args[i], '=');
+        char *equal = strchr(args[i], '=');
         if (equal)
         {
             size_t len = equal - args[i];
@@ -208,4 +207,4 @@ void builtin_unset(int argc, char **argv, t_msh_ctx *ctx)
         msh_unset_env(ctx, argv[i]);
         i++;
     }
-}
+} 
