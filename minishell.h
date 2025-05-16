@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/16 16:28:17 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/16 17:52:27 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ void    env_unset(t_env **env, const char *key);
 char    **env_to_tab(t_env *env);
 
 // Builtins
-void    builtin_env(t_env *env);
+int    builtin_env(t_msh_ctx *ctx);
 void    builtin_export(t_env **env, char **args);
-void    builtin_unset(t_env **env, char **args);
+int    builtin_unset(int argc, char **argv, t_msh_ctx *ctx);
 
 // Utils
 int     is_valid_key(const char *key);

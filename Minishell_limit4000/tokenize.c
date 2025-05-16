@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 15:57:50 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/15 20:37:57 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:59:13 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,7 @@ char	**tokenize_line(const char *line)
 			k = handle_word(line, tokens, &i, k);
 	}
 	tokens[k] = NULL;
+	printf("tokens: %p\n", tokens);
+	printf("tokens[0]: %p\n", tokens[0]);
 	return (tokens);
 }

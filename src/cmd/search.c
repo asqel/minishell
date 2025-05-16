@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:22:18 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 18:09:00 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:55:10 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*get_path(t_msh_ctx *ctx)
 static int is_file(char *path)
 {
 	struct stat buf;
+
 	if (stat(path, &buf) == -1)
 		return (0);
 	if (S_ISDIR(buf.st_mode))
@@ -68,6 +69,8 @@ int check_is_builtin(char *name, uint8_t *is_builtin)
 		return 1;
 	if (!ft_strcmp(name, "exit"))
 		return 1;
+	if (!ft_strcmp(name, "env"))
+		return 1;
 	*is_builtin = 0;
 	return 0;
 }
@@ -82,13 +85,16 @@ char	*msh_find_cmd(char *name, uint8_t *is_builtin, t_msh_ctx *ctx)
 	*is_builtin = 0;
 	if (ft_strchr(name, '/') != -1)
 	{
+		printf("iici5\n");
 		if (access(name, F_OK | X_OK) == 0 && is_file(name))
 			return ft_strdup(name);
 		else
 			return NULL;
 	}
+	printf("ici4\n");
 	if (check_is_builtin(name, is_builtin))
 		return NULL;
+		printf("ici4\n");
 	i = 0;
 	path = get_path(ctx);
 	if (path == NULL)

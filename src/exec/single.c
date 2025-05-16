@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:28:06 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 16:19:21 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:56:15 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	msh_exec_cmd_single(t_msh_ctx *ctx, t_msh_cmd *cmd)
 	int	pid;
 
 	cmd->path = msh_find_cmd(cmd->name, &cmd->is_builtin, ctx);
+	printf("ici2\n");
 	if (cmd->is_builtin)
 		return (exec_builtin(ctx, cmd));
 	init_heredoc_pipe(pipes, cmd);
