@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/05/16 02:27:37 by axlleres         ###   ########.fr       */
-=======
-/*   Updated: 2025/05/16 16:06:44 by mgobert          ###   ########.fr       */
->>>>>>> a776b12 (env)
+/*   Updated: 2025/05/16 16:28:17 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +15,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
-<<<<<<< HEAD
 #include <stdint.h>
-=======
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <termios.h>
->>>>>>> a776b12 (env)
 
 extern int g_last_signal;
 

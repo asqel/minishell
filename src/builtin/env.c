@@ -6,7 +6,7 @@
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 15:49:58 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/16 16:11:41 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/16 16:36:00 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,15 +200,12 @@ void builtin_export(t_env **env, char **args)
     }
 }
 
-void builtin_unset(t_env **env, char **args)
+void builtin_unset(int argc, char **argv, t_msh_ctx *ctx)
 {
     int i = 1;
-    while (args[i])
+    while (i < argc)
     {
-        if (!is_valid_key(args[i]))
-            printf("unset: `%s`: not a valid identifier\n", args[i]);
-        else
-            env_unset(env, args[i]);
+        msh_unset_env(ctx, argv[i]);
         i++;
     }
 }
