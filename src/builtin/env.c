@@ -1,61 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   count_segments.c                                   :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD:Minishell_limit4000/count_segments.c
-/*   Created: 2025/05/16 02:29:13 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/16 02:41:51 by axlleres         ###   ########.fr       */
-=======
-/*   Created: 2025/04/17 17:38:26 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/16 15:52:38 by mgobert          ###   ########.fr       */
->>>>>>> a776b12 (env):Minishell_limit4000/env.c
+/*   Created: 2025/05/16 15:49:58 by mgobert           #+#    #+#             */
+/*   Updated: 2025/05/16 16:11:41 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	count_segments(const char *line)
-{
-	int	i;
-	int	res;
-
-	i = 0;
-	res = 1;
-	while ('\0' != line[i])
-	{
-		if ('|' == line[i])
-			res++;
-		else if ('\'' == line[i])
-		{
-			i++;
-			while ('\'' != line[i] && '\0' != line[i])
-				i++;
-		}
-		else if ('"' == line[i])
-		{
-			i++;
-			while ('"' != line[i] && '\0' != line[i])
-				i++;
-		}
-		if ('\0' != line[i])
-			i++;
-	}
-<<<<<<< HEAD:Minishell_limit4000/count_segments.c
-	return (res);
-}
-=======
-}
-
-/* t_env *env_new(char *key, char *value)
+t_env *env_new(char *key, char *value)
 {
     t_env *new = malloc(sizeof(t_env));
     if (!new)
         return (NULL);
-    new->key = strdup(key);
-    new->value = strdup(value);
+    new->key = ft_strdup(key);
+    new->value = ft_strdup(value);
     new->next = NULL;
     return (new);
 }
@@ -69,8 +32,8 @@ t_env *env_init(char **envp)
         char *equal = strchr(envp[i], '=');
         if (!equal)
             continue;
-        char *key = strndup(envp[i], equal - envp[i]);
-        char *value = strdup(equal + 1);
+        char *key = ft_strndup(envp[i], equal - envp[i]);
+        char *value = ft_strdup(equal + 1);
         t_env *new = env_new(key, value);
         free(key);
         free(value);
@@ -96,8 +59,6 @@ void env_free(t_env *env)
     }
 }
 
-// ========== ACCESS ==========
-
 char *env_get(t_env *env, const char *key)
 {
     while (env)
@@ -117,7 +78,7 @@ void env_set(t_env **env, const char *key, const char *value)
         if (strcmp(current->key, key) == 0)
         {
             free(current->value);
-            current->value = strdup(value);
+            current->value = ft_strdup(value);
             return;
         }
         current = current->next;
@@ -133,7 +94,7 @@ void env_unset(t_env **env, const char *key)
     t_env *prev = NULL;
     while (current)
     {
-        if (strcmp(current->key, key) == 0)
+        if (ft_strcmp(current->key, key) == 0)
         {
             if (prev)
                 prev->next = current->next;
@@ -162,7 +123,7 @@ char **env_to_tab(t_env *env)
     tmp = env;
     for (int i = 0; i < count; i++)
     {
-        size_t len = strlen(tmp->key) + strlen(tmp->value) + 2;
+        size_t len = ft_strlen(tmp->key) + ft_strlen(tmp->value) + 2;
         envp[i] = malloc(len);
         snprintf(envp[i], len, "%s=%s", tmp->key, tmp->value);
         tmp = tmp->next;
@@ -170,8 +131,6 @@ char **env_to_tab(t_env *env)
     envp[count] = NULL;
     return envp;
 }
-
-// ========== UTILS ==========
 
 int is_valid_key(const char *key)
 {
@@ -188,8 +147,6 @@ int is_valid_key(const char *key)
     return (1);
 }
 
-// ========== BUILTINS ==========
-
 void builtin_env(t_env *env)
 {
     while (env)
@@ -205,7 +162,6 @@ void builtin_export(t_env **env, char **args)
     int i = 1;
     if (!args[1])
     {
-        // tri optionnel ici si tu veux
         t_env *tmp = *env;
         while (tmp)
         {
@@ -220,7 +176,7 @@ void builtin_export(t_env **env, char **args)
 
     while (args[i])
     {
-        char *equal = strchr(args[i], '=');
+        char *equal = ft_strchr(args[i], '=');
         if (equal)
         {
             size_t len = equal - args[i];
@@ -255,6 +211,4 @@ void builtin_unset(t_env **env, char **args)
             env_unset(env, args[i]);
         i++;
     }
-} */
-
->>>>>>> a776b12 (env):Minishell_limit4000/env.c
+}

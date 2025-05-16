@@ -6,7 +6,11 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/05/16 02:27:37 by axlleres         ###   ########.fr       */
+=======
+/*   Updated: 2025/05/16 16:06:44 by mgobert          ###   ########.fr       */
+>>>>>>> a776b12 (env)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +19,26 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+<<<<<<< HEAD
 #include <stdint.h>
+=======
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <termios.h>
+>>>>>>> a776b12 (env)
 
 extern int g_last_signal;
+
+typedef struct s_env
+{
+    char            *key;
+    char            *value;
+    struct s_env    *next;
+}   t_env;
 
 typedef struct
 {
@@ -32,6 +53,8 @@ typedef struct
 	char	*append_out; // >>
 	int 	type_out;
 	int 	type_in;
+	t_env	*env;
+	int		last_status;
 } t_msh_cmd;
 
 typedef struct
@@ -61,6 +84,27 @@ typedef struct
 	t_msh_ctx	*ctx;
 } t_msh_process;
 
+
+
+// builtin
+int					execute_builtin(char *cmd, char **args);
+t_env   *env_init(char **envp);
+void    env_free(t_env *env);
+
+// Accès
+char    *env_get(t_env *env, const char *key);
+void    env_set(t_env **env, const char *key, const char *value);
+void    env_unset(t_env **env, const char *key);
+char    **env_to_tab(t_env *env);
+
+// Builtins
+void    builtin_env(t_env *env);
+void    builtin_export(t_env **env, char **args);
+void    builtin_unset(t_env **env, char **args);
+
+// Utils
+int     is_valid_key(const char *key);
+//------------------------------------------------------------
 // Strings
 int		ft_strlen(const char *str);
 int		ft_strcmp(const char *s1, const char *s2);
@@ -72,6 +116,7 @@ char	*sub_str(char *str, int start, int end);
 void	ft_strcat(char *dest, const char *src);
 void	ft_memcpy(void *dest, const void *src, int len);
 int		ft_strchr(char *str, int c);
+char 	*ft_strndup(const char *s, size_t n);
 
 // Errors
 void	msh_print_error(char *str, int exit_code);

@@ -6,7 +6,11 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 18:39:16 by mgobert           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/05/16 02:39:28 by axlleres         ###   ########.fr       */
+=======
+/*   Updated: 2025/05/16 15:11:26 by mgobert          ###   ########.fr       */
+>>>>>>> a776b12 (env)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +76,37 @@ typedef struct s_pipeline_data
 	int				*start;
 	char			*quote;
 }					t_pipeline_data;
+
+typedef struct s_env
+{
+    char            *key;
+    char            *value;
+    struct s_env    *next;
+}   t_env;
+
 // builtin_help
 int					is_builtin(char *cmd);
 void				run_builtin(t_msh_cmd *cmd);
-
+//-----------------------------------------------------------
 // builtin
 int					execute_builtin(char *cmd, char **args);
-void				cmd_echo(char **argv);
-void				cmd_cd(char **argv);
-void				cmd_pwd(void);
-void				cmd_exit(char **argv);
+t_env   *env_init(char **envp);
+void    env_free(t_env *env);
 
+// Accès
+char    *env_get(t_env *env, const char *key);
+void    env_set(t_env **env, const char *key, const char *value);
+void    env_unset(t_env **env, const char *key);
+char    **env_to_tab(t_env *env);
+
+// Builtins
+void    builtin_env(t_env *env);
+void    builtin_export(t_env **env, char **args);
+void    builtin_unset(t_env **env, char **args);
+
+// Utils
+int     is_valid_key(const char *key);
+//------------------------------------------------------------
 // env
 void				cmd_env(void);
 char				*get_env_variable(const char *name);

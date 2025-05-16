@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strcat_start.c                                     :+:      :+:    :+:   */
+/*   str_helps.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:15:00 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 16:21:05 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/16 16:06:16 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,27 @@ char *sub_str(char *str, int start, int end)
 	while (++i < end)
 		res[i - start] = str[i];
 	return (res);
+}
+char *ft_strndup(const char *s, size_t n) 
+{
+	size_t len;
+	size_t i;
+	char *dup;
+	
+    if (s == NULL)
+		return (NULL);
+	dup = (char *)malloc(len + 1);
+    len = 0;
+	i = 0;
+    while (len < n && s[len] != '\0') 
+		len++;
+    if (dup == NULL)
+		return (NULL);
+    while (i < len) 
+	{
+        dup[i] = s[i];
+		i++;
+    }
+    dup[len] = '\0';
+    return (dup);
 }
