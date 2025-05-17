@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/17 18:34:38 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/17 20:48:52 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int    builtin_export(int argc, char **argv, t_msh_ctx *ctx);
 int    builtin_unset(int argc, char **argv, t_msh_ctx *ctx);
 
 // Utils
-int     is_valid_key(const char *key);
 //------------------------------------------------------------
 // Strings
 int		ft_strlen(const char *str);

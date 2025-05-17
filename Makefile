@@ -1,7 +1,7 @@
 NAME = minishell
 
-CC = gcc -g
-LD = gcc -g
+CC = gcc -g -Wunused-function
+LD = gcc -g -Wunused-function
 LDFLAGS = -lreadline -lhistory #-fsanitize=address
 CFLAGS = -Wall -Wextra -I. #-fsanitize=address
 

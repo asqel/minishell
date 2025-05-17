@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_tokens.c                                       :+:      :+:    :+:   */
+/*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 15:03:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/17 16:41:38 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/17 21:16:37 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,29 @@ static char	*get_next_token(char *line, int *i)
 	return (token);
 }
 
+static void append_token(char **res, int *res_len, char *line, int *i)
+{
+	char	*token;
+	int		old_i;
+	char	*tmp;
+
+	old_i = *i;
+	token = get_next_token(line, i);
+	if (line[old_i] == '<' || line[old_i] == '>')
+	{
+		res[(*res_len)++] = token;
+		return ;
+	}
+	if (old_i - 1 >= 0 && !ft_is_space(line[old_i - 1]) && *res_len > 0)
+	{
+		tmp = res[(*res_len) - 1];
+		res[(*res_len) - 1] = ft_strjoin(tmp, token);
+		free(tmp);
+		free(token);
+	}
+	else
+		res[(*res_len)++] = token;
+}
 
 char	**get_tokens(char *line, t_msh_ctx *ctx)
 {
@@ -212,7 +235,7 @@ char	**get_tokens(char *line, t_msh_ctx *ctx)
 		while (ft_is_space(line[i]))
 			i++;
 		if (line[i] != '\0')
-			res[res_len++] = get_next_token(line, &i);
+			append_token(res, &res_len, line, &i);
 	}
 	res[res_len] = NULL;
 	return (free(line), res);

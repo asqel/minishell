@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 18:31:37 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/17 18:37:36 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/17 21:16:21 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,24 @@ static void print_env(t_msh_ctx *ctx)
 
 }
 
+static int	try_add_env(t_msh_ctx *ctx, char *name, char *value)
+{
+	if (ft_strchr(name, '?') != -1 || ft_strchr(name, ':'));
+}
+
 int builtin_export(int argc, char **argv, t_msh_ctx *ctx)
 {
+	int	i;
+
 	if (argc == 1)
 		return (print_env(ctx), 0);
+	i = 1;
+	while (i < argc)
+	{
+		if (ft_strchr(argv[i], "=") == -1)
+			if (try_add_env(ctx, argv[i], NULL))
+				return (1);
+		i++;
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:26:00 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/05 20:19:10 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/17 20:48:08 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,22 @@ void parse_env(char **env, t_msh_ctx *ctx)
 	}
 }
 
+static void	increase_shlvl(t_msh_ctx *ctx)
+{
+	char	*shlvl;
+	int		shlvl_val;
+
+	shlvl = msh_get_env(ctx, "SHLVL", NULL);
+	if (shlvl == NULL)
+		return (msh_set_env(ctx, "SHLVL", "1"));
+	if (ft_atoi(shlvl, &shlvl_val))
+		return (msh_set_env(ctx, "SHLVL", "1"));
+	shlvl_val++;
+	shlvl = ft_itoa(shlvl_val);
+	msh_set_env(ctx, "SHLVL", shlvl);
+	free(shlvl);
+}
+
 void	msh_init(char **env, t_msh_ctx *ctx)
 {
 	//if (msh_disable_sigquit() != 0) // !TODO: reenable this
@@ -94,4 +110,5 @@ void	msh_init(char **env, t_msh_ctx *ctx)
 	msh_init_ctx(ctx);
 	parse_env(env, ctx);
 	rl_catch_signals = 0;
+	increase_shlvl(ctx);
 }
