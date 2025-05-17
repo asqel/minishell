@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:22:18 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/16 20:10:34 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/17 02:08:22 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int check_is_builtin(char *name, uint8_t *is_builtin)
 	if (!ft_strcmp(name, "exit"))
 		return 1;
 	if (!ft_strcmp(name, "env"))
+		return 1;
+	if (!ft_strcmp(name, "unset"))
 		return 1;
 	*is_builtin = 0;
 	return 0;

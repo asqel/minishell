@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:21:27 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 20:27:19 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/17 16:46:22 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,20 @@ int is_executing(int set_val, int val)
 
 void	msh_exec(t_msh_ctx *ctx, t_msh_cmd *cmds, int cmds_len)
 {
+	int	i;
+
+	i = -1;
+	while (++i < cmds_len)
+	{
+		cmds[i].argv[cmds[i].argc] = NULL;
+		if (cmds[i].name == NULL)
+		{
+			print_error("minishell: syntax error near '|'\n");
+			msh_free_cmds(cmds, cmds_len);
+			ctx->last_status = 2;
+			return ;
+		}
+	}
 	if (cmds_len == 0)
 		return ;
 	if (cmds_len == 1)
@@ -42,7 +56,10 @@ int	msh_launch_file(t_msh_ctx *ctx, t_msh_cmd *cmd)
 	if (msh_is_executable(cmd->path))
 	{
 		env = msh_build_env(ctx);
-		execve(cmd->path, cmd->argv, env);
+		execve(
+			cmd->path,
+			cmd->argv,
+			env);
 		perror("execve");
 		if (env == NULL)
 			return (0);

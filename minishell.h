@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/16 20:08:18 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/17 18:34:38 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,6 @@
 
 extern int g_last_signal;
 
-typedef struct s_env
-{
-    char            *key;
-    char            *value;
-    struct s_env    *next;
-}   t_env;
-
 typedef struct
 {
 	char	*path;
@@ -44,8 +37,6 @@ typedef struct
 	char	*append_out; // >>
 	int 	type_out;
 	int 	type_in;
-	t_env	*env;
-	int		last_status;
 } t_msh_cmd;
 
 typedef struct
@@ -85,11 +76,6 @@ typedef struct s_pipeline_data
 	char			*quote;
 }					t_pipeline_data;
 
-// builtin
-int					execute_builtin(char *cmd, char **args);
-t_env   *env_init(char **envp);
-void    env_free(t_env *env);
-
 void msh_unset_env(t_msh_ctx *ctx, char *name);
 void exec_builtin(t_msh_ctx *ctx, t_msh_cmd *cmd);
 int		msh_launch_file(t_msh_ctx *ctx, t_msh_cmd *cmd);
@@ -97,7 +83,7 @@ int		is_executing(int set_val, int val);
 
 // Builtins
 int    builtin_env(t_msh_ctx *ctx);
-void    builtin_export(t_env **env, char **args);
+int    builtin_export(int argc, char **argv, t_msh_ctx *ctx);
 int    builtin_unset(int argc, char **argv, t_msh_ctx *ctx);
 
 // Utils
@@ -114,6 +100,7 @@ char	*sub_str(char *str, int start, int end);
 void	ft_strcat(char *dest, const char *src);
 void	ft_memcpy(void *dest, const void *src, int len);
 int		ft_strchr(char *str, int c);
+int	ft_is_space(char c);
 
 // Errors
 void	msh_print_error(char *str, int exit_code);
@@ -150,7 +137,7 @@ void ft_strcat_start(char *str, char *start);
 char	*msh_get_input(t_msh_ctx *ctx);
 void	msh_free_cmds(t_msh_cmd *cmds, int cmds_len);
 void print_error(char *str);
-void msh_get_heredoc(t_msh_cmd *cmd);
+void msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx);
 int msh_blt_pwd(int argc, char **argv, t_msh_ctx *ctx);
 char *ft_itoa(int n);
 
@@ -176,7 +163,6 @@ int get_input_size(char *input, t_msh_ctx *ctx);
 int is_var_sep(char c);
 char *get_var_name(char *input);
 int get_var_val_len(char *input, t_msh_ctx *ctx);
-int verif_line(char *input);
 
 char	*ft_substr(const char *s, int start, int len);
 char	*ft_strjoin(char const *s1, char const *s2);
@@ -203,7 +189,6 @@ char	*ft_strjoin(char const *s1, char const *s2);
 # include <stdlib.h>
 # include <string.h>
 # include <sys/types.h>
-# include <sys/wait.h>
 # include <unistd.h>
 
 
@@ -212,36 +197,12 @@ int					is_builtin(char *cmd);
 void				run_builtin(t_msh_cmd *cmd);
 //-----------------------------------------------------------
 // builtin
-int					execute_builtin(char *cmd, char **args);
-t_env   *env_init(char **envp);
-void    env_free(t_env *env);
-
-// Accès
-char    *env_get(t_env *env, const char *key);
-void    env_set(t_env **env, const char *key, const char *value);
-void    env_unset(t_env **env, const char *key);
-char    **env_to_tab(t_env *env);
 
 // Builtins
-void    builtin_export(t_env **env, char **args);
-
-// Utils
-int     is_valid_key(const char *key);
 //------------------------------------------------------------
 // env
-void				cmd_env(void);
-char				*get_env_variable(const char *name);
-int					set_env_variable(const char *name, const char *value);
-int					unset_env_variable(const char *name);
-void				cmd_export(char **argv);
-void				cmd_unset(char **argv);
-//exec_child_help
-void redirect_output(int pipefds[2]);
-void redirect_input(int in_fd);
-
 // free
 void				free_segments(char **segments);
-void				free_commands(t_msh_cmd **cmd);
 void				free_tokens(char **tokens);
 void				free_split(char **array);
 void				free_tab(char **tab);
@@ -258,15 +219,13 @@ int	handle_word_combined(const char *line, char **tokens, int *i, int k);
 char	*ft_substr(const char *s, int start, int len);
 //init
 void set_redir_1(char **redir, const char *value, t_msh_cmd *cmd, int is_in);
-void set_redir_2(char **redir, const char *value, t_msh_cmd *cmd, int is_in);
-void set_redir (char *line, t_msh_cmd *cmd);
-void init_command(char *line, t_msh_cmd *cmd);
+void set_redir_2(char **redir, const char *value, t_msh_cmd *cmd, int is_in, t_msh_ctx *ctx);
+void set_redir (char *line, t_msh_cmd *cmd, t_msh_ctx *ctx);
+void init_command(char *line, t_msh_cmd *cmd, t_msh_ctx *ctx);
 void init_tab (t_msh_cmd *cmd);
 
 // minishell
 void				init_tab(t_msh_cmd *cmd);
-void				init_command(char *line, t_msh_cmd *cmd);
-char				*shell_read_line(void);
 // parsing_help
 int					ft_isspace(char c);
 int					only_spaces(const char *line);
@@ -275,7 +234,7 @@ int					skip_spaces(const char *line, int i);
 
 // parsing_pipe
 char				**split_pipeline(const char *line);
-int					parse_pipeline(char *line, t_msh_cmd **cmds_out);
+int					parse_pipeline(char *line, t_msh_cmd **cmds_out, t_msh_ctx *ctx);
 
 // tokenize
 char				**tokenize_line(const char *line);
@@ -286,13 +245,7 @@ char				*ft_strjoin(char const *s1, char const *s2);
 
 // utilshelp
 int 				is_whitespace(const char *line) ;
-
-
-typedef struct s_builtin
-{
-	const char		*builtin_name;
-	int				(*foo)(char **);
-}					t_builtin;
+int	ft_strcount(const char *str, char c);
 
 int	count_segments(const char *line);
 

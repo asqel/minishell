@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:31:44 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/14 20:30:46 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/17 02:23:38 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ void print_error(char *str)
 {
 	if (str == NULL)
 		return ;
-	write(STDERR_FILENO, "Error:\n\t", 8);
 	write(STDERR_FILENO, str, ft_strlen(str));
-	write(STDERR_FILENO, "\n", 1);
 }
 
 void print_error_acces(char *filename)

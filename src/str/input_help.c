@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_help.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 18:02:39 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/17 18:29:34 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int get_input_size(char *input, t_msh_ctx *ctx)
 				i++;
 			}
 			if (input[i] != '\'')
-				return (print_error("unclosed quote"), -1);
+				return (print_error("minishell: unclosed quote \'\n"), -1);
 			i++;
 		}
 		if (input[i] == '$')
@@ -96,13 +96,13 @@ char *replace_var(char *input, t_msh_ctx *ctx)
 	int		i;
 	int		k;
 
-
+	if (ft_strcount(input, '"') % 2 != 0)
+		return (free(input),
+			print_error("minishell: unclosed quote \"\n"), NULL);
 	new_size = get_input_size(input, ctx);
-	if (new_size == -1)
-		return (free(input), NULL);
 	res = malloc(sizeof(char) + (new_size + 1));
-	if (res == NULL)
-		return (free(input), NULL);
+	if (res == NULL || new_size == -1)
+		return (free(input), free(res), NULL);
 	i = -1;
 	k = 0;
 	while (input[++i] != '\0')
@@ -137,7 +137,6 @@ char	*msh_get_input(t_msh_ctx *ctx)
 	}
 	free(prompt);
 	add_history(input);
-	input = replace_var(input, ctx);
 	if (input == NULL)
 		return ft_strdup("");
 	return (input);

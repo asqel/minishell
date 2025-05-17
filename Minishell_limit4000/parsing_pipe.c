@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:21:59 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/16 16:13:03 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/17 16:43:30 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,34 @@ char **split_pipeline(const char *line)
 	return (data.segments);
 }
 
+static int	parse_clean_help(t_msh_cmd *cmds, char **segments, int i)
+{
+	int	j;
 
-int	parse_pipeline(char *line, t_msh_cmd **cmds_out)
+	j = 0;
+	while (j < i)
+	{
+		free(cmds[j].path);
+		free(cmds[j].argv);
+		free(cmds[j].redir_out);
+		free(cmds[j].redir_in);
+		free(cmds[j].here_doc);
+		j++;
+	}
+	free_segments(segments);
+	free(cmds);
+	return (0);
+}
+
+static int	parse_error_pipe(char **segments, t_msh_ctx *ctx)
+{
+	print_error("minshell: syntax error near unexpected token `|'\n");
+	ctx->last_status = 2;
+	free_segments(segments);
+	return (0);
+}
+
+int	parse_pipeline(char *line, t_msh_cmd **cmds_out, t_msh_ctx *ctx)
 {
 	char		**segments;
 	int			count;
@@ -79,14 +105,17 @@ int	parse_pipeline(char *line, t_msh_cmd **cmds_out)
 	i = 0;
 	while (segments[count])
 		count++;
+	if (count != count_segments(line))
+		return (parse_error_pipe(segments, ctx));
 	cmds = safe_malloc(sizeof(t_msh_cmd) * count);
 	ft_memset(cmds, 0, sizeof(t_msh_cmd) * count);
 	while (i < count)
 	{
-		init_command(segments[i], &cmds[i]);
+		init_command(segments[i], &cmds[i], ctx);
+		if (cmds[i].argv == NULL)
+			return (parse_clean_help(cmds, segments, i));
 		i++;
 	}
 	*cmds_out = cmds;
-	free_segments(segments);
-	return (count);
+	return (free_segments(segments), count);
 }

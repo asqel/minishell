@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 18:02:44 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/17 02:25:25 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char *get_var_name(char *input)
 	int i;
 	char *var_name;
 
+	if (input[0] == '?')
+		return ft_strdup("?");
 	i = 0;
 	while (input[i] != '\0' && !is_var_sep(input[i]))
 		i++;

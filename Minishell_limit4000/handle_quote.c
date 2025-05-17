@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_quote.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 17:24:48 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/16 18:48:00 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/17 02:04:31 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 char	*append_token_part(char *buffer, const char *line, int start, int len)
 {
