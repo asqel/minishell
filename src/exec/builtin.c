@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:12:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/16 20:06:16 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/17 19:05:13 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,7 @@ void exec_builtin(t_msh_ctx *ctx, t_msh_cmd *cmd)
 	else if (ft_strcmp(cmd->name, "echo") == 0)
 		ctx->last_status = msh_blt_echo(cmd->argc, cmd->argv);
 	else if (ft_strcmp(cmd->name, "export") == 0)
-	{
-		builtin_export(&ctx->env, cmd->argv);
-		ctx->last_status = 0;
-	}
+		ctx->last_status = builtin_export(cmd->argc, cmd->argv, ctx);
 	else if (ft_strcmp(cmd->name, "unset") == 0)
 		ctx->last_status = builtin_unset(cmd->argc, cmd->argv, ctx);
 	else if (ft_strcmp(cmd->name, "env") == 0)

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:28:06 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/16 20:10:48 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/17 19:08:55 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ static void	init_heredoc_pipe(int pipes[2], t_msh_cmd *cmd)
 	}
 }
 
-static void	read_heredoc(int pipes[2], t_msh_cmd *cmd)
+static void	read_close_heredoc(int pipes[2], t_msh_cmd *cmd, int do_dup)
 {
 	if (cmd->here_doc != NULL && cmd->type_in == 2)
 	{
-		dup2(pipes[0], STDIN_FILENO);
+		if (do_dup)
+			dup2(pipes[0], STDIN_FILENO);
 		close(pipes[0]);
 		close(pipes[1]);
 	}
@@ -76,7 +77,7 @@ void	msh_exec_cmd_single(t_msh_ctx *ctx, t_msh_cmd *cmd)
 	{
 		if (cmd->path == NULL)
 			msh_free_helper(ctx, cmd, 127);
-		read_heredoc(pipes, cmd);
+		read_close_heredoc(pipes, cmd, 1);
 		if (do_redir(cmd))
 			msh_free_helper(ctx, cmd, 1);
 		if (msh_launch_file(ctx, cmd))
@@ -84,6 +85,7 @@ void	msh_exec_cmd_single(t_msh_ctx *ctx, t_msh_cmd *cmd)
 		else
 			msh_free_helper(ctx, cmd, 1);
 	}
+	read_close_heredoc(pipes, cmd, 0);
 	waitpid(pid, &ctx->last_status, 0);
 	is_executing(1, 0);
 }

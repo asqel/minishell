@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 01:27:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/17 16:22:40 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/17 19:12:26 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		input = msh_get_input(&ctx);
 		if (!input)
-			break;
+			break ;
 		cmds_len = parse_pipeline(input, &cmds, &ctx);
 		free(input);
 		msh_exec(&ctx, cmds, cmds_len);
