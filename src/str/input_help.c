@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/17 18:29:34 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/17 21:37:13 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,34 @@ void replace_append_quote(char *input, int *i, char *res, int *k)
 	(*i)++;
 }
 
-void replace_append_var(char *input, int *i, char *res, t_msh_ctx *ctx, int *k)
+static void append_text_val(char *res, char *val, int *k, int in_dquote)
+{
+	int i;
+
+	i = -1;
+	while (val[++i] != '\0')
+	{
+		if ((val[i] == '<' || val[i] == '>') && !in_dquote)
+			res[(*k)++] = '"';
+		res[(*k)++] = val[i];
+		if ((val[i] == '<' || val[i] == '>') && !in_dquote)
+			res[(*k)++] = '"';
+	}
+}
+
+int replace_append_var(char *input, int *i, char *res, t_msh_ctx *ctx, int in_dquote)
 {
 	char	*var_name;
 	char	*val;
-	int		j;
+	int		k;
 
+	k = 0;
 	(*i)++;
 	var_name = get_var_name(&input[*i]);
 	if (ft_strcmp(var_name, "?") == 0)
 	{
 		val = ft_itoa(ctx->last_status);
-		j = -1;
-		while (val[++j] != '\0')
-			res[(*k)++] = val[j];
+		append_text_val(res, val, &k, in_dquote);
 		free(val);
 	}
 	else
@@ -81,20 +95,43 @@ void replace_append_var(char *input, int *i, char *res, t_msh_ctx *ctx, int *k)
 		val = msh_get_env(ctx, var_name, NULL);
 		if (val == NULL)
 			val = "";
-		j = -1;
-		while (val[++j] != '\0')
-			res[(*k)++] = val[j];
+		append_text_val(res, val, &k, in_dquote);
 	}
 	(*i) += ft_strlen(var_name) - 1;
 	free(var_name);
+	return (k);
+}
+
+void	replace_var_loop(char *input, char *res, t_msh_ctx *ctx)
+{
+	int		i;
+	int		k;
+	int		in_dquote;
+
+	i = -1;
+	k = 0;
+	in_dquote = 0;
+	while (input[++i] != '\0')
+	{
+		if (input[i] == '\'')
+			replace_append_quote(input, &i, res, &k);
+		else if (input[i] == '\"')
+		{
+			in_dquote = !in_dquote;
+			res[k++] = input[i];
+		}
+		else if (input[i] == '$')
+			k += replace_append_var(input, &i, &res[k], ctx, in_dquote);
+		else
+			res[k++] = input[i];
+	}
+	res[k] = '\0';
 }
 
 char *replace_var(char *input, t_msh_ctx *ctx)
 {
 	char	*res;
 	int		new_size;
-	int		i;
-	int		k;
 
 	if (ft_strcount(input, '"') % 2 != 0)
 		return (free(input),
@@ -103,18 +140,7 @@ char *replace_var(char *input, t_msh_ctx *ctx)
 	res = malloc(sizeof(char) + (new_size + 1));
 	if (res == NULL || new_size == -1)
 		return (free(input), free(res), NULL);
-	i = -1;
-	k = 0;
-	while (input[++i] != '\0')
-	{
-		if (input[i] == '\'')
-			replace_append_quote(input, &i, res, &k);
-		else if (input[i] == '$')
-			replace_append_var(input, &i, res, ctx, &k);
-		else
-			res[k++] = input[i];
-	}
-	res[k] = '\0';
+	replace_var_loop(input, res, ctx);
 	return (free(input), res);
 }
 

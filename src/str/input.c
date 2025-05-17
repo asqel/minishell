@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/17 02:25:25 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/17 21:20:07 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int get_var_val_len(char *input, t_msh_ctx *ctx)
 		return (res);
 	}
 	val = msh_get_env(ctx, var_name, NULL);
-	res = ft_strlen(val);
+	res = ft_strlen(val) + ft_strcount(val, '<') * 2 + ft_strcount(val, '>') * 2;
 	free(var_name);
 	return (res);
 }
