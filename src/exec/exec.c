@@ -6,21 +6,20 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:21:27 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/17 16:46:22 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/18 15:42:48 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <unistd.h>
 #include <fcntl.h>
-#include <stdio.h>
 
-int is_executing(int set_val, int val)
+int	is_executing(int set_val, int val)
 {
-	static int executing = 0;
+	static int	executing = 0;
+
 	if (set_val)
 		executing = val;
-	return executing;
+	return (executing);
 }
 
 void	msh_exec(t_msh_ctx *ctx, t_msh_cmd *cmds, int cmds_len)

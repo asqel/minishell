@@ -6,18 +6,18 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:15:00 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/16 20:01:19 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/18 16:06:05 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdlib.h>
 
-void ft_strcat_start(char *str, char *start)
+void	ft_strcat_start(char *str, char *start)
 {
-	int i;
-	int len;
-	int start_len;
+	int	i;
+	int	len;
+	int	start_len;
 
 	if (str == NULL || start == NULL)
 		return ;
@@ -29,6 +29,7 @@ void ft_strcat_start(char *str, char *start)
 	str[start_len + len] = '\0';
 	ft_memcpy(str, start, start_len);
 }
+
 void	ft_strcat(char *dest, const char *src)
 {
 	int	i;
@@ -40,10 +41,11 @@ void	ft_strcat(char *dest, const char *src)
 		dest[i++] = *(src++);
 	dest[i] = '\0';
 }
-int ft_strstart(char *big, char *little)
+
+int	ft_strstart(char *big, char *little)
 {
-	int big_len;
-	int little_len;
+	int	big_len;
+	int	little_len;
 
 	if (big == NULL || little == NULL)
 		return (0);
@@ -56,12 +58,13 @@ int ft_strstart(char *big, char *little)
 			return (0);
 	return (1);
 }
-char *sub_str(char *str, int start, int end)
+
+char	*sub_str(char *str, int start, int end)
 {
 	char	*res;
 	int		i;
 
-	res = malloc(sizeof(char) * (end - start  + 1));
+	res = malloc(sizeof(char) * (end - start + 1));
 	if (res == NULL)
 		return (NULL);
 	res[end - start] = '\0';

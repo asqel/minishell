@@ -6,13 +6,11 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:22:18 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/17 02:08:22 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/18 15:38:52 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdlib.h>
-#include <unistd.h>
 #include <sys/stat.h>
 
 char	*get_path(t_msh_ctx *ctx)
@@ -26,9 +24,9 @@ char	*get_path(t_msh_ctx *ctx)
 	return (NULL);
 }
 
-static int is_file(char *path)
+static int	is_file(char *path)
 {
-	struct stat buf;
+	struct stat	buf;
 
 	if (stat(path, &buf) == -1)
 		return (0);
@@ -38,7 +36,8 @@ static int is_file(char *path)
 		return (1);
 	return (0);
 }
-char *path_contains(char *path, char *name, int *p_len)
+
+char	*path_contains(char *path, char *name, int *p_len)
 {
 	int		n_len;
 	char	*cmd_path;
@@ -47,7 +46,7 @@ char *path_contains(char *path, char *name, int *p_len)
 	while (path[*p_len] != '\0' && path[*p_len] != ':')
 		(*p_len)++;
 	n_len = ft_strlen(name);
-	cmd_path = malloc(sizeof(char)  * (*p_len + 1 + n_len + 1 ));
+	cmd_path = malloc(sizeof(char) * (*p_len + 1 + n_len + 1));
 	if (cmd_path == NULL)
 		return (NULL);
 	cmd_path[*p_len] = '/';
@@ -58,54 +57,52 @@ char *path_contains(char *path, char *name, int *p_len)
 	return (free(cmd_path), NULL);
 }
 
-int check_is_builtin(char *name, uint8_t *is_builtin)
+int	check_is_builtin(char *name, uint8_t *is_builtin)
 {
 	*is_builtin = 1;
 	if (!ft_strcmp(name, "cd"))
-		return 1;
+		return (1);
 	if (!ft_strcmp(name, "pwd"))
-		return 1;
+		return (1);
 	if (!ft_strcmp(name, "echo"))
-		return 1;
+		return (1);
 	if (!ft_strcmp(name, "exit"))
-		return 1;
+		return (1);
 	if (!ft_strcmp(name, "env"))
-		return 1;
+		return (1);
+	if (!ft_strcmp(name, "export"))
+		return (1);
 	if (!ft_strcmp(name, "unset"))
-		return 1;
+		return (1);
 	*is_builtin = 0;
-	return 0;
+	return (0);
 }
 
 char	*msh_find_cmd(char *name, uint8_t *is_builtin, t_msh_ctx *ctx)
 {
-	int i;
-	char *path;
-	int path_len;
-	char *res;
+	int		i;
+	char	*path;
+	int		path_len;
+	char	*res;
 
 	*is_builtin = 0;
 	if (ft_strchr(name, '/') != -1)
 	{
 		if (access(name, F_OK | X_OK) == 0 && is_file(name))
-			return ft_strdup(name);
-		else
-			return NULL;
+			return (ft_strdup(name));
+		return (NULL);
 	}
 	if (check_is_builtin(name, is_builtin))
-		return NULL;
+		return (NULL);
 	i = 0;
 	path = get_path(ctx);
-	if (path == NULL)
-		return (NULL);
-	while (path[i] != '\0')
+	res = NULL;
+	while (path != NULL && path[i] != '\0' && res == NULL)
 	{
 		res = path_contains(&path[i], name, &path_len);
-		if (res != NULL)
-			return (res);
 		i += path_len;
 		if (path[i] == ':')
 			i++;
 	}
-	return NULL;
+	return (res);
 }

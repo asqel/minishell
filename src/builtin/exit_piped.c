@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 18:21:40 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 20:26:47 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/18 15:32:46 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-
-static void	clean_all(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx, int i)
+static void	clean_all(t_msh_process *processes,
+		int cmd_len, t_msh_ctx *ctx, int i)
 {
 	msh_free_ctx(ctx);
 	msh_free_cmds(processes[i].cmd, cmd_len);
@@ -31,7 +31,8 @@ static void	no_arg(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx, int i)
 	exit(0);
 }
 
-static void	one_arg(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx, int i)
+static void	one_arg(t_msh_process *processes,
+		int cmd_len, t_msh_ctx *ctx, int i)
 {
 	int		is_int;
 	int64_t	exit_code;
@@ -40,7 +41,8 @@ static void	one_arg(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx, int i
 	if (!is_int)
 	{
 		write(STDERR_FILENO, "minishell: exit: ", 17);
-		write(STDERR_FILENO, processes[i].cmd[i].argv[1], ft_strlen(processes[i].cmd[i].argv[1]));
+		write(STDERR_FILENO, processes[i].cmd[i].argv[1],
+			ft_strlen(processes[i].cmd[i].argv[1]));
 		write(STDERR_FILENO, ": numeric argument required\n", 28);
 		exit_code = 2;
 	}
@@ -50,7 +52,8 @@ static void	one_arg(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx, int i
 	exit(exit_code % 256);
 }
 
-void msh_blt_exit2(t_msh_process *processes, int cmd_len, t_msh_ctx *ctx, int i)
+void	msh_blt_exit2(t_msh_process *processes, int cmd_len,
+		t_msh_ctx *ctx, int i)
 {
 	if (processes[i].cmd[i].argc == 1)
 		no_arg(processes, cmd_len, ctx, i);

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/17 21:20:07 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/18 16:02:33 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-int is_var_sep(char c)
+int	is_var_sep(char c)
 {
 	if (c == ' ' || c == '\t' || c == ';' || c == '|' || c == '&'
 		|| c == '<' || c == '>' || c == '=' || c == '\n')
@@ -33,13 +33,13 @@ int is_var_sep(char c)
 	return (0);
 }
 
-char *get_var_name(char *input)
+char	*get_var_name(char *input)
 {
-	int i;
-	char *var_name;
+	int		i;
+	char	*var_name;
 
 	if (input[0] == '?')
-		return ft_strdup("?");
+		return (ft_strdup("?"));
 	i = 0;
 	while (input[i] != '\0' && !is_var_sep(input[i]))
 		i++;
@@ -51,12 +51,12 @@ char *get_var_name(char *input)
 	return (var_name);
 }
 
-int get_var_val_len(char *input, t_msh_ctx *ctx)
+int	get_var_val_len(char *input, t_msh_ctx *ctx)
 {
-	char *var_name;
-	int res;
-	int tmp;
-	char *val;
+	char	*var_name;
+	int		res;
+	int		tmp;
+	char	*val;
 
 	var_name = get_var_name(&input[1]);
 	if (!ft_strcmp(var_name, "?"))
@@ -73,7 +73,48 @@ int get_var_val_len(char *input, t_msh_ctx *ctx)
 		return (res);
 	}
 	val = msh_get_env(ctx, var_name, NULL);
-	res = ft_strlen(val) + ft_strcount(val, '<') * 2 + ft_strcount(val, '>') * 2;
+	res = ft_strlen(val) + ft_strcount(val, '<') * 2
+		+ ft_strcount(val, '>') * 2;
 	free(var_name);
 	return (res);
+}
+
+char	*replace_var(char *input, t_msh_ctx *ctx)
+{
+	char	*res;
+	int		new_size;
+
+	if (ft_strcount(input, '"') % 2 != 0)
+		return (free(input),
+			print_error("minishell: unclosed quote \"\n"), NULL);
+	new_size = get_input_size(input, ctx);
+	res = malloc(sizeof(char) + (new_size + 1));
+	if (res == NULL || new_size == -1)
+		return (free(input), free(res), NULL);
+	replace_var_loop(input, res, ctx);
+	return (free(input), res);
+}
+
+char	*msh_get_input(t_msh_ctx *ctx)
+{
+	char	*input;
+	char	*prompt;
+
+	prompt = msh_get_prompt(ctx);
+	if (prompt == NULL)
+	{
+		msh_free_ctx(ctx);
+		print_error_exit("malloc", 1);
+	}
+	input = readline(prompt);
+	if (input == NULL)
+	{
+		free(prompt);
+		return (NULL);
+	}
+	free(prompt);
+	add_history(input);
+	if (input == NULL)
+		return (ft_strdup(""));
+	return (input);
 }

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:22:15 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/17 19:18:12 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/18 16:35:01 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	skip_space(const char *line, int i)
 
 char	*ft_substr(const char *s, int start, int len)
 {
-	int	i;
-	int	i_len;
+	int		i;
+	int		i_len;
 	char	*copie;
 
 	i_len = 0;

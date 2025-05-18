@@ -6,18 +6,11 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 01:27:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/17 19:12:26 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/18 15:26:55 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <termios.h>
 
 int	main(int argc, char **argv, char **env)
 {

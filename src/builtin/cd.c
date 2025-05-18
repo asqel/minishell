@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 18:41:23 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/15 20:22:51 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/18 15:29:08 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	update_pwd_env(t_msh_ctx *ctx)
 	if (!current_dir)
 	{
 		perror("cd");
-		return;
+		return ;
 	}
 	msh_set_env(ctx, "OLDPWD", msh_get_env(ctx, "PWD", NULL));
 	msh_set_env(ctx, "PWD", current_dir);

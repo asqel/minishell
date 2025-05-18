@@ -1,42 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   parsing_help2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/16 15:49:58 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/18 15:31:27 by axlleres         ###   ########.fr       */
+/*   Created: 2025/05/18 16:29:54 by axlleres          #+#    #+#             */
+/*   Updated: 2025/05/18 16:30:26 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	builtin_env(t_msh_ctx *ctx)
+int	parse_clean_help(t_msh_cmd *cmds, char **segments, int i)
 {
-	int	i;
+	int	j;
 
-	i = 0;
-	while (i < ctx->env_len)
+	j = 0;
+	while (j < i)
 	{
-		if (ctx->env[i].value)
-			printf("%s=%s\n", ctx->env[i].name, ctx->env[i].value);
-		i++;
+		free(cmds[j].path);
+		free(cmds[j].argv);
+		free(cmds[j].redir_out);
+		free(cmds[j].redir_in);
+		free(cmds[j].here_doc);
+		j++;
 	}
+	free_segments(segments);
+	free(cmds);
 	return (0);
 }
 
-int	builtin_unset(int argc, char **argv, t_msh_ctx *ctx)
+int	parse_error_pipe(char **segments, t_msh_ctx *ctx)
 {
-	int	i;
-
-	(void)argc;
-	(void)argv;
-	i = 1;
-	while (i < argc)
-	{
-		msh_unset_env(ctx, argv[i]);
-		i++;
-	}
+	print_error("minshell: syntax error near unexpected token `|'\n");
+	ctx->last_status = 2;
+	free_segments(segments);
 	return (0);
 }

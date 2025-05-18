@@ -1,4 +1,1 @@
-fix parser cat << f -> cat '<< f' f
-fix preproc single quote
-	+ add double quote no closed
-//echo $?a -> 0a
+fix heredoc with $ (<< $HOME == $HOME not /home/...) (replace var)

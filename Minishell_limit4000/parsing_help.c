@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_help.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:23:50 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/12 18:27:53 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/18 16:21:41 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int	only_spaces(const char *line)
 	return (1);
 }
 
-void update_quote(char c, char *quote)
+void	update_quote(char c, char *quote)
 {
 	if (!quote)
-		return;
+		return ;
 	if ((*quote == 0) && ((c == '\'' || c == '"')))
 		*quote = c;
 	else if (c == *quote)

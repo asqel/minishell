@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:30:31 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/16 01:45:16 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/18 16:17:46 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	free_segments(char **segments)
 
 	i = 0;
 	if (!segments)
-		return;
+		return ;
 	while (segments[i])
 	{
 		free(segments[i]);
@@ -83,5 +83,5 @@ void	free_tab(char **tab)
 	}
 	free(tab);
 	tab = NULL;
-	return;
+	return ;
 }

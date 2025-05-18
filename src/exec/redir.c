@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:37:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/12 19:05:25 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/18 15:57:55 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int	msh_redir_in(t_msh_cmd *cmd)
 {
-	int tmp;
+	int	tmp;
 
 	if (cmd->redir_in != NULL && cmd->type_in == 1)
 	{
@@ -32,9 +32,9 @@ int	msh_redir_in(t_msh_cmd *cmd)
 	return (0);
 }
 
-int msh_redir_out(t_msh_cmd *cmd)
+int	msh_redir_out(t_msh_cmd *cmd)
 {
-	int tmp;
+	int	tmp;
 
 	if (cmd->redir_out != NULL && cmd->type_out == 1)
 	{
@@ -50,9 +50,9 @@ int msh_redir_out(t_msh_cmd *cmd)
 	return (0);
 }
 
-int msh_redir_append(t_msh_cmd *cmd)
+int	msh_redir_append(t_msh_cmd *cmd)
 {
-	int tmp;
+	int	tmp;
 
 	if (cmd->append_out != NULL && cmd->type_out == 2)
 	{

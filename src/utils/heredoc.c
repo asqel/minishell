@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:29:24 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/17 16:48:18 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/18 16:11:44 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-static void str_append_line(char **dest, char *src, t_msh_ctx *ctx)
+static void	str_append_line(char **dest, char *src, t_msh_ctx *ctx)
 {
 	char	*new_str;
 
@@ -36,7 +36,7 @@ static void str_append_line(char **dest, char *src, t_msh_ctx *ctx)
 	return ;
 }
 
-void msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx)
+void	msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx)
 {
 	char	*input;
 	char	*content;

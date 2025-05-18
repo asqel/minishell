@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 17:12:58 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 20:25:45 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/18 15:31:46 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	no_arg(t_msh_cmd *cmd, t_msh_ctx *ctx, int old_fd)
 	exit(0);
 }
 
-int msh_blt_exit(t_msh_cmd *cmd, t_msh_ctx *ctx, int old_fd)
+int	msh_blt_exit(t_msh_cmd *cmd, t_msh_ctx *ctx, int old_fd)
 {
 	int		is_int;
 	int64_t	exit_code;

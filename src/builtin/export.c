@@ -6,18 +6,36 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 18:31:37 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/17 21:16:21 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/18 15:33:40 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	export_is_valid_name(char *name)
+{
+	int	i;
+
+	i = -1;
+	while (name[++i] != '\0')
+	{
+		if (!('A' <= name[i] && name[i] <= 'Z')
+			&& !('a' <= name[i] && name[i] <= 'z')
+			&& !('0' <= name[i] && name[i] <= '9')
+			&& !(name[i] == '_'))
+		{
+			return (0);
+		}
+	}
+	return (1);
+}
+
 static void	sort_env(t_msh_env_var_t *env, int len)
 {
-	int		i;
-	int		k;
+	int				i;
+	int				k;
 	t_msh_env_var_t	tmp;
-	int		min;
+	int				min;
 
 	i = 0;
 	while (i < len - 1)
@@ -40,7 +58,7 @@ static void	sort_env(t_msh_env_var_t *env, int len)
 	}
 }
 
-static void print_env(t_msh_ctx *ctx)
+static void	print_env(t_msh_ctx *ctx)
 {
 	t_msh_env_var_t	*env;
 	int				i;
@@ -58,7 +76,6 @@ static void print_env(t_msh_ctx *ctx)
 		else
 			printf("declare -x %s\n", env[i].name);
 	}
-
 }
 
 static int	try_add_env(t_msh_ctx *ctx, char *name, char *value)
@@ -74,18 +91,27 @@ static int	try_add_env(t_msh_ctx *ctx, char *name, char *value)
 	return (0);
 }
 
-int builtin_export(int argc, char **argv, t_msh_ctx *ctx)
+int	builtin_export(int argc, char **argv, t_msh_ctx *ctx)
 {
-	int	i;
+	int		i;
+	char	*name;
+	char	*value;
 
 	if (argc == 1)
 		return (print_env(ctx), 0);
 	i = 1;
 	while (i < argc)
 	{
-		if (ft_strchr(argv[i], "=") == -1)
-			if (try_add_env(ctx, argv[i], NULL))
-				return (1);
+		name = get_env_key(argv[i]);
+		value = get_env_val(argv[i]);
+		if (try_add_env(ctx, argv[i], value))
+		{
+			free(name);
+			free(value);
+			return (1);
+		}
+		free(name);
+		free(value);
 		i++;
 	}
 	return (0);
