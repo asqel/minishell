@@ -6,12 +6,13 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:38:24 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/07 16:27:56 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:08:01 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 static void	ft_str_rm_start(char *str, int start_len)
 {
@@ -60,7 +61,7 @@ char	*msh_get_prompt(t_msh_ctx *ctx)
 	char	*user;
 	char	*res;
 
-	path = msh_get_cwd();
+	path = getcwd(NULL, 0);
 	if (path == NULL)
 		return (NULL);
 	msh_reduce_path(path, ctx);

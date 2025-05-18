@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strcat.c                                           :+:      :+:    :+:   */
+/*   strcount.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/10 17:03:22 by axlleres          #+#    #+#             */
-/*   Updated: 2025/04/10 17:07:15 by axlleres         ###   ########.fr       */
+/*   Created: 2025/05/17 18:24:06 by axlleres          #+#    #+#             */
+/*   Updated: 2025/05/17 21:26:41 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_strcat(char *dest, const char *src)
+int	ft_strcount(const char *str, char c)
 {
-	int	i;
+	int	count;
 
-	i = 0;
-	while (dest[i] != '\0')
-		i++;
-	while (*src != '\0')
-		dest[i++] = *(src++);
-	dest[i] = '\0';
+	if (str == NULL)
+		return (0);
+	count = 0;
+	while (*str != '\0')
+	{
+		if (*str == c)
+			count++;
+		str++;
+	}
+	return (count);
 }

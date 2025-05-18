@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:32:53 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/07 15:29:46 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/18 16:03:10 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_strlen(const char *str)
 	return (len);
 }
 
-int		ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
 	int	i;
 
@@ -37,7 +37,6 @@ int		ft_strcmp(const char *s1, const char *s2)
 		i++;
 	}
 	return ((signed char)s1[i] - (signed char)s2[i]);
-
 }
 
 char	*ft_strdup(const char *str)
@@ -75,7 +74,7 @@ void	ft_strcpy(char *dest, char *src)
 	}
 }
 
-int ft_strchr(char *str, int c)
+int	ft_strchr(char *str, int c)
 {
 	int	i;
 

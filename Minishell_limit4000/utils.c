@@ -3,76 +3,99 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:22:15 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/07 21:35:42 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/18 16:35:01 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	printbanner(void)
-{
-	printf(G "███╗   ███╗██╗███╗   ██╗██╗███████╗██╗  ██╗███████╗██╗     ██╗\n"
-		"████╗ ████║██║████╗  ██║██║██╔════╝██║  ██║██╔════╝██║     ██║     \n"
-		"██╔████╔██║██║██╔██╗ ██║██║███████╗███████║█████╗  ██║     ██║     \n"
-		"██║╚██╔╝██║██║██║╚██╗██║██║╚════██║██╔══██║██╔══╝  ██║     ██║     \n"
-		"██║ ╚═╝ ██║██║██║ ╚████║██║███████║██║  ██║███████╗███████╗███████╗\n"
-		RST);
-}
-
-void	*safe_malloc(size_t size, int nb)
+void	*safe_malloc(size_t size)
 {
 	void	*ptr;
 
 	if (size == 0)
 		return (NULL);
-	ptr = calloc(size, nb);
+	ptr = malloc(size);
 	if (!ptr)
 	{
-		perror(RED "Malloc failed" RST);
+		perror(RED "malloc" RST);
 		exit(EXIT_FAILURE);
 	}
 	return (ptr);
 }
 
-void	*safe_realloc(void *ptr, size_t size)
+int	skip_space(const char *line, int i)
 {
-	void	*new_ptr;
-
-	new_ptr = realloc(ptr, size);
-	if (!new_ptr && size != 0)
-	{
-		perror(RED "Realloc failed" RST);
-		exit(EXIT_FAILURE);
-	}
-	return (new_ptr);
+	while (line[i] == ' ' || line[i] == '\t')
+		i++;
+	return (i);
 }
 
-pid_t	ft_fork(void)
+char	*ft_substr(const char *s, int start, int len)
 {
-	pid_t	pid;
+	int		i;
+	int		i_len;
+	char	*copie;
 
-	pid = fork();
-	if (pid < 0)
+	i_len = 0;
+	i = 0;
+	if (s == NULL)
+		return (NULL);
+	while (s[i_len] != '\0')
+		i_len++;
+	if (start >= i_len)
+		return (ft_calloc(1, 1));
+	if (len > i_len - start)
+		len = i_len - start;
+	copie = malloc((len + 1) * (sizeof(char)));
+	if (copie == NULL)
+		return (NULL);
+	while (i < len)
 	{
-		perror(RED "Fork failed" RST);
-		exit(EXIT_FAILURE);
+		copie[i] = s[start + i];
+		i++;
 	}
-	return (pid);
+	copie[i] = '\0';
+	return (copie);
 }
 
-void	ft_execvp(const char *file, char *const argv[])
+int	ftstrlen(const char *s)
 {
-	if (!file || !*file || !argv || !*argv)
+	int	len;
+
+	len = 0;
+	while (s[len] != '\0')
+		len++;
+	return (len);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*s3;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	s3 = malloc(((ftstrlen(s1) + ftstrlen(s2)) + 1) * sizeof(char));
+	if (s3 == NULL)
+		return (NULL);
+	while (s1[i] != '\0')
 	{
-		fprintf(stderr, RED "Execvp : invalid or empty command\n" RST);
-		exit(EXIT_FAILURE);
+		s3[i] = s1[i];
+		i++;
 	}
-	if (execvp(file, argv) == -1)
+	while (s2[j] != '\0')
 	{
-		perror(RED "SHELL_J failed" RST);
-		exit(EXIT_FAILURE);
+		s3[i] = s2[j];
+		i++;
+		j++;
 	}
+	s3[i] = '\0';
+	return (s3);
 }

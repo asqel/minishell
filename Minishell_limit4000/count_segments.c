@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   count_segments.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/17 17:38:26 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/07 21:13:01 by mgobert          ###   ########.fr       */
+/*   Created: 2025/05/16 02:29:13 by axlleres          #+#    #+#             */
+/*   Updated: 2025/05/16 16:27:33 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern char	**environ;
-
-void	cmd_env(void)
+int	count_segments(const char *line)
 {
 	int	i;
+	int	res;
 
 	i = 0;
-	while (environ[i] != NULL)
+	res = 1;
+	while ('\0' != line[i])
 	{
-		printf("%s\n", environ[i]);
-		i++;
+		if ('|' == line[i])
+			res++;
+		else if ('\'' == line[i])
+		{
+			i++;
+			while ('\'' != line[i] && '\0' != line[i])
+				i++;
+		}
+		else if ('"' == line[i])
+		{
+			i++;
+			while ('"' != line[i] && '\0' != line[i])
+				i++;
+		}
+		if ('\0' != line[i])
+			i++;
 	}
-}
-
-char	*get_env_variable(const char *name)
-{
-	return (getenv(name));
-}
-
-int	set_env_variable(const char *name, const char *value)
-{
-	return (setenv(name, value, 1));
-}
-
-int	unset_env_variable(const char *name)
-{
-	return (unsetenv(name));
+	return (res);
 }

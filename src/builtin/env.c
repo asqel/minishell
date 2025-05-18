@@ -1,34 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_cwd.c                                          :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/05 19:40:11 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/05 19:42:02 by axlleres         ###   ########.fr       */
+/*   Created: 2025/05/16 15:49:58 by mgobert           #+#    #+#             */
+/*   Updated: 2025/05/18 15:31:27 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <unistd.h>
 
-char	*msh_get_cwd(void)
+int	builtin_env(t_msh_ctx *ctx)
 {
-	char	*path;
-	int		path_len;
+	int	i;
 
-	path_len = 500;
-	while (path_len < 2000 || path == NULL)
+	i = 0;
+	while (i < ctx->env_len)
 	{
-		path = malloc(sizeof(char) * path_len);
-		if (path == NULL)
-			return (NULL);
-		if (getcwd(path, path_len) != NULL)
-			return (path);
-		free(path);
-		path = NULL;
-		path_len += 250;
+		if (ctx->env[i].value)
+			printf("%s=%s\n", ctx->env[i].name, ctx->env[i].value);
+		i++;
 	}
-	return (path);
+	return (0);
+}
+
+int	builtin_unset(int argc, char **argv, t_msh_ctx *ctx)
+{
+	int	i;
+
+	(void)argc;
+	(void)argv;
+	i = 1;
+	while (i < argc)
+	{
+		msh_unset_env(ctx, argv[i]);
+		i++;
+	}
+	return (0);
 }

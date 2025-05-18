@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sub_str.c                                          :+:      :+:    :+:   */
+/*   is_space.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/10 16:37:37 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/05 19:16:55 by axlleres         ###   ########.fr       */
+/*   Created: 2025/05/17 15:24:48 by axlleres          #+#    #+#             */
+/*   Updated: 2025/05/18 16:02:51 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *sub_str(char *str, int start, int end)
+int	ft_is_space(char c)
 {
-	char	*res;
-	int		i;
-
-	res = malloc(sizeof(char) * (end - start  + 1));
-	if (res == NULL)
-		return (NULL);
-	res[end - start] = '\0';
-	i = start - 1;
-	while (++i < end)
-		res[i - start] = str[i];
-	return (res);
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v'
+		|| c == '\f' || c == '\r')
+		return (1);
+	return (0);
 }

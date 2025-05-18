@@ -9,6 +9,9 @@
 		"stdlib.h": "c",
 		"unistd.h": "c",
 		"history.h": "c",
-		"stdint.h": "c"
+		"stdint.h": "c",
+		"fcntl.h": "c",
+		"stdbool.h": "c",
+		"string.h": "c"
 	}
 }
