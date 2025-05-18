@@ -118,6 +118,7 @@ void	msh_init(char **env, t_msh_ctx *ctx);
 void	msh_init_ctx(t_msh_ctx *ctx);
 
 char *msh_get_env(t_msh_ctx *ctx, char *name, int *exists);
+int	export_is_valid_name(char *name);
 
 // builtins
 int	msh_blt_cd(int argc, char **argv, t_msh_ctx *ctx);

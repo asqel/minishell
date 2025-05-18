@@ -63,7 +63,15 @@ static void print_env(t_msh_ctx *ctx)
 
 static int	try_add_env(t_msh_ctx *ctx, char *name, char *value)
 {
-	if (ft_strchr(name, '?') != -1 || ft_strchr(name, ':'));
+	if (!export_is_valid_name(name))
+	{
+		print_error("minishell: export: `");
+		print_error(name);
+		print_error("': not a valid identifier\n");
+		return (1);
+	}
+	msh_set_env(ctx, name, value);
+	return (0);
 }
 
 int builtin_export(int argc, char **argv, t_msh_ctx *ctx)
