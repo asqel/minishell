@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 17:11:47 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:33:39 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,8 @@ char	*replace_var(char *input, t_msh_ctx *ctx)
 	char	*res;
 	int		new_size;
 
-	if (ft_strcount(input, '"') % 2 != 0)
-		return (free(input),
-			print_error("minishell: unclosed quote \"\n"), NULL);
+	if (ft_check_quote(input))
+		return (free(input), NULL);
 	new_size = ft_strlen(input) + get_input_size(input, ctx);
 	res = malloc(sizeof(char) + (new_size + 1));
 	if (res == NULL || new_size == -1)

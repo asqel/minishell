@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 18:53:13 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:30:31 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ int		get_var_val_len(char *input, t_msh_ctx *ctx);
 char	*msh_get_prompt(t_msh_ctx *ctx);
 int		msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx);
 void	replace_var_heredoc(char **input, char *res, int *k);
+int		ft_check_quote(char *input);
 
 //-----------------Signals------------------//
 void	msh_sig_handler(int signum);

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 15:03:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 18:53:13 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:38:49 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static char	*get_token_dquoted(char *line, int *i)
 	if (line[*i] == '\0')
 		return (NULL);
 	len = *i - start;
+	if (len == 0)
+		return (ft_strdup(""));
 	token = ft_substr(line, start, len);
 	(*i)++;
 	return (token);

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 14:36:57 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 20:35:18 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,6 @@ int	get_input_size(char *input, t_msh_ctx *ctx)
 	i = -1;
 	while (input[++i] != '\0')
 	{
-		if (input[i] == '\'')
-		{
-			i++;
-			while (input[i] != '\0' && input[i] != '\'')
-			{
-				new_size++;
-				i++;
-			}
-			if (input[i] != '\'')
-				return (print_error("minishell: unclosed quote \'\n"), -1);
-			i++;
-		}
 		if (input[i] == '$')
 			new_size += get_var_val_len(&input[i], ctx);
 		else
