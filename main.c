@@ -6,11 +6,24 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 01:27:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/18 15:26:55 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:15:08 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	fix_heredoc(t_msh_cmd *cmds, int cmds_len)
+{
+	int	i;
+
+	i = 0;
+	while (i < cmds_len)
+	{
+		if (cmds[i].type_in == 2 && cmds[i].here_doc == NULL)
+			cmds[i].here_doc = ft_strdup("");
+		i++;
+	}
+}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -29,6 +42,7 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		cmds_len = parse_pipeline(input, &cmds, &ctx);
 		free(input);
+		fix_heredoc(cmds, cmds_len);
 		msh_exec(&ctx, cmds, cmds_len);
 		ctx.last_status = ctx.last_status % 256;
 	}

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:28:06 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/18 14:46:45 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:15:57 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void	init_heredoc_pipe(int pipes[2], t_msh_cmd *cmd)
 	{
 		pipe(pipes);
 		write(pipes[1], cmd->here_doc, ft_strlen(cmd->here_doc));
-		write(pipes[1], "\n", 1);
 	}
 }
 

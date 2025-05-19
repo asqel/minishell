@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 14:41:50 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:11:47 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ char	*replace_var(char *input, t_msh_ctx *ctx)
 	if (res == NULL || new_size == -1)
 		return (free(input), free(res), NULL);
 	replace_var_loop(input, res, ctx);
-	printf("LINE %s\n", res);
 	return (free(input), res);
 }
 

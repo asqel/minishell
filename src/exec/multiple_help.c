@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 15:55:38 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/18 15:56:53 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:15:54 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	init_processes(t_msh_process *processes,
 			pipe(processes[i].heredoc_pipes);
 			write(processes[i].heredoc_pipes[1], cmd[i].here_doc,
 				ft_strlen(cmd[i].here_doc));
-			write(1, "\n", 1);
 		}
 	}
 }
