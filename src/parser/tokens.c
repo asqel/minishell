@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 15:03:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/18 16:32:50 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:02:15 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,30 +46,6 @@ static char	*get_token_dquoted(char *line, int *i)
 	return (token);
 }
 
-static char	*get_token_redir(char *line, int *i)
-{
-	char	*token;
-	int		start;
-	int		len;
-
-	start = *i;
-	if (line[*i] == '<')
-	{
-		(*i)++;
-		if (line[*i] == '<')
-			(*i)++;
-	}
-	else if (line[*i] == '>')
-	{
-		(*i)++;
-		if (line[*i] == '>')
-			(*i)++;
-	}
-	len = *i - start;
-	token = ft_substr(line, start, len);
-	return (token);
-}
-
 static char	*get_next_token(char *line, int *i)
 {
 	char	*token;
@@ -94,6 +70,24 @@ static char	*get_next_token(char *line, int *i)
 	return (token);
 }
 
+static char	*add_type(char *token, int is_op)
+{
+	char	*res;
+	int		i;
+
+	res = malloc(sizeof(char) * (ft_strlen(token) + 2));
+	res[ft_strlen(token) + 1] = is_op;
+	i = 0;
+	while (token[i] != '\0')
+	{
+		res[i] = token[i];
+		i++;
+	}
+	res[i] = '\0';
+	free(token);
+	return (res);
+}
+
 void	append_token(char **res, int *res_len, char *line, int *i)
 {
 	char	*token;
@@ -104,16 +98,16 @@ void	append_token(char **res, int *res_len, char *line, int *i)
 	token = get_next_token(line, i);
 	if (line[old_i] == '<' || line[old_i] == '>')
 	{
-		res[(*res_len)++] = token;
+		res[(*res_len)++] = add_type(token, 1);
 		return ;
 	}
 	if (old_i - 1 >= 0 && !ft_is_space(line[old_i - 1]) && *res_len > 0)
 	{
 		tmp = res[(*res_len) - 1];
-		res[(*res_len) - 1] = ft_strjoin(tmp, token);
+		res[(*res_len) - 1] = add_type(ft_strjoin(tmp, token), 0);
 		free(tmp);
 		free(token);
 	}
 	else
-		res[(*res_len)++] = token;
+		res[(*res_len)++] = add_type(token, 0);
 }

@@ -1,1 +1,0 @@
-fix heredoc with $ (<< $HOME == $HOME not /home/...) (replace var)

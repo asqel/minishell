@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/18 16:02:33 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 14:41:50 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,12 @@ char	*replace_var(char *input, t_msh_ctx *ctx)
 	if (ft_strcount(input, '"') % 2 != 0)
 		return (free(input),
 			print_error("minishell: unclosed quote \"\n"), NULL);
-	new_size = get_input_size(input, ctx);
+	new_size = ft_strlen(input) + get_input_size(input, ctx);
 	res = malloc(sizeof(char) + (new_size + 1));
 	if (res == NULL || new_size == -1)
 		return (free(input), free(res), NULL);
 	replace_var_loop(input, res, ctx);
+	printf("LINE %s\n", res);
 	return (free(input), res);
 }
 
@@ -104,7 +105,9 @@ char	*msh_get_input(t_msh_ctx *ctx)
 	if (prompt == NULL)
 	{
 		msh_free_ctx(ctx);
-		print_error_exit("malloc", 1);
+		perror("malloc");
+		rl_clear_history();
+		exit(1);
 	}
 	input = readline(prompt);
 	if (input == NULL)

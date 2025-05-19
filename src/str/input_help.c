@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 00:53:48 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 14:36:57 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	replace_var_loop(char *input, char *res, t_msh_ctx *ctx)
 		}
 		else if (*input == '$')
 			k += replace_append_var(&input, &res[k], ctx, in_dquote);
-		else if (*input == '<' && *(input + 1) == '<' !in_dquote)
+		else if (*input == '<' && *(input + 1) == '<' && !in_dquote)
 			replace_var_heredoc(&input, res, &k);
 		else
 			res[k++] = *input;
