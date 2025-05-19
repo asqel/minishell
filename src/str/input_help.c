@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/18 16:02:13 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 14:36:57 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	replace_var_loop(char *input, char *res, t_msh_ctx *ctx)
 	in_dquote = 0;
 	while (*input != '\0')
 	{
-		if (*input == '\'')
+		if (*input == '\'' && !in_dquote)
 			replace_append_quote(&input, res, &k);
 		else if (*input == '\"')
 		{
@@ -117,8 +117,12 @@ void	replace_var_loop(char *input, char *res, t_msh_ctx *ctx)
 		}
 		else if (*input == '$')
 			k += replace_append_var(&input, &res[k], ctx, in_dquote);
+		else if (*input == '<' && *(input + 1) == '<' && !in_dquote)
+			replace_var_heredoc(&input, res, &k);
 		else
 			res[k++] = *input;
+		if (*input == '\0')
+			break ;
 		input++;
 	}
 	res[k] = '\0';

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/18 16:44:00 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:03:28 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,9 @@ int		parse_error_pipe(char **segments, t_msh_ctx *ctx);
 int		token_count(char *line);
 void	append_token(char **res, int *res_len, char *line, int *i);
 void	parse_env(char **env, t_msh_ctx *ctx);
+char	*get_token_redir(char *line, int *i);
+void	set_redir_1(char **redir, const char *value, t_msh_cmd *cmd, int is_in);
+void	set_redir_2(char *value, t_msh_cmd *cmd, int is_in, t_msh_ctx *ctx);
 
 //-----------------Input------------------//
 char	*msh_get_input(t_msh_ctx *ctx);
@@ -199,6 +202,7 @@ char	*get_var_name(char *input);
 int		get_var_val_len(char *input, t_msh_ctx *ctx);
 char	*msh_get_prompt(t_msh_ctx *ctx);
 void	msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx);
+void	replace_var_heredoc(char **input, char *res, int *k);
 
 //-----------------Signals------------------//
 void	msh_sig_handler(int signum);
