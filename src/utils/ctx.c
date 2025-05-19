@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 20:36:07 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/06 00:22:58 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:36:54 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,5 @@ void	msh_free_ctx(t_msh_ctx *ctx)
 
 void	msh_init_ctx(t_msh_ctx *ctx)
 {
-	ctx->env = NULL;
-	ctx->env_len = 0;
-	ctx->last_status = 0;
+	ft_memset(ctx, 0, sizeof(t_msh_ctx));
 }

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 18:41:23 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/18 15:29:08 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:51:58 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	msh_blt_cd(int argc, char **argv, t_msh_ctx *ctx)
 	ret = 0;
 	if (argc == 1)
 		ret = cd_to_home(ctx);
-	else if (strcmp(argv[1], "-") == 0)
+	else if (ft_strcmp(argv[1], "-") == 0)
 		ret = cd_to_previous(ctx);
 	else
 		ret = cd_to_directory(argv[1]);

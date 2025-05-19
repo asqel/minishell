@@ -6,16 +6,11 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:28:25 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/19 18:13:46 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:53:49 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	is_op(char *tok)
-{
-	return (tok[ft_strlen(tok) + 1] != '\0');
-}
 
 int	set_redir(char *line, t_msh_cmd *cmd, t_msh_ctx *ctx)
 {
@@ -35,8 +30,8 @@ int	set_redir(char *line, t_msh_cmd *cmd, t_msh_ctx *ctx)
 			set_redir_1(&cmd->redir_out, tokens[++i], cmd, 0);
 		else if (!strcmp(tokens[i], ">>") && tokens[i + 1] && is_op(tokens[i]))
 			set_redir_2(tokens[++i], cmd, 0, NULL);
-		else if (!strcmp(tokens[i], "<<") && tokens[i + 1] && is_op(tokens[i])
-			&& set_redir_2(tokens[++i], cmd, 1, ctx))
+		else if (!strcmp(tokens[i], "<<") && tokens[i + 1]
+			&& is_op(tokens[i]) && set_redir_2(tokens[++i], cmd, 1, ctx))
 			return (free_split(tokens), 1);
 		else
 			cmd->argv[cmd->argc++] = ft_strdup(tokens[i]);

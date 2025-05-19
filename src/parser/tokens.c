@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 15:03:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 17:02:15 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:53:13 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ void	append_token(char **res, int *res_len, char *line, int *i)
 		res[(*res_len)++] = add_type(token, 1);
 		return ;
 	}
-	if (old_i - 1 >= 0 && !ft_is_space(line[old_i - 1]) && *res_len > 0)
+	if (old_i - 1 >= 0 && !ft_is_space(line[old_i - 1]) && *res_len > 0
+		&& !is_op(res[(*res_len) - 1]))
 	{
 		tmp = res[(*res_len) - 1];
 		res[(*res_len) - 1] = add_type(ft_strjoin(tmp, token), 0);

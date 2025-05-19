@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 16:29:54 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/18 16:30:26 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:33:04 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ int	parse_clean_help(t_msh_cmd *cmds, char **segments, int i)
 	while (j < i)
 	{
 		free(cmds[j].path);
-		free(cmds[j].argv);
+		if (cmds[j].argv)
+		{
+			cmds[j].argv[cmds[j].argc] = NULL;
+			free_tab(cmds[j].argv);
+		}
 		free(cmds[j].redir_out);
 		free(cmds[j].redir_in);
 		free(cmds[j].here_doc);

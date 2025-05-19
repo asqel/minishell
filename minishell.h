@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 18:10:20 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:53:13 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ int		token_count(char *line);
 void	append_token(char **res, int *res_len, char *line, int *i);
 void	parse_env(char **env, t_msh_ctx *ctx);
 char	*get_token_redir(char *line, int *i);
+int		is_op(char *tok);
 
 //-----------------Input------------------//
 char	*msh_get_input(t_msh_ctx *ctx);
