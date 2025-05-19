@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:21:59 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/18 16:43:27 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:08:06 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ int	parse_pipeline(char *line, t_msh_cmd **cmds_out, t_msh_ctx *ctx)
 	ft_memset(cmds, 0, sizeof(t_msh_cmd) * count);
 	while (i < count)
 	{
-		init_command(segments[i], &cmds[i], ctx);
-		if (cmds[i].argv == NULL)
+		if (init_command(segments[i], &cmds[i], ctx) || cmds[i].argv == NULL)
 			return (parse_clean_help(cmds, segments, i));
 		i++;
 	}

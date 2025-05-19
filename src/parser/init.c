@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:28:25 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/19 17:02:53 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:13:46 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ static int	is_op(char *tok)
 	return (tok[ft_strlen(tok) + 1] != '\0');
 }
 
-void	set_redir(char *line, t_msh_cmd *cmd, t_msh_ctx *ctx)
+int	set_redir(char *line, t_msh_cmd *cmd, t_msh_ctx *ctx)
 {
 	char	**tokens;
 	int		i;
 
 	tokens = get_tokens(line, ctx);
 	if (tokens == NULL)
-		return ;
+		return (0);
 	cmd->argv = malloc(sizeof(char *) * (tab_len(tokens) + 1));
-	i = 0;
-	while (tokens[i])
+	i = -1;
+	while (tokens[++i])
 	{
 		if (!strcmp(tokens[i], "<") && tokens[i + 1] && is_op(tokens[i]))
 			set_redir_1(&cmd->redir_in, tokens[++i], cmd, 1);
@@ -35,26 +35,28 @@ void	set_redir(char *line, t_msh_cmd *cmd, t_msh_ctx *ctx)
 			set_redir_1(&cmd->redir_out, tokens[++i], cmd, 0);
 		else if (!strcmp(tokens[i], ">>") && tokens[i + 1] && is_op(tokens[i]))
 			set_redir_2(tokens[++i], cmd, 0, NULL);
-		else if (!strcmp(tokens[i], "<<") && tokens[i + 1] && is_op(tokens[i]))
-			set_redir_2(tokens[++i], cmd, 1, ctx);
+		else if (!strcmp(tokens[i], "<<") && tokens[i + 1] && is_op(tokens[i])
+			&& set_redir_2(tokens[++i], cmd, 1, ctx))
+			return (free_split(tokens), 1);
 		else
 			cmd->argv[cmd->argc++] = ft_strdup(tokens[i]);
-		i++;
 	}
 	free_split(tokens);
-	return ;
+	return (0);
 }
 
-void	init_command(char *line, t_msh_cmd *cmd, t_msh_ctx *ctx)
+int	init_command(char *line, t_msh_cmd *cmd, t_msh_ctx *ctx)
 {
 	init_tab(cmd);
-	set_redir(line, cmd, ctx);
+	if (set_redir(line, cmd, ctx))
+		return (1);
 	if (cmd->argv == NULL)
-		return ;
+		return (0);
 	if (cmd->argc > 0)
 		cmd->name = cmd->argv[0];
 	else
 		cmd->name = NULL;
+	return (0);
 }
 
 void	init_tab(t_msh_cmd *cmd)

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 17:02:59 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 17:03:07 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:02:21 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	set_redir_1(char **redir, const char *value, t_msh_cmd *cmd, int is_in)
 		cmd->type_out = 1;
 }
 
-void	set_redir_2(char *value, t_msh_cmd *cmd, int is_in, t_msh_ctx *ctx)
+int	set_redir_2(char *value, t_msh_cmd *cmd, int is_in, t_msh_ctx *ctx)
 {
 	if (is_in)
 	{
 		free(cmd->here_doc);
 		cmd->here_doc = ft_strdup(value);
 		cmd->type_in = 2;
-		msh_get_heredoc(cmd, ctx);
+		return (msh_get_heredoc(cmd, ctx));
 	}
 	else
 	{
@@ -37,4 +37,5 @@ void	set_redir_2(char *value, t_msh_cmd *cmd, int is_in, t_msh_ctx *ctx)
 		free(cmd->append_out);
 		cmd->append_out = ft_strdup(value);
 	}
+	return (0);
 }

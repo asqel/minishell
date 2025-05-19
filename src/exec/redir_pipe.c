@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 15:53:13 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/18 15:58:12 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:07:14 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ static int	msh_redir_first(t_msh_process *processes, int cmd_len, int i)
 			return (1);
 	if (processes[i].cmd[i].here_doc != NULL
 		&& processes[i].cmd[i].type_in == 2)
-	{
 		dup2(processes[i].heredoc_pipes[0], STDIN_FILENO);
-		return (0);
-	}
 	if (processes[i].cmd[i].redir_out != NULL
 		&& processes[i].cmd[i].type_out == 1)
 		if (msh_redir_out(processes[i].cmd + i))
@@ -46,10 +43,7 @@ static int	msh_redir_last(t_msh_process *processes, int cmd_len, int i)
 			return (1);
 	if (processes[i].cmd[i].here_doc != NULL
 		&& processes[i].cmd[i].type_in == 2)
-	{
 		dup2(processes[i].heredoc_pipes[0], STDIN_FILENO);
-		return (0);
-	}
 	if (processes[i].cmd[i].redir_out != NULL
 		&& processes[i].cmd[i].type_out == 1)
 		if (msh_redir_out(processes[i].cmd + i))

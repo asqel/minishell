@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:29:24 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 17:22:04 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:14:38 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,15 @@ static void	str_append_line(char **dest, char *src, t_msh_ctx *ctx)
 	return ;
 }
 
-void	msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx)
+static int	handle_sigint(char *input, char *content, t_msh_ctx *ctx)
+{
+	free(input);
+	free(content);
+	ctx->heredoc_canceled = 1;
+	return (1);
+}
+
+int	msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx)
 {
 	char	*input;
 	char	*content;
@@ -45,10 +53,12 @@ void	msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx)
 	while (1)
 	{
 		input = readline("> ");
+		if (g_last_signal == SIGINT)
+			return (handle_sigint(input, content, ctx));
 		if (input == NULL)
 		{
 			print_error("heredoc: EOF");
-			return ;
+			return (0);
 		}
 		if (ft_strcmp(input, cmd->here_doc) == 0)
 		{
@@ -60,4 +70,5 @@ void	msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx)
 	}
 	free(cmd->here_doc);
 	cmd->here_doc = content;
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:21:27 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/18 15:42:48 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:09:23 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ void	msh_exec(t_msh_ctx *ctx, t_msh_cmd *cmds, int cmds_len)
 	}
 	if (cmds_len == 0)
 		return ;
-	if (cmds_len == 1)
+	if (ctx->heredoc_canceled == 1)
+		ctx->heredoc_canceled = 0;
+	else if (cmds_len == 1)
 		msh_exec_cmd_single(ctx, &cmds[0]);
-	else
+	else if (cmds_len > 1)
 		msh_exec_cmd_pipes(ctx, cmds, cmds_len);
 	msh_free_cmds(cmds, cmds_len);
 }
