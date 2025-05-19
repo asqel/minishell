@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 15:03:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 18:53:13 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:20:51 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static char	*add_type(char *token, int is_op)
 	char	*res;
 	int		i;
 
-	res = malloc(sizeof(char) * (ft_strlen(token) + 2));
+	res = safe_malloc(sizeof(char) * (ft_strlen(token) + 2));
 	res[ft_strlen(token) + 1] = is_op;
 	i = 0;
 	while (token[i] != '\0')

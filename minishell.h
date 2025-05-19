@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 18:53:13 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:13:45 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strcount(const char *str, char c);
 
 //-----------------Path------------------//
-char	*join_path(const char *dir, const char *cmd);
+char	*join_path(char *dir, char *cmd);
 
 //-----------------Env------------------//
 void	msh_unset_env(t_msh_ctx *ctx, char *name);
