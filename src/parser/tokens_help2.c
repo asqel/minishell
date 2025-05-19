@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 16:32:52 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 18:54:24 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:54:52 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ char	*get_token_redir(char *line, int *i)
 	token = ft_substr(line, start, len);
 	return (token);
 }
-
 
 int	is_op(char *tok)
 {
