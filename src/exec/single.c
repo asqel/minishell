@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:28:06 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/20 16:50:20 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:54:28 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@
 static void	init_heredoc_pipe(int pipes[2], t_msh_cmd *cmd)
 {
 	if (cmd->here_doc != NULL && cmd->type_in == 2)
-	{
 		pipe(pipes);
-		write(pipes[1], cmd->here_doc, ft_strlen(cmd->here_doc));
-	}
 }
 
 static void	read_close_heredoc(int pipes[2], t_msh_cmd *cmd, int do_dup)
@@ -30,6 +27,8 @@ static void	read_close_heredoc(int pipes[2], t_msh_cmd *cmd, int do_dup)
 	{
 		if (do_dup)
 			dup2(pipes[0], STDIN_FILENO);
+		else
+			write(pipes[1], cmd->here_doc, ft_strlen(cmd->here_doc));
 		close(pipes[0]);
 		close(pipes[1]);
 	}
