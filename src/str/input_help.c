@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 20:35:18 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 02:56:37 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	replace_append_quote(char **input, char *res, int *k)
 	}
 	res[*k] = '\'';
 	(*k)++;
-	(*input)++;
 }
 
 static void	append_text_val(char *res, char *val, int *k, int in_dquote)
@@ -101,7 +100,7 @@ void	replace_var_loop(char *input, char *res, t_msh_ctx *ctx)
 		else if (*input == '\"')
 		{
 			in_dquote = !in_dquote;
-			res[k++] = *input;
+			res[k++] = *(input);
 		}
 		else if (*input == '$')
 			k += replace_append_var(&input, &res[k], ctx, in_dquote);

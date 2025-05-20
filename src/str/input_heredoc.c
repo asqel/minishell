@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 00:51:39 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 17:02:31 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 03:01:44 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,5 @@ void	replace_var_heredoc(char **input, char *res, int *k)
 			(*input)++;
 		}
 	}
+	input--;
 }
