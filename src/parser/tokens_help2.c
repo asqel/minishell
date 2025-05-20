@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 16:32:52 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/20 14:29:09 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:04:32 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**get_tokens(char *line, t_msh_ctx *ctx)
 		ctx->last_status = 2;
 		return (free(line), NULL);
 	}
-	res = malloc(sizeof(char *) * (res_len + 1));
+	res = safe_malloc(sizeof(char *) * (res_len + 1));
 	res_len = 0;
 	i = 0;
 	while (line[i] != '\0')

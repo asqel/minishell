@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:28:25 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/20 14:38:30 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:03:53 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	set_redir(char *line, t_msh_cmd *cmd, t_msh_ctx *ctx)
 	i = -1;
 	while (tokens[++i])
 	{
-		if (!strcmp(tokens[i], "<") && tokens[i + 1] && is_op(tokens[i]))
+		if (!ft_strcmp(tokens[i], "<") && tokens[i + 1] && is_op(tokens[i]))
 			set_redir_1(&cmd->redir_in, tokens[++i], cmd, 1);
-		else if (!strcmp(tokens[i], ">") && tokens[i + 1] && is_op(tokens[i]))
+		else if (!ft_strcmp(tokens[i], ">") && tokens[i + 1] && is_op(tokens[i]))
 			set_redir_1(&cmd->redir_out, tokens[++i], cmd, 0);
-		else if (!strcmp(tokens[i], ">>") && tokens[i + 1] && is_op(tokens[i]))
+		else if (!ft_strcmp(tokens[i], ">>") && tokens[i + 1] && is_op(tokens[i]))
 			set_redir_2(tokens[++i], cmd, 0, NULL);
-		else if (!strcmp(tokens[i], "<<") && tokens[i + 1]
+		else if (!ft_strcmp(tokens[i], "<<") && tokens[i + 1]
 			&& is_op(tokens[i]) && set_redir_2(tokens[++i], cmd, 1, ctx))
 			return (free_split(tokens), 1);
 		else if (is_op(tokens[i]))

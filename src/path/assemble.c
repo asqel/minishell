@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assemble.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:34:49 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/05 19:26:00 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/19 19:21:36 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*msh_assemble_path(char *p1, char *p2)
 
 	p1_len = ft_strlen(p1);
 	p2_len = ft_strlen(p2);
-	res = malloc(sizeof(char) * (p1_len + p2_len + 1 + 1));
+	res = safe_malloc(sizeof(char) * (p1_len + p2_len + 1 + 1));
 	ft_strcpy(res, p1);
 	res[p1_len] = '/';
 	ft_strcpy(&(res[p1_len + 1]), p2);
