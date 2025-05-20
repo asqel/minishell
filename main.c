@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 01:27:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/20 19:05:42 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 20:03:50 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	msh_init(env, &ctx);
-	#include <stdio.h>
 	print_banner();
 	while (1)
 	{

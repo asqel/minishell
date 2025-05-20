@@ -6,8 +6,8 @@ CC      := gcc -g
 LD      := gcc -g
 
 # Compilation and linking flags
-CFLAGS  := -Wall -Wextra -I. -fsanitize=address
-LDFLAGS := -lreadline -lhistory -fsanitize=address
+CFLAGS  := -Wall -Wextra -I. #-fsanitize=address
+LDFLAGS := -lreadline -lhistory #-fsanitize=address
 
 # Source files (à adapter manuellement)
 SRCS    := main.c\
@@ -49,6 +49,7 @@ SRCS    := main.c\
 			src/str/is_space.c \
 			src/str/str_helps.c \
 			src/str/str.c \
+			src/str/ft_check_quote.c \
 			src/str/strcount.c \
 			src/utils/atoi.c \
 			src/utils/ctx.c \
