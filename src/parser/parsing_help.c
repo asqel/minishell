@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:23:50 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/18 16:21:41 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 03:16:45 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	update_quote(char c, char *quote)
 {
 	if (!quote)
 		return ;
-	if ((*quote == 0) && ((c == '\'' || c == '"')))
+	if ((*quote == 0) && (c == '\'' || c == '"'))
 		*quote = c;
 	else if (c == *quote)
 		*quote = 0;

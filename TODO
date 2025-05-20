@@ -1,0 +1,2 @@
+sometime echo $? not working
+<<< should not work
