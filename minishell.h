@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/20 19:06:15 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 20:05:49 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void	print_error_op(char *op);
 //-----------------Parsing------------------//
 void	set_redir_1(char **redir, const char *value, t_msh_cmd *cmd, int is_in);
 int		set_redir_2(char *value, t_msh_cmd *cmd, int is_in, t_msh_ctx *ctx);
-int		set_redir(char *line, t_msh_cmd *cmd, t_msh_ctx *ctx);
+int		set_redir(t_msh_cmd *cmd, t_msh_ctx *ctx, char **tokens);
 int		init_command(char *line, t_msh_cmd *cmd, t_msh_ctx *ctx);
 void	init_tab(t_msh_cmd *cmd);
 void	update_quote(char c, char *quote);
@@ -205,7 +205,7 @@ char	*msh_get_prompt(t_msh_ctx *ctx);
 int		msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx);
 void	replace_var_heredoc(char **input, char *res, int *k);
 int		ft_check_quote(char *input);
-void 	print_banner(void);
+void	print_banner(void);
 
 //-----------------Signals------------------//
 void	msh_sig_handler(int signum);
