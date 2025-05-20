@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:29:24 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/20 18:24:15 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/21 01:43:27 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,6 @@ static void	str_append_line(char **dest, char *src, t_msh_ctx *ctx)
 	return ;
 }
 
-static int	handle_sigint(char *input, char *content, t_msh_ctx *ctx)
-{
-	free(input);
-	free(content);
-	ctx->heredoc_canceled = 1;
-	return (1);
-}
-
 int	msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx)
 {
 	char	*input;
@@ -53,8 +45,6 @@ int	msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx)
 	while (1)
 	{
 		input = readline("> ");
-		if (g_last_signal == SIGINT)
-			return (handle_sigint(input, content, ctx));
 		if (input == NULL)
 		{
 			print_error("heredoc: EOF");

@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:26:00 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/18 16:15:03 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/21 01:46:05 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,5 @@ void	msh_init(char **env, t_msh_ctx *ctx)
 		exit(1);
 	msh_init_ctx(ctx);
 	parse_env(env, ctx);
-	rl_catch_signals = 0;
 	increase_shlvl(ctx);
 }
