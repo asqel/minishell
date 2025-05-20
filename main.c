@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 01:27:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/20 20:03:50 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 20:13:55 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	main(int argc, char **argv, char **env)
 		cmds_len = parse_pipeline(input, &cmds, &ctx);
 		free(input);
 		fix_heredoc(cmds, cmds_len);
+		printf("last status: %d\n", ctx.last_status);
 		msh_exec(&ctx, cmds, cmds_len);
 		ctx.last_status = WEXITSTATUS(ctx.last_status);
 		ctx.last_status = ctx.last_status % 256;
