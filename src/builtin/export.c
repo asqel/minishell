@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 18:31:37 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/20 03:09:35 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:06:23 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	sort_env(t_msh_env_var_t *env, int len)
 		k = i + 1;
 		while (k < len)
 		{
-			if (ft_strcmp(env[k].name, env[min].name) < 0)
+			if (ftstrcmp(env[k].name, env[min].name) < 0)
 				min = k;
 			k++;
 		}

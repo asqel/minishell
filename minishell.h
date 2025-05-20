@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/20 19:03:43 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:06:15 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_pipeline_data
 
 //-----------------Strings------------------//
 int		ft_strlen(const char *str);
-int		ft_strcmp(const char *s1, const char *s2);
+int		ftstrcmp(const char *s1, const char *s2);
 int		msh_array_len(char **array);
 char	*ft_strdup(const char *str);
 void	ft_strcpy(char *dest, char *src);
@@ -205,6 +205,7 @@ char	*msh_get_prompt(t_msh_ctx *ctx);
 int		msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx);
 void	replace_var_heredoc(char **input, char *res, int *k);
 int		ft_check_quote(char *input);
+void 	print_banner(void);
 
 //-----------------Signals------------------//
 void	msh_sig_handler(int signum);

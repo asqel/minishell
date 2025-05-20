@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:12:41 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/18 16:37:22 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:23:45 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ void	exec_builtin(t_msh_ctx *ctx, t_msh_cmd *cmd)
 	old_fd = dup(STDOUT_FILENO);
 	if (msh_redir_blt(cmd))
 		ctx->last_status = 1;
-	else if (ft_strcmp(cmd->name, "cd") == 0)
+	else if (ftstrcmp(cmd->name, "cd") == 0)
 		ctx->last_status = msh_blt_cd(cmd->argc, cmd->argv, ctx);
-	else if (ft_strcmp(cmd->name, "pwd") == 0)
+	else if (ftstrcmp(cmd->name, "pwd") == 0)
 		ctx->last_status = msh_blt_pwd(cmd->argc, cmd->argv, ctx);
-	else if (ft_strcmp(cmd->name, "echo") == 0)
+	else if (ftstrcmp(cmd->name, "echo") == 0)
 		ctx->last_status = msh_blt_echo(cmd->argc, cmd->argv);
-	else if (ft_strcmp(cmd->name, "export") == 0)
+	else if (ftstrcmp(cmd->name, "export") == 0)
 		ctx->last_status = builtin_export(cmd->argc, cmd->argv, ctx);
-	else if (ft_strcmp(cmd->name, "unset") == 0)
+	else if (ftstrcmp(cmd->name, "unset") == 0)
 		ctx->last_status = builtin_unset(cmd->argc, cmd->argv, ctx);
-	else if (ft_strcmp(cmd->name, "env") == 0)
+	else if (ftstrcmp(cmd->name, "env") == 0)
 		ctx->last_status = builtin_env(ctx);
-	else if (ft_strcmp(cmd->name, "exit") == 0)
+	else if (ftstrcmp(cmd->name, "exit") == 0)
 		ctx->last_status = msh_blt_exit(cmd, ctx, old_fd);
 	dup2(old_fd, STDOUT_FILENO);
 	close(old_fd);

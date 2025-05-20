@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:29:24 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 18:14:38 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:24:15 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx)
 			print_error("heredoc: EOF");
 			return (0);
 		}
-		if (ft_strcmp(input, cmd->here_doc) == 0)
+		if (ftstrcmp(input, cmd->here_doc) == 0)
 		{
 			free(input);
 			break ;

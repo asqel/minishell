@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 20:33:39 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:06:48 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	get_var_val_len(char *input, t_msh_ctx *ctx)
 	char	*val;
 
 	var_name = get_var_name(&input[1]);
-	if (!ft_strcmp(var_name, "?"))
+	if (!ftstrcmp(var_name, "?"))
 	{
 		tmp = ctx->last_status;
 		if (tmp == 0)
