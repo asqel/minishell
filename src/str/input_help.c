@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_help.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 14:36:57 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:23:51 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	replace_append_var(char **input, char *res, t_msh_ctx *ctx, int in_dquote)
 	k = 0;
 	(*input)++;
 	var_name = get_var_name(*input);
-	if (ft_strcmp(var_name, "?") == 0)
+	if (ftstrcmp(var_name, "?") == 0)
 	{
 		val = ft_itoa(ctx->last_status);
 		append_text_val(res, val, &k, in_dquote);

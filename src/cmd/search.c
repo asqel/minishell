@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 15:22:18 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/18 15:38:52 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:23:36 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_path(t_msh_ctx *ctx)
 
 	i = -1;
 	while (++i < ctx->env_len)
-		if (!ft_strcmp(ctx->env[i].name, "PATH"))
+		if (!ftstrcmp(ctx->env[i].name, "PATH"))
 			return (ctx->env[i].value);
 	return (NULL);
 }
@@ -60,19 +60,19 @@ char	*path_contains(char *path, char *name, int *p_len)
 int	check_is_builtin(char *name, uint8_t *is_builtin)
 {
 	*is_builtin = 1;
-	if (!ft_strcmp(name, "cd"))
+	if (!ftstrcmp(name, "cd"))
 		return (1);
-	if (!ft_strcmp(name, "pwd"))
+	if (!ftstrcmp(name, "pwd"))
 		return (1);
-	if (!ft_strcmp(name, "echo"))
+	if (!ftstrcmp(name, "echo"))
 		return (1);
-	if (!ft_strcmp(name, "exit"))
+	if (!ftstrcmp(name, "exit"))
 		return (1);
-	if (!ft_strcmp(name, "env"))
+	if (!ftstrcmp(name, "env"))
 		return (1);
-	if (!ft_strcmp(name, "export"))
+	if (!ftstrcmp(name, "export"))
 		return (1);
-	if (!ft_strcmp(name, "unset"))
+	if (!ftstrcmp(name, "unset"))
 		return (1);
 	*is_builtin = 0;
 	return (0);

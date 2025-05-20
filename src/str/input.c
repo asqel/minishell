@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 17:11:47 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:23:53 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	get_var_val_len(char *input, t_msh_ctx *ctx)
 	char	*val;
 
 	var_name = get_var_name(&input[1]);
-	if (!ft_strcmp(var_name, "?"))
+	if (!ftstrcmp(var_name, "?"))
 	{
 		tmp = ctx->last_status;
 		if (tmp == 0)

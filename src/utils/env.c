@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 20:29:49 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/18 16:14:51 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:24:11 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*msh_get_env(t_msh_ctx *ctx, char *name, int *exists)
 	if (exists)
 		*exists = 1;
 	while (++i < ctx->env_len)
-		if (!ft_strcmp(ctx->env[i].name, name))
+		if (!ftstrcmp(ctx->env[i].name, name))
 			return (ctx->env[i].value);
 	if (exists)
 		*exists = 1;
@@ -62,7 +62,7 @@ void	msh_set_env(t_msh_ctx *ctx, char *name, char *value)
 	i = -1;
 	while (++i < ctx->env_len)
 	{
-		if (!ft_strcmp(ctx->env[i].name, name))
+		if (!ftstrcmp(ctx->env[i].name, name))
 		{
 			free(ctx->env[i].value);
 			ctx->env[i].value = ft_strdup(value);
@@ -89,7 +89,7 @@ void	msh_unset_env(t_msh_ctx *ctx, char *name)
 	i = -1;
 	while (++i < ctx->env_len)
 	{
-		if (!ft_strcmp(ctx->env[i].name, name))
+		if (!ftstrcmp(ctx->env[i].name, name))
 		{
 			free(ctx->env[i].name);
 			free(ctx->env[i].value);

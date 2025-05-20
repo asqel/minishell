@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 19:38:24 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/15 17:08:01 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:24:18 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	msh_reduce_path(char *path, t_msh_ctx *ctx)
 	int		home_len;
 
 	home = msh_get_env(ctx, "HOME", NULL);
-	if (home == NULL || !ft_strcmp(home, ""))
+	if (home == NULL || !ftstrcmp(home, ""))
 		return ;
 	if (!ft_strstart(path, home))
 		return ;

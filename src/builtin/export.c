@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 18:31:37 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/18 15:33:40 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:23:25 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	sort_env(t_msh_env_var_t *env, int len)
 		k = i + 1;
 		while (k < len)
 		{
-			if (ft_strcmp(env[k].name, env[min].name) < 0)
+			if (ftstrcmp(env[k].name, env[min].name) < 0)
 				min = k;
 			k++;
 		}

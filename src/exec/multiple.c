@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 20:23:21 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/18 15:55:52 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:23:48 by mgobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	exec_builtin_piped(t_msh_process *processes, int cmd_len,
 {
 	int	status;
 
-	if (ft_strcmp(processes[i].cmd[i].name, "exit") != 0)
+	if (ftstrcmp(processes[i].cmd[i].name, "exit") != 0)
 	{
 		exec_builtin(ctx, &processes[i].cmd[i]);
 		status = ctx->last_status;
