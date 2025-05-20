@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 20:30:31 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:35:30 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ void	print_error_found(char *filename);
 void	print_error_acces(char *filename);
 void	print_error_exit(char *str, int exit_code);
 void	print_error(char *str);
+void	print_error_op(char *op);
 
 //-----------------Parsing------------------//
 void	set_redir_1(char **redir, const char *value, t_msh_cmd *cmd, int is_in);

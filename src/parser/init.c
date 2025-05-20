@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:28:25 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/19 18:53:49 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 14:38:30 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	set_redir(char *line, t_msh_cmd *cmd, t_msh_ctx *ctx)
 	tokens = get_tokens(line, ctx);
 	if (tokens == NULL)
 		return (0);
+	for (int i = 0; tokens[i]; i++)
+		printf("tok[%s]\n", tokens[i]);
 	cmd->argv = malloc(sizeof(char *) * (tab_len(tokens) + 1));
 	i = -1;
 	while (tokens[++i])
@@ -33,11 +35,12 @@ int	set_redir(char *line, t_msh_cmd *cmd, t_msh_ctx *ctx)
 		else if (!strcmp(tokens[i], "<<") && tokens[i + 1]
 			&& is_op(tokens[i]) && set_redir_2(tokens[++i], cmd, 1, ctx))
 			return (free_split(tokens), 1);
+		else if (is_op(tokens[i]))
+			return (print_error_op(tokens[i]), free_split(tokens), 1);
 		else
 			cmd->argv[cmd->argc++] = ft_strdup(tokens[i]);
 	}
-	free_split(tokens);
-	return (0);
+	return (free_split(tokens), 0);
 }
 
 int	init_command(char *line, t_msh_cmd *cmd, t_msh_ctx *ctx)
