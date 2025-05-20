@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_help.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/20 18:23:51 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/20 19:06:57 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,6 @@ int	get_input_size(char *input, t_msh_ctx *ctx)
 	i = -1;
 	while (input[++i] != '\0')
 	{
-		if (input[i] == '\'')
-		{
-			i++;
-			while (input[i] != '\0' && input[i] != '\'')
-			{
-				new_size++;
-				i++;
-			}
-			if (input[i] != '\'')
-				return (print_error("minishell: unclosed quote \'\n"), -1);
-			i++;
-		}
 		if (input[i] == '$')
 			new_size += get_var_val_len(&input[i], ctx);
 		else
@@ -54,7 +42,6 @@ void	replace_append_quote(char **input, char *res, int *k)
 	}
 	res[*k] = '\'';
 	(*k)++;
-	(*input)++;
 }
 
 static void	append_text_val(char *res, char *val, int *k, int in_dquote)
@@ -113,7 +100,7 @@ void	replace_var_loop(char *input, char *res, t_msh_ctx *ctx)
 		else if (*input == '\"')
 		{
 			in_dquote = !in_dquote;
-			res[k++] = *input;
+			res[k++] = *(input);
 		}
 		else if (*input == '$')
 			k += replace_append_var(&input, &res[k], ctx, in_dquote);

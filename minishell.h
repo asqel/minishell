@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 13:33:29 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/20 18:55:51 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/20 19:06:15 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ void	print_error_found(char *filename);
 void	print_error_acces(char *filename);
 void	print_error_exit(char *str, int exit_code);
 void	print_error(char *str);
+void	print_error_op(char *op);
 
 //-----------------Parsing------------------//
 void	set_redir_1(char **redir, const char *value, t_msh_cmd *cmd, int is_in);
@@ -203,6 +204,7 @@ int		get_var_val_len(char *input, t_msh_ctx *ctx);
 char	*msh_get_prompt(t_msh_ctx *ctx);
 int		msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx);
 void	replace_var_heredoc(char **input, char *res, int *k);
+int		ft_check_quote(char *input);
 void 	print_banner(void);
 
 //-----------------Signals------------------//

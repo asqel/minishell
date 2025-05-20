@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 18:31:37 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/20 18:23:25 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/20 19:06:23 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	builtin_export(int argc, char **argv, t_msh_ctx *ctx)
 	{
 		name = get_env_key(argv[i]);
 		value = get_env_val(argv[i]);
-		if (try_add_env(ctx, argv[i], value))
+		if (try_add_env(ctx, name, value))
 		{
 			free(name);
 			free(value);

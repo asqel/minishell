@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 16:21:59 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/19 18:34:29 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 03:37:42 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	is_pipe_outside_quotes(const char *line, int i, char quote)
 static int	save_segment(const char *line, char **segments, int start,
 		int end)
 {
-	*segments = ft_substr(line, start, end);
+	*segments = ft_substr(line, start, end - start);
 	return (1);
 }
 

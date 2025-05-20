@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 00:51:39 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 17:02:31 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 03:54:56 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,30 @@ static void	do_squote(char **input, char *res, int *k)
 	(*input)++;
 }
 
+static int	is_real(char **input, char *res, int *k)
+{
+	if (**input == '\0' || ft_is_space(**input))
+		return (1);
+	if (**input == '<')
+	{
+		while (**input == '<')
+		{
+			res[(*k)++] = **input;
+			(*input)++;
+		}
+		input--;
+		return (0);
+	}
+	return (1);
+}
+
 void	replace_var_heredoc(char **input, char *res, int *k)
 {
 	res[(*k)++] = '<';
 	res[(*k)++] = '<';
 	(*input) += 2;
+	if (!is_real(input, res, k))
+		return ;
 	while (ft_is_space(**input))
 	{
 		(*input)++;
@@ -62,4 +81,5 @@ void	replace_var_heredoc(char **input, char *res, int *k)
 			(*input)++;
 		}
 	}
+	input--;
 }

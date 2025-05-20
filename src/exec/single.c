@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   single.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 15:28:06 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/20 19:00:14 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/20 19:06:30 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@
 static void	init_heredoc_pipe(int pipes[2], t_msh_cmd *cmd)
 {
 	if (cmd->here_doc != NULL && cmd->type_in == 2)
-	{
 		pipe(pipes);
-		write(pipes[1], cmd->here_doc, ft_strlen(cmd->here_doc));
-	}
 }
 
 static void	read_close_heredoc(int pipes[2], t_msh_cmd *cmd, int do_dup)

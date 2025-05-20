@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_help2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 16:32:52 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/19 19:20:11 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/20 19:04:32 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,8 @@ char	*get_token_redir(char *line, int *i)
 	int		len;
 
 	start = *i;
-	if (line[*i] == '<')
-	{
+	while (line[*i] == '>' || line[*i] == '<')
 		(*i)++;
-		if (line[*i] == '<')
-			(*i)++;
-	}
-	else if (line[*i] == '>')
-	{
-		(*i)++;
-		if (line[*i] == '>')
-			(*i)++;
-	}
 	len = *i - start;
 	token = ft_substr(line, start, len);
 	return (token);
