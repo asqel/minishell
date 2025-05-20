@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 16:32:52 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/20 02:47:39 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/20 03:04:47 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,12 @@ char	**get_tokens(char *line, t_msh_ctx *ctx)
 	i = 0;
 	while (line[i] != '\0')
 	{
-		printf("line %s %d\n", line, ft_strlen(line));
-		printf("le i %d\n", i);
 		while (ft_is_space(line[i]))
 			i++;
 		if (line[i] != '\0')
 			append_token(res, &res_len, line, &i);
 	}
 	res[res_len] = NULL;
-	printf("TOKENS\n");
-	for (int i = 0; i < res_len; i++)
-		printf("TOK[%s]\n", res[i]);
 	return (free(line), res);
 }
 
