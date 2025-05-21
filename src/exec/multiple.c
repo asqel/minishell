@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgobert <mgobert@student.42.fr>            +#+  +:+       +#+        */
+/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 20:23:21 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/20 18:23:48 by mgobert          ###   ########.fr       */
+/*   Updated: 2025/05/21 14:39:14 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ void	msh_exec_cmd_pipes(t_msh_ctx *ctx, t_msh_cmd *cmd, int cmd_len)
 	init_processes(processes, cmd, cmd_len, ctx);
 	is_executing(1, 1);
 	pids = launch_forks(processes, cmd_len, ctx);
-	is_executing(1, 0);
 	close_pipes(processes, cmd_len);
 	waitpid(pids[cmd_len - 1], &ctx->last_status, 0);
 	i = -1;
 	while (++i < cmd_len - 1)
 		waitpid(pids[i], NULL, 0);
+	is_executing(1, 0);
 	free(pids);
 	free(processes);
 }

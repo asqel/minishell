@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:29:24 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/21 01:43:27 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/21 14:27:00 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int	msh_get_heredoc(t_msh_cmd *cmd, t_msh_ctx *ctx)
 		input = readline("> ");
 		if (input == NULL)
 		{
-			print_error("heredoc: EOF");
-			return (0);
+			print_error("minishell: warning: here-document end-of-file\n");
+			break ;
 		}
 		if (ftstrcmp(input, cmd->here_doc) == 0)
 		{
