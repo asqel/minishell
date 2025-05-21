@@ -9,7 +9,7 @@ LD      := gcc -g
 CFLAGS  := -Wall -Wextra -Werror -I. #-fsanitize=address
 LDFLAGS := -lreadline -lhistory #-fsanitize=address
 
-# Source files (à adapter manuellement)
+# Source files
 SRCS    := main.c\
 			src/builtin/cd.c \
 			src/builtin/echo.c \
@@ -61,8 +61,6 @@ SRCS    := main.c\
 			src/utils/set.c \
 			src/utils/sig.c \
 			src/utils/utils1.c \
-
-           # Ajoute ici manuellement les chemins vers tes fichiers sources
 
 # Object files
 OBJS    := $(SRCS:.c=.o)
