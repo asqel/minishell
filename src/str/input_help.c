@@ -6,7 +6,7 @@
 /*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:13:03 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/20 19:06:57 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/21 02:03:08 by axlleres         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ int	replace_append_var(char **input, char *res, t_msh_ctx *ctx, int in_dquote)
 	k = 0;
 	(*input)++;
 	var_name = get_var_name(*input);
-	if (ftstrcmp(var_name, "?") == 0)
+	if (ftstrcmp(var_name, "") == 0)
+		append_text_val(res, "$", &k, in_dquote);
+	else if (ftstrcmp(var_name, "?") == 0)
 	{
 		val = ft_itoa(ctx->last_status);
 		append_text_val(res, val, &k, in_dquote);
