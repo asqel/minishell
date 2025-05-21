@@ -6,7 +6,7 @@ CC      := gcc -g
 LD      := gcc -g
 
 # Compilation and linking flags
-CFLAGS  := -Wall -Wextra -I. #-fsanitize=address
+CFLAGS  := -Wall -Wextra -Werror -I. #-fsanitize=address
 LDFLAGS := -lreadline -lhistory #-fsanitize=address
 
 # Source files (à adapter manuellement)
