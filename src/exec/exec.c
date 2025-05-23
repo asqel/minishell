@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asqel <asqel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 20:21:27 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/20 14:46:08 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/23 20:15:01 by asqel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	msh_exec(t_msh_ctx *ctx, t_msh_cmd *cmds, int cmds_len)
 		return ;
 	if (ctx->heredoc_canceled == 1)
 		ctx->heredoc_canceled = 0;
+	if (cmds[0].argc == -1)
+		return (msh_free_cmds(cmds, cmds_len));
 	else if (cmds_len == 1)
 		msh_exec_cmd_single(ctx, &cmds[0]);
 	else if (cmds_len > 1)

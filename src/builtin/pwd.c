@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asqel <asqel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 16:20:51 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/18 15:34:01 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/23 20:15:31 by asqel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ int	msh_blt_pwd(int argc, char **argv, t_msh_ctx *ctx)
 		return (1);
 	}
 	printf("%s\n", pwd);
+	free(pwd);
 	return (0);
 }

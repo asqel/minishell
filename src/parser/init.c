@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asqel <asqel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 19:28:25 by mgobert           #+#    #+#             */
-/*   Updated: 2025/05/20 20:08:13 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/23 20:13:52 by asqel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ int	init_command(char *line, t_msh_cmd *cmd, t_msh_ctx *ctx)
 
 	tokens = get_tokens(line, ctx);
 	init_tab(cmd);
+	if (tokens == NULL)
+	{
+		cmd->argc = 1;
+		return (1);
+	}
 	cmd->argv = ft_calloc(sizeof(char *), 1 + tab_len(tokens));
 	if (tokens && set_redir(cmd, ctx, tokens))
 		return (1);

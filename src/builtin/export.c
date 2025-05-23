@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axlleres <axlleres@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asqel <asqel@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 18:31:37 by axlleres          #+#    #+#             */
-/*   Updated: 2025/05/20 19:06:23 by axlleres         ###   ########.fr       */
+/*   Updated: 2025/05/23 20:20:39 by asqel            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ static void	print_env(t_msh_ctx *ctx)
 		else
 			printf("declare -x %s\n", env[i].name);
 	}
+	free(env);
 }
 
 static int	try_add_env(t_msh_ctx *ctx, char *name, char *value)
